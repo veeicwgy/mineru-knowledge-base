@@ -1,17 +1,73 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>MinerU Agent Skills</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
+    <title>MinerU Agent Skills - 面向大模型与 Agent 的官方文档解析插件</title>
+    <meta name="description" content="MinerU 官方提供的 Agent 技能中心。支持 OpenClaw、Nanobot、ZeroClaw 等主流框架。只需一行代码，即可为您的 Agent 接入双模式（免登录快速版/高精度完整版）的文档解析 Tool Calling 能力。" />
+    <meta name="keywords" content="MinerU, Agent Skills, 文档解析, Tool Calling, LLM, AI Agent, OpenClaw, Nanobot, 免登录, 双模式" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MinerU Agent Skills",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "description": "面向大模型与 Agent 的官方文档解析插件，支持多框架适配",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "我需要注册账号才能让 Agent 使用这些 Skill 吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不需要。所有官方 Skill 默认支持"免登录极速版"。该通道每天为每个虚拟设备提供 50 万页的免费解析额度，仅提取基础文本，速度极快，是 Agent 试用和日常工作流的绝佳选择。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如何切换为支持复杂公式和表格的完整版？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "我们的 Skill 采用统一维护设计。您只需在初始化参数中传入 API Key，并将 mode 设为 precise，技能会自动切换至完整版，为您结构化输出纯净的 Markdown 和 LaTeX 数据。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如果遇到超大文件（页数超限）Agent 会怎样处理？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MinerU 的 API 和 Skill 均内置了面向 Agent 友好的异常处理 (agent_instruction)。当文件超限时，不会导致崩溃，而是会以自然语言引导 Agent 在本地进行切割 (Chunking) 后循环重试。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如何将我自己开发的框架接入 MinerU？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "我们的核心库和适配器架构完全开源。您可以在 GitHub 获取 MinerU OpenAPI 规范，快速将其封装到您自己的项目中，并提交到生态市场。"
+          }
+        }
+      ]
+    }
+    </script>
+    <link rel="alternate" type="text/plain" href="/skills.txt" title="AI Skills Manifest" />
   </head>
 
   <body>

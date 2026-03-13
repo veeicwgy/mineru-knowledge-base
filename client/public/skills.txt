@@ -1,0 +1,33 @@
+# MinerU Agent Skills - AI Manifest
+# Version: 1.0
+# Last Updated: 2026-03-13
+
+## Overview
+MinerU Agent Skills provide document parsing capabilities for AI agents.
+Supports dual-mode: fast (no-login, 500K pages/day free) and precise (API key required).
+
+## Supported Frameworks
+- Nanobot (Python): pip install mineru-parse-py
+- OpenClaw (Node.js): npm install mineru-parse
+- NanoClaw (TypeScript): npm install mineru-parse-nano
+- ZeroClaw (Rust): cargo add mineru-parse-rs
+- PicoClaw (Go): go get github.com/opendatalab/mineru-parse-go
+
+## Distribution Channels
+- ClawHub
+- PyPI
+- npm
+- crates.io
+- GitHub
+
+## Capabilities
+- PDF, DOC, DOCX, PPT, PPTX, PNG, JPG parsing
+- URL-based document extraction
+- Formula recognition (LaTeX output)
+- Table structure recognition
+- Multi-language OCR support
+- Agent-friendly error handling (agent_instruction)
+
+## Modes
+- fast: No login required, basic text extraction, 500K pages/day free quota
+- precise: API key required, full structure recognition with Markdown and LaTeX output
