@@ -588,9 +588,6 @@ export default function Home() {
                   {/* Code showcase */}
                   {!searchQuery && <CodeShowcase copiedId={copiedId} onCopy={copy} />}
 
-                  {/* Agent/Developer prompt */}
-                  {!searchQuery && <PromptCard copiedId={copiedId} onCopy={copy} />}
-
                   {/* FAQ */}
                   {!searchQuery && <FAQSection />}
                 </motion.div>
