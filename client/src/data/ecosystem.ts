@@ -60,7 +60,6 @@ export const agentSkills: SkillItem[] = [
     description: "主流 Node.js Agent 框架的官方推荐解析插件，提交至 openclaw SDK。",
     logo: lobe("openclaw"),
     tags: ["Node.js", "OpenAPI"],
-    badges: ["极速版", "高精度版", "文件/URL"],
     installCmd: "npm install mineru-parse",
     registry: "npm + ClawHub",
   },
@@ -103,7 +102,7 @@ export const agentSkills: SkillItem[] = [
     tags: ["Go", "高并发"],
     installCmd: "go get github.com/opendatalab/mineru-parse-go",
     registry: "GitHub + ClawHub",
-  },
+  }
 ];
 
 /* ─── Code Examples ─── */

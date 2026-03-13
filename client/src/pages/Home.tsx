@@ -185,34 +185,23 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-[15px] font-semibold text-slate-900 truncate">{item.name}</h3>
+            <h3 className="text-[16px] font-semibold text-slate-900 truncate">{item.name}</h3>
             <span className="shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60">
               官方支持
             </span>
           </div>
           {item.registry && (
-            <p className="text-[11px] text-slate-400 mb-1">{item.registry}</p>
+            <p className="text-[12px] text-slate-400 mb-1">{item.registry}</p>
           )}
-          <p className="text-[13px] text-slate-500 leading-relaxed line-clamp-2">{item.description}</p>
+          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-2">{item.description}</p>
         </div>
       </div>
-
-      {/* Badges */}
-      {item.badges && item.badges.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {item.badges.map((b) => (
-            <span key={b} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 border border-blue-100/80">
-              ✅ {b}
-            </span>
-          ))}
-        </div>
-      )}
 
       {/* Tags */}
       {item.tags && item.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-3">
           {item.tags.map((tag) => (
-            <span key={tag} className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-500">
+            <span key={tag} className="text-[12px] font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
               {tag}
             </span>
           ))}
@@ -223,7 +212,7 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
       <div className="mt-auto pt-3 border-t border-slate-100">
         <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
           <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-          <code className="text-[12px] font-mono text-slate-700 flex-1 truncate">{item.installCmd}</code>
+          <code className="text-[13px] font-mono text-slate-700 flex-1 truncate">{item.installCmd}</code>
           <CopyButton text={item.installCmd} id={`install-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
         </div>
       </div>
@@ -397,8 +386,8 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       <div className="flex items-start gap-3.5 mb-3">
         <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-[15px] font-semibold text-slate-900 mb-1">{item.name}</h3>
-          <p className="text-[13px] text-slate-500 leading-relaxed line-clamp-3">{item.description}</p>
+          <h3 className="text-[16px] font-semibold text-slate-900 mb-1">{item.name}</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-3">{item.description}</p>
         </div>
       </div>
 
@@ -407,20 +396,20 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         <div className="mt-auto pt-3">
           <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
             <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <code className="text-[11px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
+            <code className="text-[12px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
             <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
           </div>
         </div>
       )}
 
-      {/* Guide button */}
+      {/* Guide button — Hidden by default, visible on hover */}
       {item.guideLabel && item.guideUrl && (
         <div className={`${item.code ? "mt-3" : "mt-auto pt-3"}`}>
           <a
             href={item.guideUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[12px] font-medium text-blue-600 hover:text-blue-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
           >
             {item.guideLabel}
             <ExternalLink className="w-3 h-3" />
@@ -445,22 +434,22 @@ function AppCard({ item }: { item: AppItem }) {
       <div className="flex items-start gap-3.5 mb-3">
         <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-[15px] font-semibold text-slate-900 mb-1">{item.name}</h3>
-          <p className="text-[13px] text-slate-500 leading-relaxed line-clamp-2">{item.description}</p>
+          <h3 className="text-[16px] font-semibold text-slate-900 mb-1">{item.name}</h3>
+          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-2">{item.description}</p>
         </div>
       </div>
 
       {/* Links */}
       <div className="mt-auto pt-3 space-y-2">
         {item.links && item.links.length > 0 && (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
             {item.links.map((link) => (
               <a
                 key={link.url}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-lg bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-800 border border-slate-200/60 transition-colors"
+                className="inline-flex items-center gap-1 text-[12px] font-medium px-2.5 py-1 rounded-lg bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-800 border border-slate-200/60 transition-colors"
               >
                 {link.label}
                 <ExternalLink className="w-2.5 h-2.5" />
@@ -472,7 +461,7 @@ function AppCard({ item }: { item: AppItem }) {
           href={item.guideUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[12px] font-medium text-blue-600 hover:text-blue-700 transition-colors"
+          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
         >
           查看使用指引
           <ExternalLink className="w-3 h-3" />
