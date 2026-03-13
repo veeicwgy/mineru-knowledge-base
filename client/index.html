@@ -43,7 +43,7 @@
           "name": "需要注册账号才能让 Agent 使用吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "不需要。默认支持免登录极速版，每天提供 50 万页免费额度，仅提取基础文本，速度极快。"
+            "text": "不需要。我们默认提供"免登录极速版"，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 50 万页的免费解析额度，速度极快，开箱即用。"
           }
         },
         {
@@ -51,23 +51,63 @@
           "name": "如何切换为支持复杂公式和表格的完整版？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "将 Skill 的 mode 参数设为 precise 并传入 API Key，即可结构化输出纯净 Markdown/LaTeX。"
+            "text": "在接入 Skill 时，将 mode 参数设为 precise 并传入您的 API Key（需在控制台获取），即可无缝切换为高精度模式，结构化输出纯净的 Markdown 与 LaTeX 公式。"
           }
         },
         {
           "@type": "Question",
-          "name": "文件超限时 Agent 会怎样处理？",
+          "name": "网页 (URL) 解析和文件解析的额度是怎么扣减的？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "接口内置面向 Agent 友好的异常处理。文件超限时不会崩溃，而是返回指令引导 Agent 在本地切割后重试。"
+            "text": "额度按页计数，不足一页按一页算。对于网页链接（URL）的提取，成功解析一次即算作消耗 1 页免费额度，UTC 0 点自动重置。"
           }
         },
         {
           "@type": "Question",
-          "name": "如何将自己开发的框架接入 MinerU？",
+          "name": "免登录快速版和 API Key 完整版在解析效果上有什么区别？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "核心库和适配器架构完全开源。您可以在 GitHub 获取 MinerU OpenAPI 规范，快速封装到您自己的项目中。"
+            "text": "快速版专为 Agent 试用与快速预览打造，侧重基础文本与标题的极速提取；完整版（需 API Key）则保留全量结构化信息，支持跨页合并、双栏排版还原、复杂表格转化为 Markdown 以及高精度多模态图片提取。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "MinerU 当前支持哪些文档格式？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "我们全面支持 PDF、PPT、图片（JPG/PNG）、HTML 网页以及 Office 文档（DOCX/PPTX）。注意快速版单文件限制 ≤10MB 且 ≤20页，完整版则无此限制。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "文件大小或页数超限时，Agent 会直接报错崩溃吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不会。我们的 API 专为 Agent 设计了自然语言异常引导。当遇到超限（400 错误）时，会返回一段 agent_instruction 指令，引导 Agent 在本地调用 Python（如 PyMuPDF）切分文件或压缩后再循环重试，实现完全的自动闭环。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如果当天的 50 万页免费额度耗尽怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "接口会返回标准的 HTTP 429 状态码，并附带 retry_after 秒数提示。响应体中会明确指示 Agent 进入休眠等待（SLEEP and WAIT）状态，直到次日额度重置。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "我使用的是 LangChain，默认 Loader 遇到论文图表经常乱码，MinerU 能解决吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完美解决。MinerU 提供了专属的 MineruLoader，配合 MarkdownHeaderTextSplitter，不仅彻底解决图表乱码痛点，还能依据标题层级进行切片，消除按字数硬切导致的语义割裂。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "能否在本地私有化部署的系统中使用 MinerU 的 Agent 能力？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以。我们提供了双版本的 MCP Server。除了 SaaS 版外，开源版 MCP Server 完全托管在 GitHub 上，专供开发者在自建 MinerU 引擎时配套使用。"
           }
         }
       ]

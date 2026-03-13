@@ -1,0 +1,31 @@
+Review V4 - Final Visual Inspection
+
+Tab 1 (Agent Skills):
+- 5 cards in 3-col grid with logo, name, official badge, description, tags, install cmd + copy - PERFECT
+- Code showcase with Python/TypeScript tabs + copy button - PERFECT
+- Agent/Developer prompt toggle card with copy - PERFECT
+- FAQ accordion with 4 categories, 9 questions, expand/collapse works - PERFECT
+
+Tab 2 (RAG 框架):
+- 9 cards: LangChain, LlamaIndex, DSPy, LightRAG, Haystack, LLMWare, Dify, RAGFlow, Flowise
+- LangChain and LlamaIndex have code snippets with copy buttons - GOOD
+- DSPy has "获取 DSPy 集成代码片段" link - GOOD
+- All logos display correctly (LangChain, LlamaIndex via LobeHub CDN; Haystack, RAGFlow, Flowise via uploaded CDN)
+- DSPy, LightRAG, LLMWare use letter fallback - acceptable
+
+Tab 3 (应用与工作流):
+- 9 cards: Coze, n8n, FastGPT, 钉钉, Cherry Studio, 和鲸科学平台, Sider, 智能数据平台, RAGFlow
+- Coze has "MinerU 官方插件" + "智能体" links + "查看使用指引" - GOOD
+- n8n, FastGPT have plugin links + guide links - GOOD
+- All other cards have guide links - GOOD
+- Footer visible at bottom - GOOD
+
+Overall:
+- Sidebar navigation works perfectly, active state clear (dark bg)
+- Search works across all tabs
+- Copy buttons work (toast notification)
+- Responsive mobile tab switcher present
+- Clean white background, professional SaaS feel
+- All real logos display correctly
+
+STATUS: READY FOR DELIVERY
