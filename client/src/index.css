@@ -4,9 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design: MinerU Ecosystem — Clean White
- * Inspired by mineru.net/ecosystem
- * White background, minimal accents, professional typography
+ * Design: MinerU Ecosystem — LobeHub-inspired
+ * Clean white, information-dense, developer-focused marketplace
  */
 
 @theme inline {
@@ -55,36 +54,36 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.15 0.01 260);
+  --foreground: oklch(0.145 0.005 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
+  --card-foreground: oklch(0.145 0.005 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.25 0.01 260);
+  --popover-foreground: oklch(0.145 0.005 260);
+  --primary: oklch(0.145 0.005 260);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.97 0.002 260);
+  --secondary: oklch(0.97 0.001 260);
   --secondary-foreground: oklch(0.35 0.01 260);
-  --muted: oklch(0.96 0.002 260);
+  --muted: oklch(0.965 0.001 260);
   --muted-foreground: oklch(0.5 0.01 260);
-  --accent: oklch(0.96 0.002 260);
-  --accent-foreground: oklch(0.15 0.01 260);
+  --accent: oklch(0.965 0.001 260);
+  --accent-foreground: oklch(0.145 0.005 260);
   --destructive: oklch(0.58 0.22 27);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.003 260);
-  --input: oklch(0.92 0.003 260);
+  --border: oklch(0.925 0.002 260);
+  --input: oklch(0.925 0.002 260);
   --ring: oklch(0.55 0.15 250);
   --chart-1: oklch(0.55 0.15 250);
   --chart-2: oklch(0.6 0.18 250);
   --chart-3: oklch(0.5 0.12 250);
   --chart-4: oklch(0.45 0.1 250);
   --chart-5: oklch(0.4 0.08 250);
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.15 0.01 260);
-  --sidebar-accent: oklch(0.96 0.002 260);
-  --sidebar-accent-foreground: oklch(0.15 0.01 260);
-  --sidebar-border: oklch(0.92 0.003 260);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0.005 260);
+  --sidebar-accent: oklch(0.965 0.001 260);
+  --sidebar-accent-foreground: oklch(0.145 0.005 260);
+  --sidebar-border: oklch(0.925 0.002 260);
   --sidebar-ring: oklch(0.55 0.15 250);
-  --sidebar-primary: oklch(0.25 0.01 260);
+  --sidebar-primary: oklch(0.145 0.005 260);
   --sidebar-primary-foreground: oklch(1 0 0);
 }
 
@@ -98,9 +97,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   ::selection {
-    background: rgba(59, 130, 246, 0.15);
+    background: rgba(0, 0, 0, 0.08);
     color: inherit;
   }
   button:not(:disabled),
@@ -145,29 +146,69 @@
     }
   }
 
-  /* Ecosystem card style */
-  .eco-card {
+  /* LobeHub-style skill card */
+  .skill-card {
     background: white;
-    border: 1px solid oklch(0.92 0.003 260);
+    border: 1px solid oklch(0.925 0.002 260);
     border-radius: 0.75rem;
-    transition: all 0.2s ease;
+    padding: 1.25rem;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
   }
-  .eco-card:hover {
-    border-color: oklch(0.85 0.01 260);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
+  .skill-card:hover {
+    border-color: oklch(0.88 0.005 260);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   }
 
-  /* Tab indicator */
-  .tab-active {
-    color: oklch(0.15 0.01 260);
-    border-bottom: 2px solid oklch(0.15 0.01 260);
+  /* Sidebar category item */
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    color: oklch(0.45 0.01 260);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
   }
-  .tab-inactive {
+  .sidebar-item:hover {
+    background: oklch(0.965 0.001 260);
+    color: oklch(0.2 0.005 260);
+  }
+  .sidebar-item.active {
+    background: oklch(0.955 0.001 260);
+    color: oklch(0.145 0.005 260);
+    font-weight: 600;
+  }
+
+  /* Code block */
+  .code-block {
+    background: oklch(0.145 0.005 260);
+    border-radius: 0.5rem;
+    font-family: var(--font-mono);
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .section-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: oklch(0.145 0.005 260);
+  }
+  .section-header a {
+    font-size: 0.8125rem;
     color: oklch(0.5 0.01 260);
-    border-bottom: 2px solid transparent;
+    transition: color 0.15s;
   }
-  .tab-inactive:hover {
-    color: oklch(0.3 0.01 260);
+  .section-header a:hover {
+    color: oklch(0.2 0.005 260);
   }
 }

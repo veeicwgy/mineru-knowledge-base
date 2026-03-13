@@ -1,8 +1,6 @@
 /*
- * MinerU Ecosystem Page — Three Tab Layout
- * Tab 1: Agent Skills 技能中心
- * Tab 2: 核心数据编排框架
- * Tab 3: 平台、应用与自动化
+ * MinerU Ecosystem — LobeHub-inspired layout
+ * Three tabs with shared search + sidebar navigation
  */
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,28 +11,39 @@ import TabFrameworks from "@/components/TabFrameworks";
 import TabPlatforms from "@/components/TabPlatforms";
 import Footer from "@/components/Footer";
 
-const tabContent = [TabAgentSkills, TabFrameworks, TabPlatforms];
-
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
-  const ActiveContent = tabContent[activeTab];
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Reset search when switching tabs
+  const handleTabChange = (tab: number) => {
+    setActiveTab(tab);
+    setSearchQuery("");
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
-      <HeroSection activeTab={activeTab} onTabChange={setActiveTab} />
+      <HeroSection
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+      />
 
-      {/* Tab content with animation */}
+      {/* Tab content */}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
           >
-            <ActiveContent />
+            {activeTab === 0 && <TabAgentSkills searchQuery={searchQuery} />}
+            {activeTab === 1 && <TabFrameworks searchQuery={searchQuery} />}
+            {activeTab === 2 && <TabPlatforms searchQuery={searchQuery} />}
           </motion.div>
         </AnimatePresence>
       </main>

@@ -1,0 +1,74 @@
+LobeHub Skills Page Design Reference
+=====================================
+
+LAYOUT STRUCTURE:
+- Two-column layout: Left sidebar (category nav) + Right main content area
+- Left sidebar: ~200px wide, sticky, scrollable category list with icons + counts
+- Right content: Skill cards in 3-column grid
+- Top: Hero section with title, subtitle, search bar, and "Submit Skill" button
+
+HERO SECTION:
+- Small breadcrumb: "Agent-First · Marketplace Aberto"
+- Large H1: "Skills Marketplace para Todo Agent"
+- Subtitle paragraph describing the marketplace
+- Right side: Prompt card showing "Sou um Agent / Sou um Humano" toggle
+- Below: Search bar (full width of content area)
+
+LEFT SIDEBAR:
+- Sort dropdown (Recomendado)
+- Category list with icons:
+  - Each item: icon + category name + count (e.g., "Todas 205.3k")
+  - Active item highlighted
+  - Categories: Início, Todas, Coding Agents & IDEs, Web & Frontend, DevOps & Cloud, etc.
+  - Scrollable, many categories
+
+SKILL CARDS:
+- 3 cards per row in main content
+- Each card has:
+  - Avatar/icon (small, colored)
+  - Skill name (bold, monospace-like)
+  - Rating (stars) + author name + source (openclaw)
+  - Description text (2-3 lines, truncated)
+  - Category tag at bottom
+  - Footer: date, views count, downloads count, comments count
+  - GitHub button on top-right
+- Card style: White background, subtle border, rounded corners
+- Hover: slight shadow elevation
+
+SECTIONS IN MAIN CONTENT:
+1. "Mais instalados" (Most installed) - 6 cards (2 rows x 3) + "Ver tudo" link
+2. "Em alta" (Trending) - 6 cards + "Ver tudo"
+3. "Em destaque" (Featured) - 6 cards + "Ver tudo"
+4. Additional sections...
+5. "Navegar por categoria" - Category showcase cards
+
+COLOR SCHEME:
+- Pure white background (#fff)
+- Very light gray borders
+- Black text for titles
+- Gray text for descriptions and metadata
+- Red/orange accent for icons (LobeHub brand)
+- Category tags in muted colors
+- Very clean, minimal, lots of whitespace
+
+TYPOGRAPHY:
+- Sans-serif system font
+- H1: Very large, bold, black
+- Card titles: Medium weight, slightly monospace feel
+- Descriptions: Regular weight, gray
+- Metadata: Small, light gray
+
+INTERACTIONS:
+- Cards clickable (link to detail page)
+- Category sidebar items clickable with active state
+- Search bar with keyboard shortcut hint (Ctrl+K)
+- "Ver tudo" links to see more in each section
+- "Enviar Skill" submit button
+
+KEY DESIGN PRINCIPLES:
+1. Information density - lots of content visible at once
+2. Clean card grid with consistent sizing
+3. Left sidebar for navigation/filtering
+4. Sections organized by popularity/trending/featured
+5. Minimal decoration, content-focused
+6. Professional, developer-oriented aesthetic
