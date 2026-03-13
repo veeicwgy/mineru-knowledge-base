@@ -237,7 +237,7 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "llmware",
     name: "LLMWare",
-    description: "在模块化 Pipeline 中充当核心 Converter 组件，支持本地与企业级合规数据管道。",
+    description: "专为企业级 RAG 场景设计的端到端框架，内置高效文档解析与向量化流水线，支持完全私有化部署。",
     logo: "",
     logoFallback: "#7C3AED",
   },

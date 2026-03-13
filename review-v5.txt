@@ -1,0 +1,40 @@
+# V5 Review Notes - UI Quality Upgrade
+
+## Agent Skills Tab ✅
+- Sidebar: Clean blue-50 highlight with left blue border indicator - EXCELLENT
+- Section header: Brand color vertical bar + large title - GOOD
+- SVG Logos: OpenClaw (green), ZeroClaw (red), Nanobot (dark), NanoClaw (blue), PicoClaw (teal) - all custom SVG
+- Cards: Equal-height grid, official support badges, capability tags, install commands with copy buttons
+- Code showcase: Light theme (bg-slate-50), Python/TypeScript tabs, copy button
+- FAQ: 4 categories, 9 questions, accordion with expand/collapse - working
+
+## RAG 框架 Tab ✅
+- LangChain: LobeHub CDN logo ✅ with code snippet and "查看指南" link
+- LlamaIndex: LobeHub CDN logo ✅ with code snippet and "查看指南" link
+- DSPy: Letter fallback (D) - need real logo
+- LightRAG: Letter fallback (L) - need real logo
+- Haystack: Uploaded logo ✅
+- LLMWare: Letter fallback (L) - need real logo
+- Dify: LobeHub CDN logo ✅
+- RAGFlow: Uploaded logo ✅
+- Flowise: Uploaded logo ✅
+
+## 应用与工作流 Tab ✅
+- Coze: LobeHub CDN logo ✅ with real links
+- n8n: LobeHub CDN logo ✅ with real links
+- FastGPT: LobeHub CDN logo ✅ with real links
+- 钉钉: Uploaded logo ✅
+- Cherry Studio: Uploaded logo ✅
+- 和鲸科学平台: Uploaded logo ✅
+- Sider: Uploaded logo ✅
+- 智能数据平台: Letter fallback - need real logo
+- RAGFlow: Uploaded logo ✅
+
+## Overall Assessment
+- Sidebar active state: Clean and modern ✅
+- Section headers: Gradient with brand color bar ✅
+- Code blocks: Light theme ✅
+- Cards: Equal-height grid with hover effects ✅
+- Copy buttons: Working on all install commands and code blocks ✅
+- FAQ accordion: Working with smooth animations ✅
+- Search: Working across all tabs ✅
