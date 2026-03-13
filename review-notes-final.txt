@@ -1,0 +1,26 @@
+# Final Review Notes - LobeHub-style Sidebar Layout v3
+
+## Overall Assessment
+- Page looks clean and professional with left sidebar + right content layout
+- Three modules (Agent Skills / RAG 框架 / 应用与工作流) switch correctly
+- Search functionality works - tested with "钉钉" keyword, correctly filters to single result
+- Agent/Developer toggle works - switches between prompt mode and pip install mode
+- Copy button present on both modes
+
+## Logo Status
+- Agent Skills: Using colored letter fallbacks (O/Z/P/N) - these are custom frameworks, no real logos exist
+- RAG 框架: Dify ✅, LangChain ✅, RAGFlow ✅, Flowise ✅, LlamaIndex ✅, DSPy (letter D), LightRAG (letter L), Haystack ✅, LLMWare (letter L)
+- 应用与工作流: Coze ✅, n8n ✅, FastGPT ✅, Cherry Studio ✅, Sider ✅, 和鲸科学平台 ✅, 钉钉 ✅, 智能数据平台 (letter 智)
+
+## Items Working Well
+1. Sidebar navigation with counts (5/9/8)
+2. Search with Ctrl+K hint
+3. Card grid layout (3 columns)
+4. Agent/Developer dual-mode prompt card
+5. Footer with GitHub and API links
+6. Smooth animations on tab/card transitions
+7. Responsive design
+
+## Minor Issues
+- Some logos still using letter fallbacks (DSPy, LightRAG, LLMWare, 智能数据平台) - acceptable as these are less mainstream
+- Agent Skills cards use colored circles instead of real logos - acceptable since these are MinerU's own frameworks

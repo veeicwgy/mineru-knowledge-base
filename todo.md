@@ -1,12 +1,12 @@
-# LobeHub 风格重构 TODO
+# 最终重构状态 - 已完成
 
-## 核心重构
-- [ ] 重构为 LobeHub 风格双栏布局：左侧分类导航 + 右侧卡片网格
-- [ ] Hero 区域改为左对齐大标题 + 右侧 Agent/Human prompt 卡片
-- [ ] 搜索栏全宽 + 提交 Skill 按钮
-- [ ] 三 Tab 内容改为左侧分类导航驱动
-- [ ] 卡片改为 LobeHub 风格：图标 + 名称 + 评分 + 描述 + 标签 + 统计
-- [ ] 按分类分组展示：最多安装 / 热门 / 精选
-- [ ] 更新 CSS 为纯白极简风格
-- [ ] 更新 Navbar 匹配 LobeHub 风格
-- [ ] 更新 Footer
+## 已完成
+- [x] 左侧边栏导航 + 右侧内容展示（SaaS 控制台风格）
+- [x] 三模块：Agent Skills / RAG 框架 / 应用与工作流
+- [x] 使用真实官方 Logo（LobeHub CDN + 上传 CDN）
+- [x] 搜索功能 + Ctrl+K
+- [x] Agent/开发者双模 Prompt 卡片
+- [x] 移除代码终端截图/大面积代码块背景
+- [x] 补充 RAG 模块 9 个框架的文案
+- [x] 应用与工作流模块 8 个平台
+- [x] Cherry Studio / 和鲸科学平台 Logo 已上传

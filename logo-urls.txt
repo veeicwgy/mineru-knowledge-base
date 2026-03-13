@@ -1,0 +1,47 @@
+CDN URL Patterns for LobeHub Icons
+====================================
+
+SVG CDN (unpkg):
+https://unpkg.com/@lobehub/icons-static-svg@latest/icons/[ICON_SLUG].svg
+
+SVG CDN (aliyun/npmmirror):
+https://registry.npmmirror.com/@lobehub/icons-static-svg/latest/files/icons/[ICON_SLUG].svg
+
+PNG CDN (unpkg):
+Dark: https://unpkg.com/@lobehub/icons-static-png@latest/dark/[ICON_SLUG].png
+Light: https://unpkg.com/@lobehub/icons-static-png@latest/light/[ICON_SLUG].png
+
+PNG CDN (aliyun/npmmirror):
+Dark: https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/[ICON_SLUG].png
+Light: https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/[ICON_SLUG].png
+
+Available Slugs (confirmed from lobehub.com/icons page):
+- langchain
+- llamaindex
+- dify
+- coze
+- n8n
+- fastgpt
+- cherry-studio (Cherry Studio)
+- openclaw (OpenClaw)
+
+Need to verify slugs for:
+- RAGFlow → not on lobehub, use own logo
+- Flowise → not on lobehub, use own logo
+- DSPy → not on lobehub
+- LightRAG → not on lobehub
+- Haystack → not on lobehub
+- LLMWare → not on lobehub
+- ZeroClaw → not on lobehub (MinerU specific)
+- PicoClaw → not on lobehub (MinerU specific)
+- Nanobot → not on lobehub (MinerU specific)
+- NanoClaw → not on lobehub (MinerU specific)
+- Sider → not on lobehub
+- 和鲸科学平台 → not on lobehub
+- 钉钉 → not on lobehub (DingTalk)
+- 智能数据平台 → not on lobehub
+
+For those not on lobehub, use:
+1. simple-icons CDN: https://cdn.simpleicons.org/[SLUG]
+2. Official website favicon/logo
+3. Custom SVG with brand colors as fallback

@@ -1,336 +1,193 @@
 /*
- * MinerU Ecosystem Data — All skills, frameworks, and platforms
- * Organized by the three tabs and their sub-categories
+ * MinerU 生态与社区 — 数据定义
+ * 三大模块：Agent Skills / RAG 框架 / 应用与工作流
+ * Logo 使用 LobeHub Icons CDN + 官方 Logo URL
  */
 
 /* ─── Types ─── */
 export interface SkillItem {
   id: string;
   name: string;
-  author: string;
-  rating: number;
   description: string;
-  category: string;
-  tags: string[];
-  command?: string;
-  lang?: string;
-  badges?: string[];
-  link?: string;
-  downloads?: string;
-  views?: string;
-  date?: string;
-  official?: boolean;
+  logo: string;
+  logoFallback?: string; // color for fallback icon
+  tags?: string[];
 }
 
-export interface FrameworkItem {
+export interface RAGItem {
   id: string;
   name: string;
-  role: string;
   description: string;
-  code?: string;
-  link?: string;
-  linkText?: string;
-  category: string;
+  logo: string;
+  logoFallback?: string;
 }
 
-export interface PlatformItem {
+export interface AppItem {
   id: string;
   name: string;
-  category: string;
-  subcategory: string;
   description: string;
-  links?: { label: string; url: string }[];
-  comingSoon?: boolean;
+  logo: string;
+  logoFallback?: string;
 }
 
-/* ─── Tab 1: Agent Skills ─── */
-export const skillCategories = [
-  { id: "all", label: "全部 Skills", icon: "grid", count: "5" },
-  { id: "nodejs", label: "Node.js", icon: "nodejs", count: "2" },
-  { id: "python", label: "Python", icon: "python", count: "1" },
-  { id: "typescript", label: "TypeScript", icon: "typescript", count: "1" },
-  { id: "rust", label: "Rust", icon: "rust", count: "1" },
-  { id: "go", label: "Go", icon: "go", count: "1" },
-];
+/* ─── Logo CDN URLs ─── */
+// LobeHub Icons CDN (light mode PNG)
+const lobe = (slug: string) =>
+  `https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/${slug}.png`;
 
-export const skills: SkillItem[] = [
+/* ─── Module 1: Agent Skills ─── */
+export const agentSkills: SkillItem[] = [
   {
     id: "openclaw",
-    name: "mineru-parse",
-    author: "OpenDataLab",
-    rating: 5.0,
-    description: "主流 Node.js Agent 框架的官方推荐解析插件，已包含完整 OpenAPI 定义。提交至 openclaw SDK。",
-    category: "nodejs",
-    tags: ["官方支持", "npm + ClawHub"],
-    command: "npm install mineru-parse",
-    lang: "Node.js",
-    badges: ["极速版", "高精度版", "文件/URL"],
-    link: "#",
-    downloads: "12.8k",
-    views: "45.2k",
-    date: "Mar 13, 2026",
-    official: true,
+    name: "OpenClaw",
+    description: "主流 Node.js Agent 框架的官方推荐解析 Skill，已包含完整 OpenAPI 定义，提交至 ClawHub 市场即装即用。",
+    logo: lobe("openclaw"),
+    tags: ["Node.js", "OpenAPI"],
   },
   {
     id: "zeroclaw",
-    name: "mineru-parse-rs",
-    author: "OpenDataLab",
-    rating: 4.9,
-    description: "Rust 原生实现，极低的内存与资源占用开销，完美适配树莓派等边缘设备。",
-    category: "rust",
-    tags: ["官方支持", "crates.io + ClawHub"],
-    command: "cargo add mineru-parse-rs",
-    lang: "Rust",
-    badges: ["极速版", "高精度版", "极致轻量"],
-    link: "#",
-    downloads: "3.2k",
-    views: "18.6k",
-    date: "Mar 10, 2026",
-    official: true,
-  },
-  {
-    id: "nanobot",
-    name: "mineru-parse-py",
-    author: "OpenDataLab",
-    rating: 5.0,
-    description: "专为 Python 生态 Agent 打造，原生支持主流的智能体编排工作流。Nanobot & LangChain 适配。",
-    category: "python",
-    tags: ["官方支持", "PyPI"],
-    command: "pip install mineru-parse-py",
-    lang: "Python",
-    badges: ["极速版", "高精度版", "文件/URL"],
-    link: "#",
-    downloads: "28.5k",
-    views: "89.3k",
-    date: "Mar 12, 2026",
-    official: true,
-  },
-  {
-    id: "nanoclaw",
-    name: "mineru-parse-nano",
-    author: "OpenDataLab",
-    rating: 4.8,
-    description: "轻量级 TypeScript 智能体框架，直接导出符合 NanoClaw Skill 规范的工具函数。",
-    category: "typescript",
-    tags: ["官方支持", "npm + ClawHub"],
-    command: "npm install mineru-parse-nano",
-    lang: "TypeScript",
-    badges: ["极速版", "高精度版", "Tool Calling"],
-    link: "#",
-    downloads: "8.1k",
-    views: "32.7k",
-    date: "Mar 11, 2026",
-    official: true,
+    name: "ZeroClaw",
+    description: "Rust 原生实现的零依赖解析 Skill，极低内存占用，完美适配树莓派等边缘设备与嵌入式 Agent。",
+    logo: "",
+    logoFallback: "#E44D26",
+    tags: ["Rust", "Edge"],
   },
   {
     id: "picoclaw",
-    name: "mineru-parse-go",
-    author: "OpenDataLab",
-    rating: 4.7,
-    description: "专为 Go 语言轻量级 Agent 提供的解析模块，支持高并发的高效数据流转。",
-    category: "go",
-    tags: ["官方支持", "GitHub + ClawHub"],
-    command: "go get github.com/opendatalab/mineru-parse-go",
-    lang: "Go",
-    badges: ["极速版", "高精度版", "文件/URL"],
-    link: "#",
-    downloads: "2.1k",
-    views: "11.4k",
-    date: "Mar 8, 2026",
-    official: true,
+    name: "PicoClaw",
+    description: "专为 Go 语言轻量级 Agent 提供的解析模块，支持高并发场景下的高效数据流转与批量处理。",
+    logo: "",
+    logoFallback: "#00ADD8",
+    tags: ["Go", "高并发"],
+  },
+  {
+    id: "nanobot",
+    name: "Nanobot",
+    description: "专为 Python 生态 Agent 打造，原生支持 Nanobot 与 LangChain 等主流智能体编排工作流。",
+    logo: "",
+    logoFallback: "#3776AB",
+    tags: ["Python", "LangChain"],
+  },
+  {
+    id: "nanoclaw",
+    name: "NanoClaw",
+    description: "轻量级 TypeScript 智能体框架适配，直接导出符合 NanoClaw Skill 规范的标准工具函数。",
+    logo: "",
+    logoFallback: "#3178C6",
+    tags: ["TypeScript", "Tool Calling"],
   },
 ];
 
-/* ─── Tab 2: Code-first Frameworks ─── */
-export const frameworkCategories = [
-  { id: "all", label: "全部框架", icon: "grid", count: "5" },
-  { id: "loader", label: "Document Loader", icon: "file", count: "2" },
-  { id: "datasource", label: "Data Source", icon: "database", count: "1" },
-  { id: "preprocessor", label: "Preprocessor", icon: "filter", count: "1" },
-  { id: "converter", label: "Converter", icon: "layers", count: "1" },
-];
-
-export const frameworks: FrameworkItem[] = [
-  {
-    id: "langchain",
-    name: "LangChain",
-    role: "Document Loader",
-    description: "解决默认 Loader 遇到图表即乱码的痛点。配合 MarkdownHeaderTextSplitter 彻底消除按字数切片导致的语义割裂。",
-    code: "from langchain_community.document_loaders import MineruLoader",
-    link: "#",
-    linkText: "查看指南",
-    category: "loader",
-  },
-  {
-    id: "llamaindex",
-    name: "LlamaIndex",
-    role: "PDF Reader",
-    description: "完美的 PDFReader 替代方案。将双栏论文转化为结构化 Document，精准执行基于 Node 的分层索引。",
-    code: 'loader = MineruPDFReader(api_key="KEY", mode="precise")',
-    link: "#",
-    linkText: "查看指南",
-    category: "loader",
-  },
-  {
-    id: "dspy",
-    name: "DSPy",
-    role: "Data Source",
-    description: "在基于程序的 Prompt 优化中，提供标准化的 LaTeX 与 Markdown 输出，提供最稳定的 Ground Truth 数据源。",
-    link: "#",
-    linkText: "获取集成代码片段",
-    category: "datasource",
-  },
-  {
-    id: "lightrag",
-    name: "LightRAG",
-    role: "Text Preprocessor",
-    description: "提供高纯净文本与精准上下文边界，极大降低大规模文档场景下图增强检索（实体关系抽取）的错误率。",
-    category: "preprocessor",
-  },
-  {
-    id: "haystack",
-    name: "Haystack / LLMWare",
-    role: "Converter Component",
-    description: "在模块化 Pipeline 中充当核心 Converter 组件，支持本地与企业级合规数据管道。",
-    category: "converter",
-  },
-];
-
-/* ─── Tab 3: Platforms & Workflows ─── */
-export const platformCategories = [
-  { id: "all", label: "全部平台", icon: "grid", count: "10" },
-  { id: "knowledge", label: "知识库与 RAG", icon: "database", count: "4" },
-  { id: "agent", label: "智能体与工作流", icon: "workflow", count: "2" },
-  { id: "enterprise", label: "办公与企业工具", icon: "building", count: "4" },
-];
-
-export const platforms: PlatformItem[] = [
+/* ─── Module 2: RAG 框架 ─── */
+export const ragFrameworks: RAGItem[] = [
   {
     id: "dify",
     name: "Dify",
-    category: "knowledge",
-    subcategory: "插件",
-    description: "以官方插件上架 Dify 市场。在可视化工作流中拖拽节点，一站式将图文混排文档转化为高质量问答知识库。",
-    links: [{ label: "获取官方插件", url: "#" }],
+    description: "作为核心预处理节点或官方插件，将图文混排文档一站式转化为高质量问答知识库。",
+    logo: lobe("dify"),
+  },
+  {
+    id: "langchain",
+    name: "LangChain",
+    description: "完美替代默认 Loader，解决复杂图表乱码痛点，配合切分器彻底消除语义割裂。",
+    logo: lobe("langchain"),
   },
   {
     id: "ragflow",
     name: "RAGFlow",
-    category: "knowledge",
-    subcategory: "内置引擎",
-    description: "作为平台内置的深度文档解析引擎。结合 GraphRAG，提供物理与逻辑版面分析，支持复杂结构处理。",
-    links: [{ label: "查看引擎切换指南", url: "#" }],
+    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
   },
   {
     id: "flowise",
     name: "Flowise",
-    category: "knowledge",
-    subcategory: "节点",
-    description: "拖拽式构建 AI 流程，提供开箱即用的 MinerU Document Loader 节点，极大缩短 PoC 验证周期。",
+    description: "提供开箱即用的拖拽式 Document Loader 节点，极速赋予 Agent 阅读复杂文档的能力。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
   },
   {
-    id: "fastgpt",
-    name: "FastGPT",
-    category: "knowledge",
-    subcategory: "工具",
-    description: "原生集成至平台工具模块，赋能精准解析复杂文档能力。",
-    links: [{ label: "MinerU 官方插件", url: "#" }],
+    id: "llamaindex",
+    name: "LlamaIndex",
+    description: "极佳的 PDFReader 替代方案，将双栏论文转化为带有层级的结构化 Node，提升分层检索精度。",
+    logo: lobe("llamaindex"),
   },
+  {
+    id: "dspy",
+    name: "DSPy",
+    description: "在基于程序的 Prompt 优化机制中，提供标准化的 LaTeX 与纯净 Markdown，保障 Ground Truth 数据的稳定性。",
+    logo: "",
+    logoFallback: "#FF6B35",
+  },
+  {
+    id: "lightrag",
+    name: "LightRAG",
+    description: "提供高纯净度文本与精准的上下文边界，大幅降低图增强检索（实体关系抽取）场景下的错误率。",
+    logo: "",
+    logoFallback: "#10B981",
+  },
+  {
+    id: "haystack",
+    name: "Haystack",
+    description: "在企业级 Pipeline 中充当核心 Converter 组件，在数据清洗最前置阶段完成高保真文本转换。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/haystack-logo_e76a3214.jpg",
+  },
+  {
+    id: "llmware",
+    name: "LLMWare",
+    description: "面向企业场景的合规数据管道，无缝接入复杂的 PDF/Office 文档，赋能本地小模型。",
+    logo: "",
+    logoFallback: "#7C3AED",
+  },
+];
+
+/* ─── Module 3: 应用与工作流 ─── */
+export const appWorkflows: AppItem[] = [
   {
     id: "coze",
     name: "Coze",
-    category: "agent",
-    subcategory: "插件",
-    description: "以插件形式接入，为智能体开发提供便捷的文档阅读与结构化提取能力。",
-    links: [{ label: "MinerU 官方插件", url: "#" }, { label: "官方 Agents", url: "#" }],
+    description: "以官方插件无缝接入智能体，赋予大模型直接「阅读」复杂排版文档的能力。",
+    logo: lobe("coze"),
   },
   {
     id: "n8n",
     name: "n8n",
-    category: "agent",
-    subcategory: "节点",
-    description: "提供自动化专属节点，融入无人值守的高频工作流任务，支持免登录与批量处理。",
-    links: [{ label: "MinerU 官方插件", url: "#" }],
+    description: "提供自动化专属节点，融入无人值守的高频工作流，支持批量与免登录调用。",
+    logo: lobe("n8n"),
   },
   {
-    id: "dingtalk",
-    name: "钉钉 (DingTalk)",
-    category: "enterprise",
-    subcategory: "企业",
-    description: "基于 MinerU 即将推出面向企业用户的文档解析工具 DLU。",
-    comingSoon: true,
+    id: "fastgpt",
+    name: "FastGPT",
+    description: "原生集成至平台工具链，为知识库提供纯净 Markdown 文本，提升检索精度。",
+    logo: lobe("fastgpt"),
   },
   {
     id: "cherrystudio",
     name: "Cherry Studio",
-    category: "enterprise",
-    subcategory: "应用",
-    description: "集成于对话交互中，消除大模型处理图表数据时的幻觉。",
-  },
-  {
-    id: "hejing",
-    name: "和鲸科学平台",
-    category: "enterprise",
-    subcategory: "科研",
-    description: "为科研数据、智库管理提供强力结构化解析支持。",
+    description: "深度对接大模型对话交互，精准提取图表与公式，消除 AI 对复杂数据的幻觉。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/cherry-studio-logo_32366999.jpg",
   },
   {
     id: "sider",
     name: "Sider",
-    category: "enterprise",
-    subcategory: "知识库",
-    description: "在 Wisebase 知识库中解析和管理文件。",
-  },
-];
-
-/* ─── Code Examples ─── */
-export const codeExamples = [
-  {
-    id: "python",
-    label: "Python (Nanobot)",
-    code: `from nanobot import Agent
-from mineru_parse_py import MineruSkill
-
-# 极简接入：免登录快速版，每日 50W 页免费额度
-agent = Agent(tools=[MineruSkill(mode="fast")])
-
-response = agent.run("帮我提取这份 PDF 里的所有文本：sample.pdf")
-print(response)`,
+    description: "深度集成至 Wisebase 知识库，为多模态智能问答提供极速、无损的文档结构化转换。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/sider-logo_d51d9ab0.jpg",
   },
   {
-    id: "typescript",
-    label: "TypeScript (NanoClaw)",
-    code: `import { NanoClaw } from 'nanoclaw';
-import { mineruParseTool } from 'mineru-parse-nano';
-
-// 注入技能，可选配置 API Key 使用高精度模式
-const agent = new NanoClaw({
-  skills: [mineruParseTool({
-    mode: "precise",
-    apiKey: "YOUR_KEY"
-  })]
-});
-
-await agent.execute("解析这篇科研论文，并把公式转换为标准 LaTeX 代码。");`,
-  },
-];
-
-/* ─── FAQ ─── */
-export const faqs = [
-  {
-    q: "需要注册账号才能让 Agent 使用吗？",
-    a: "不需要。默认支持\u201c免登录极速版\u201d，每天提供 50 万页免费额度，仅提取基础文本，速度极快。",
+    id: "hejing",
+    name: "和鲸科学平台",
+    description: "接入平台智能工具模块，为科研模型与 Agent 提供高精度的论文与公式解析支持。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/heywhale-logo_835dc2d9.png",
   },
   {
-    q: "如何切换为支持复杂公式和表格的完整版？",
-    a: "将 Skill 的 mode 参数设为 precise 并传入 API Key，即可结构化输出纯净 Markdown/LaTeX。",
+    id: "dingtalk",
+    name: "钉钉",
+    description: "基于 MinerU 打造企业级解析工具，提供高精度的多模态文档数字化与结构化方案。",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/dingtalk-logo_f83f9ed8.jpg",
   },
   {
-    q: "文件超限时 Agent 会怎样处理？",
-    a: "接口内置面向 Agent 友好的异常处理。文件超限时不会崩溃，而是返回指令引导 Agent 在本地切割 (Chunking) 后重试。",
-  },
-  {
-    q: "如何将自己开发的框架接入 MinerU？",
-    a: "我们的核心库和适配器架构完全开源。您可以在 GitHub 获取 MinerU OpenAPI 规范，快速将其封装到您自己的项目中，并提交到生态市场。",
+    id: "smartdata",
+    name: "智能数据平台",
+    description: "原生集成至核心知识库，自动化处理海量多模态文档，输出标准机器可读数据。",
+    logo: "",
+    logoFallback: "#8B5CF6",
   },
 ];

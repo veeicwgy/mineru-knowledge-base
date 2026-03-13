@@ -1,18 +1,16 @@
-LobeHub-style Refactor - Final Review
-======================================
+Review Notes - Sidebar Layout v3 (Final Refactor)
+===================================================
+Date: 2026-03-13
 
-All three tabs verified and working correctly.
+Screenshot shows:
+1. Left sidebar with 3 modules: Agent Skills (5), RAG 框架 (9), 应用与工作流 (8) - GOOD
+2. Active module highlighted with dark bg - GOOD
+3. Right content area with title, subtitle, search bar - GOOD
+4. 3-column card grid with logo, name, official badge, description, tags - GOOD
+5. Agent/Developer prompt card below cards - GOOD
+6. Top navbar with MinerU / 生态与社区 breadcrumb - GOOD
 
-Tab 1 (Agent Skills): Hero + sidebar + 5 skill cards + code showcase + FAQ - all perfect
-Tab 2 (Frameworks): Sidebar + 5 framework cards with code blocks and role badges - working
-Tab 3 (Platforms): Sidebar + 10 platform cards with category filtering - working
-
-Sidebar filtering: Tested on Tab 3, correctly filters to show only the selected category.
-Search: Working across all tabs.
-Tab switching: Smooth animation transitions.
-Agent/Human toggle: Working correctly.
-
-Issue found: When clicking "智能体与工作流" sidebar filter, it shows only Coze and n8n (correct).
-The section header updates to show the filtered category name and count.
-
-Overall: Page is complete and matches LobeHub marketplace style.
+Issues to fix:
+- OpenClaw card shows "O" fallback - CDN URL may not work for "openclaw" slug
+- Need to verify RAG 框架 and 应用与工作流 tabs work correctly
+- Overall layout matches the SaaS console style requested

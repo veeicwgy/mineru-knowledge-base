@@ -1,0 +1,26 @@
+Design Reference V3 - SaaS Sidebar Layout
+==========================================
+
+Screenshot 1 (Agent/Developer toggle):
+- Two-tab toggle: "我是 Agent" (light/outline) | "我是开发者" (dark/filled)
+- Below toggle: "快速开始:" section with pip install command
+- Clean rounded card container with subtle border
+- This should be part of the hero/header area
+
+Screenshot 2 (LobeHub marketplace):
+- Left sidebar with category navigation (icons + labels + counts)
+- Right side: search bar + card grid
+- Cards: avatar/icon + name + author + description + stats (downloads, likes)
+- Bottom of card: date + category tag
+- Clean white background, subtle borders
+
+Key Requirements:
+1. LEFT SIDEBAR navigation with 3 items: Agent Skills | RAG框架 | 应用与工作流
+2. RIGHT SIDE: card grid content for each section
+3. NO code terminal/code block sections
+4. REAL official logos for all frameworks/platforms
+5. Agent Skills: OpenClaw, ZeroClaw, PicoClaw, Nanobot, NanoClaw
+6. RAG框架: Dify, LangChain, RAGFlow, Flowise, LlamaIndex, DSPy, LightRAG, Haystack, LLMWare (9 items)
+7. 应用与工作流: Coze, n8n, FastGPT, Cherry Studio, Sider, 和鲸科学平台, 钉钉, 智能数据平台 (8 items)
+8. Keep Agent/Developer toggle in hero area
+9. Professional SaaS B2B enterprise style
