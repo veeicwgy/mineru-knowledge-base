@@ -1,0 +1,14 @@
+Design Reference from mineru.net/ecosystem:
+
+1. Background: Pure white (#FFFFFF)
+2. Navigation: Clean top nav with "Home | API | Client | Eco-Community" tabs, dark text on white bg
+3. Hero: Simple centered text - "MinerU Partners" as H1, subtitle below, two CTA buttons (dark primary + outline)
+4. Filter tabs: "All | Plugins | Applications" - simple text tabs with underline indicator
+5. Cards: White cards with subtle border/shadow, 3-column grid
+   - Each card has: Logo icon (colored), Title, Description, Action links with arrow
+   - Clean, minimal design with plenty of whitespace
+6. Card style: Rounded corners, light gray border, hover shadow effect
+7. Typography: Clean sans-serif, black text for titles, gray for descriptions
+8. Overall feel: Very clean, professional, minimal - white space dominant
+9. Color accents: Minimal - mostly through partner logos and CTA buttons
+10. Brand colors: Black primary button, red accent in logo

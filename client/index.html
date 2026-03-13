@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="zh-CN">
-
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>MinerU Agent Skills - 面向大模型与 Agent 的官方文档解析插件</title>
-    <meta name="description" content="MinerU 官方提供的 Agent 技能中心。支持 OpenClaw、Nanobot、ZeroClaw 等主流框架。只需一行代码，即可为您的 Agent 接入双模式（免登录快速版/高精度完整版）的文档解析 Tool Calling 能力。" />
-    <meta name="keywords" content="MinerU, Agent Skills, 文档解析, Tool Calling, LLM, AI Agent, OpenClaw, Nanobot, 免登录, 双模式" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>MinerU Ecosystem - 面向大模型与 Agent 的全场景文档解析基建</title>
+    <meta name="description" content="MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot 等），深度集成主流 RAG 框架（LangChain, LlamaIndex），并通过插件无缝对接 Dify, Coze, n8n 等工作流平台。" />
+    <meta name="keywords" content="MinerU, Agent Skills, 文档解析, PDF解析, RAG, LangChain, LlamaIndex, Dify, Coze, n8n, Tool Calling, 免登录, 双模式, OpenClaw, Nanobot" />
+    <link rel="canonical" href="https://mineru.net/ecosystem" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="skills" href="/skills.txt" type="text/plain" />
+    <link rel="llms" href="/skills.txt" type="text/plain" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -19,11 +19,17 @@
       "name": "MinerU Agent Skills",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Cross-platform",
-      "description": "面向大模型与 Agent 的官方文档解析插件，支持多框架适配",
+      "description": "MinerU 官方生态中心。提供原生 Agent Skills，深度集成主流 RAG 框架，并通过插件无缝对接工作流平台。",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "CNY"
+        "priceCurrency": "USD",
+        "description": "免登录极速版，每日 50 万页免费额度"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "OpenDataLab",
+        "url": "https://github.com/opendatalab/MinerU"
       }
     }
     </script>
@@ -34,10 +40,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "我需要注册账号才能让 Agent 使用这些 Skill 吗？",
+          "name": "需要注册账号才能让 Agent 使用吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "不需要。所有官方 Skill 默认支持"免登录极速版"。该通道每天为每个虚拟设备提供 50 万页的免费解析额度，仅提取基础文本，速度极快，是 Agent 试用和日常工作流的绝佳选择。"
+            "text": "不需要。默认支持免登录极速版，每天提供 50 万页免费额度，仅提取基础文本，速度极快。"
           }
         },
         {
@@ -45,31 +51,29 @@
           "name": "如何切换为支持复杂公式和表格的完整版？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "我们的 Skill 采用统一维护设计。您只需在初始化参数中传入 API Key，并将 mode 设为 precise，技能会自动切换至完整版，为您结构化输出纯净的 Markdown 和 LaTeX 数据。"
+            "text": "将 Skill 的 mode 参数设为 precise 并传入 API Key，即可结构化输出纯净 Markdown/LaTeX。"
           }
         },
         {
           "@type": "Question",
-          "name": "如果遇到超大文件（页数超限）Agent 会怎样处理？",
+          "name": "文件超限时 Agent 会怎样处理？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MinerU 的 API 和 Skill 均内置了面向 Agent 友好的异常处理 (agent_instruction)。当文件超限时，不会导致崩溃，而是会以自然语言引导 Agent 在本地进行切割 (Chunking) 后循环重试。"
+            "text": "接口内置面向 Agent 友好的异常处理。文件超限时不会崩溃，而是返回指令引导 Agent 在本地切割后重试。"
           }
         },
         {
           "@type": "Question",
-          "name": "如何将我自己开发的框架接入 MinerU？",
+          "name": "如何将自己开发的框架接入 MinerU？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "我们的核心库和适配器架构完全开源。您可以在 GitHub 获取 MinerU OpenAPI 规范，快速将其封装到您自己的项目中，并提交到生态市场。"
+            "text": "核心库和适配器架构完全开源。您可以在 GitHub 获取 MinerU OpenAPI 规范，快速封装到您自己的项目中。"
           }
         }
       ]
     }
     </script>
-    <link rel="alternate" type="text/plain" href="/skills.txt" title="AI Skills Manifest" />
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
@@ -78,5 +82,4 @@
       src="%VITE_ANALYTICS_ENDPOINT%/umami"
       data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
-
 </html>

@@ -1,24 +1,32 @@
-# MinerU Agent Skills - AI Manifest
-# Version: 1.0
+# MinerU Ecosystem — AI Manifest
+# Version: 2.0
 # Last Updated: 2026-03-13
 
 ## Overview
-MinerU Agent Skills provide document parsing capabilities for AI agents.
-Supports dual-mode: fast (no-login, 500K pages/day free) and precise (API key required).
+MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot 等），深度集成主流 RAG 框架（LangChain, LlamaIndex），并通过插件无缝对接 Dify, Coze, n8n 等工作流平台。
 
-## Supported Frameworks
-- Nanobot (Python): pip install mineru-parse-py
+## Tab 1: Agent Skills 技能中心
+面向 Agent 开发者。通过 Tool Calling 标准协议，将 MinerU 文档解析能力 Skill 化。
 - OpenClaw (Node.js): npm install mineru-parse
-- NanoClaw (TypeScript): npm install mineru-parse-nano
 - ZeroClaw (Rust): cargo add mineru-parse-rs
+- Nanobot (Python): pip install mineru-parse-py
+- NanoClaw (TypeScript): npm install mineru-parse-nano
 - PicoClaw (Go): go get github.com/opendatalab/mineru-parse-go
+特性：免登录极速版（每日 50 万页免费额度）、高精度版（API Key 开启公式/表格还原）、双模一键切换。
 
-## Distribution Channels
-- ClawHub
-- PyPI
-- npm
-- crates.io
-- GitHub
+## Tab 2: 核心数据编排框架
+面向算法/AI 工程师。纯代码级 Document Loader 接入。
+- LangChain: from langchain_community.document_loaders import MineruLoader
+- LlamaIndex: MineruPDFReader 替代方案
+- DSPy: 标准化 LaTeX/Markdown Ground Truth
+- LightRAG: 高纯净文本与精准上下文边界
+- Haystack / LLMWare: 模块化 Pipeline Converter 组件
+
+## Tab 3: 平台、应用与自动化
+面向产品经理/业务开发者。以插件、节点、可视化拖拽为主。
+知识库与 RAG 平台：Dify, RAGFlow, Flowise, FastGPT
+智能体与工作流：Coze, n8n
+办公应用与企业工具：钉钉 DLU, Cherry Studio, 和鲸科学平台, Sider
 
 ## Capabilities
 - PDF, DOC, DOCX, PPT, PPTX, PNG, JPG parsing

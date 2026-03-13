@@ -1,40 +1,49 @@
 /*
- * Design: Obsidian Gradient — Footer
- * 简洁的底部区域，品牌信息 + 链接
+ * Design: MinerU Ecosystem — Clean Footer
+ * White background, minimal, matching mineru.net style
  */
+import { ExternalLink } from "lucide-react";
+
+const links = [
+  { label: "GitHub", href: "https://github.com/opendatalab/MinerU" },
+  { label: "OpenAPI 规范", href: "#" },
+  { label: "文档中心", href: "#" },
+  { label: "ClawHub", href: "#" },
+];
+
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/5 bg-[#050510]">
-      <div className="container py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="border-t border-gray-200 bg-white">
+      <div className="container py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Brand */}
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-              <span className="text-white font-bold text-xs" style={{ fontFamily: 'var(--font-display)' }}>M</span>
+            <div className="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center">
+              <span className="text-white font-bold text-xs">U</span>
             </div>
-            <span className="text-sm font-semibold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+            <span className="text-sm font-semibold text-gray-900" style={{ fontFamily: "var(--font-display)" }}>
               MinerU Agent Skills
             </span>
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-6 text-sm text-slate-500">
-            <a href="https://github.com/opendatalab/MinerU" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">
-              GitHub
-            </a>
-            <a href="#" className="hover:text-slate-300 transition-colors">
-              OpenAPI 规范
-            </a>
-            <a href="#" className="hover:text-slate-300 transition-colors">
-              文档中心
-            </a>
-            <a href="#" className="hover:text-slate-300 transition-colors">
-              ClawHub
-            </a>
+          <div className="flex items-center gap-6">
+            {links.map((link, i) => (
+              <a
+                key={i}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-500 hover:text-gray-900 transition-colors inline-flex items-center gap-1"
+              >
+                {link.label}
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            ))}
           </div>
 
           {/* Copyright */}
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-gray-400">
             &copy; {new Date().getFullYear()} OpenDataLab. All rights reserved.
           </p>
         </div>
