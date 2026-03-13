@@ -8,10 +8,10 @@ export interface SkillItem {
   id: string;
   name: string;
   description: string;
+  highlight?: string;
   logo: string;
   logoFallback?: string;
   tags?: string[];
-  badges?: string[];
   installCmd: string;
   registry?: string;
 }
@@ -20,6 +20,7 @@ export interface RAGItem {
   id: string;
   name: string;
   description: string;
+  highlight?: string;
   logo: string;
   logoFallback?: string;
   code?: string;
@@ -31,6 +32,7 @@ export interface AppItem {
   id: string;
   name: string;
   description: string;
+  highlight?: string;
   logo: string;
   logoFallback?: string;
   guideUrl: string;
@@ -57,7 +59,8 @@ export const agentSkills: SkillItem[] = [
   {
     id: "openclaw",
     name: "OpenClaw",
-    description: "主流 Node.js Agent 框架的官方推荐解析插件，提交至 openclaw SDK。",
+    description: "主流 Node.js Agent 框架的官方推荐解析插件，提交至 openclaw SDK。支持 PDF、DOCX、PPT 等多格式文档的结构化提取，输出标准 Markdown 与 JSON。",
+    highlight: "Node.js 生态首选",
     logo: lobe("openclaw"),
     tags: ["Node.js", "OpenAPI"],
     installCmd: "npm install mineru-parse",
@@ -66,7 +69,8 @@ export const agentSkills: SkillItem[] = [
   {
     id: "zeroclaw",
     name: "ZeroClaw",
-    description: "Rust 原生实现，极低的内存与资源占用开销，完美适配边缘设备。",
+    description: "Rust 原生实现，极低的内存与资源占用开销，完美适配边缘设备与嵌入式场景。支持 WASM 编译，可在浏览器端运行文档解析。",
+    highlight: "边缘计算首选",
     logo: "",
     logoFallback: "#E44D26",
     tags: ["Rust", "Edge"],
@@ -76,7 +80,8 @@ export const agentSkills: SkillItem[] = [
   {
     id: "nanobot",
     name: "Nanobot",
-    description: "专为 Python 生态 Agent 打造，原生支持主流的智能体编排工作流。",
+    description: "专为 Python 生态 Agent 打造，原生支持 LangChain、AutoGen 等主流智能体编排工作流。内置免登录快速版与 API Key 高精度版双模式。",
+    highlight: "Python 生态首选",
     logo: "",
     logoFallback: "#3776AB",
     tags: ["Python", "LangChain"],
@@ -86,7 +91,8 @@ export const agentSkills: SkillItem[] = [
   {
     id: "nanoclaw",
     name: "NanoClaw",
-    description: "轻量级 TypeScript 框架，导出符合 NanoClaw Skill 规范的工具函数。",
+    description: "轻量级 TypeScript 框架，导出符合 NanoClaw Skill 规范的工具函数。完美适配 Vercel AI SDK 与 Tool Calling 标准协议。",
+    highlight: "TypeScript 生态首选",
     logo: "",
     logoFallback: "#3178C6",
     tags: ["TypeScript", "Tool Calling"],
@@ -96,7 +102,8 @@ export const agentSkills: SkillItem[] = [
   {
     id: "picoclaw",
     name: "PicoClaw",
-    description: "专为 Go 语言轻量级 Agent 提供的解析模块，支持高并发数据流转。",
+    description: "专为 Go 语言轻量级 Agent 提供的解析模块，支持高并发数据流转与 goroutine 安全调用。适合微服务架构下的批量文档处理。",
+    highlight: "Go 生态首选",
     logo: "",
     logoFallback: "#00ADD8",
     tags: ["Go", "高并发"],
@@ -196,7 +203,8 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "langchain",
     name: "LangChain",
-    description: "解决默认 Loader 遇到图表即乱码的痛点。配合 MarkdownHeaderTextSplitter 彻底消除按字数切片导致的语义割裂。",
+    description: "解决默认 Loader 遇到图表即乱码的痛点。配合 MarkdownHeaderTextSplitter 按标题层级智能切片，彻底消除按字数硬切导致的语义割裂问题。",
+    highlight: "官方推荐 Loader",
     logo: lobe("langchain"),
     code: "from langchain_community.document_loaders import MineruLoader",
     guideLabel: "查看指南",
@@ -205,7 +213,8 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "llamaindex",
     name: "LlamaIndex",
-    description: "完美的 PDFReader 替代方案。将双栏论文转化为结构化 Document，精准执行基于 Node 的分层索引。",
+    description: "完美的 PDFReader 替代方案。将双栏论文转化为结构化 Document，精准执行基于 Node 的分层索引，保留完整的标题与段落层级关系。",
+    highlight: "PDFReader 替代方案",
     logo: lobe("llamaindex"),
     code: 'loader = MineruPDFReader(api_key="KEY", mode="precise")',
     guideLabel: "查看指南",
@@ -214,48 +223,55 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "dspy",
     name: "DSPy",
-    description: "在基于程序的 Prompt 优化中，提供标准化的 LaTeX 与 Markdown 输出，提供最稳定的 Ground Truth 数据源。",
+    description: "在基于程序的 Prompt 优化中，提供标准化的 LaTeX 与 Markdown 输出，为模型微调与评估提供最稳定的 Ground Truth 数据源。",
+    highlight: "Ground Truth 数据源",
     logo: "",
     logoFallback: "#FF6B35",
-    guideLabel: "获取 DSPy 集成代码片段",
+    guideLabel: "获取集成代码片段",
     guideUrl: "#",
   },
   {
     id: "lightrag",
     name: "LightRAG",
-    description: "提供高纯净文本与精准上下文边界，极大降低大规模文档场景下图增强检索（实体关系抽取）的错误率。",
+    description: "提供高纯净文本与精准上下文边界，极大降低大规模文档场景下图增强检索（实体关系抽取）的错误率，提升知识图谱构建质量。",
+    highlight: "图增强检索优化",
     logo: "",
     logoFallback: "#10B981",
   },
   {
     id: "haystack",
     name: "Haystack",
-    description: "在模块化 Pipeline 中充当核心 Converter 组件，支持本地与企业级合规数据管道。",
+    description: "在模块化 Pipeline 中充当核心 Converter 组件，将 PDF/DOCX 等文档转化为干净的 Markdown，支持本地与企业级合规数据管道。",
+    highlight: "Pipeline 核心组件",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/haystack-logo_e76a3214.jpg",
   },
   {
     id: "llmware",
     name: "LLMWare",
-    description: "专为企业级 RAG 场景设计的端到端框架，内置高效文档解析与向量化流水线，支持完全私有化部署。",
+    description: "专为企业级 RAG 场景设计的端到端框架，内置高效文档解析与向量化流水线，支持完全私有化部署与合规审计。",
+    highlight: "企业级私有化部署",
     logo: "",
     logoFallback: "#7C3AED",
   },
   {
     id: "dify",
     name: "Dify",
-    description: "作为核心预处理节点或官方插件，将图文混排文档一站式转化为高质量问答知识库。",
+    description: "作为核心预处理节点或官方插件，将图文混排文档一站式转化为高质量问答知识库。支持 PDF、PPT、图片等多格式自动解析入库。",
+    highlight: "知识库预处理首选",
     logo: lobe("dify"),
   },
   {
     id: "ragflow",
     name: "RAGFlow",
-    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析。",
+    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析，支持复杂表格与多栏布局的高保真还原。",
+    highlight: "深度版面分析引擎",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
   },
   {
     id: "flowise",
     name: "Flowise",
-    description: "提供开箱即用的拖拽式 Document Loader 节点，极速赋予 Agent 阅读复杂文档的能力。",
+    description: "提供开箱即用的拖拽式 Document Loader 节点，极速赋予 Agent 阅读复杂文档的能力。零代码即可完成文档解析工作流搭建。",
+    highlight: "零代码拖拽接入",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
   },
 ];
@@ -265,7 +281,8 @@ export const appWorkflows: AppItem[] = [
   {
     id: "coze",
     name: "Coze",
-    description: "以官方插件无缝接入智能体，赋予大模型直接阅读复杂排版文档的能力。",
+    description: "以官方插件无缝接入智能体，赋予大模型直接阅读复杂排版文档的能力。支持 PDF、图片、网页等多格式解析，一键生成结构化知识。",
+    highlight: "官方插件 + 智能体",
     logo: lobe("coze"),
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Coze/",
     links: [
@@ -276,7 +293,8 @@ export const appWorkflows: AppItem[] = [
   {
     id: "n8n",
     name: "n8n",
-    description: "提供自动化专属节点，融入无人值守的高频工作流，支持批量与免登录调用。",
+    description: "提供自动化专属节点，融入无人值守的高频工作流。支持批量文档处理与免登录调用，适合企业级文档数字化自动化流水线。",
+    highlight: "自动化工作流节点",
     logo: lobe("n8n"),
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/n8n/",
     links: [
@@ -286,7 +304,8 @@ export const appWorkflows: AppItem[] = [
   {
     id: "fastgpt",
     name: "FastGPT",
-    description: "原生集成至平台工具链，为知识库提供纯净 Markdown 文本，提升检索精度。",
+    description: "原生集成至平台工具链，为知识库提供纯净 Markdown 文本，显著提升检索精度与问答质量。支持自动文档分块与索引构建。",
+    highlight: "知识库原生集成",
     logo: lobe("fastgpt"),
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/FastGPT/",
     links: [
@@ -296,35 +315,40 @@ export const appWorkflows: AppItem[] = [
   {
     id: "dingtalk",
     name: "钉钉",
-    description: "基于 MinerU 打造企业级解析工具，提供高精度的多模态文档数字化与结构化方案。",
+    description: "基于 MinerU 打造企业级解析工具，提供高精度的多模态文档数字化与结构化方案。支持合同、发票、报告等企业文档的智能提取。",
+    highlight: "企业级文档数字化",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/dingtalk-logo_f83f9ed8.jpg",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/DingTalk/",
   },
   {
     id: "cherrystudio",
     name: "Cherry Studio",
-    description: "深度对接大模型对话交互，精准提取图表与公式，消除 AI 对复杂数据的幻觉。",
+    description: "深度对接大模型对话交互，精准提取图表与公式，消除 AI 对复杂数据的幻觉。支持论文、技术文档的结构化解析与知识问答。",
+    highlight: "大模型对话增强",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/cherry-studio-logo_32366999.jpg",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Cherry_Studio/",
   },
   {
     id: "hejing",
     name: "和鲸科学平台",
-    description: "接入平台智能工具模块，为科研模型与 Agent 提供高精度的论文与公式解析支持。",
+    description: "接入平台智能工具模块，为科研模型与 Agent 提供高精度的论文与公式解析支持。助力学术研究中的文献综述与数据提取自动化。",
+    highlight: "科研论文解析",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/heywhale-logo_835dc2d9.png",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/ModelWhale/",
   },
   {
     id: "sider",
     name: "Sider",
-    description: "深度集成至 Wisebase 知识库，为多模态智能问答提供极速、无损的文档结构化转换。",
+    description: "深度集成至 Wisebase 知识库，为多模态智能问答提供极速、无损的文档结构化转换。支持浏览器侧边栏一键解析网页与文档。",
+    highlight: "浏览器侧边栏集成",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/sider-logo_d51d9ab0.jpg",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Sider/",
   },
   {
     id: "smartdata",
     name: "智能数据平台",
-    description: "原生集成至核心知识库，自动化处理海量多模态文档，输出标准机器可读数据。",
+    description: "原生集成至核心知识库，自动化处理海量多模态文档，输出标准机器可读数据。支持批量文档的结构化转换与数据治理流程。",
+    highlight: "数据治理自动化",
     logo: "",
     logoFallback: "#8B5CF6",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/DataFlow/",
@@ -332,7 +356,8 @@ export const appWorkflows: AppItem[] = [
   {
     id: "ragflow-app",
     name: "RAGFlow",
-    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析。",
+    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析。支持复杂表格、公式与多栏布局的高保真还原。",
+    highlight: "GraphRAG 深度集成",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/RagFlow/",
   },

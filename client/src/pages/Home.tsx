@@ -230,7 +230,7 @@ function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (
       <div className="flex items-center gap-2.5 mb-4">
         <div className="w-1 h-5 rounded-full bg-blue-500" />
         <Code2 className="w-5 h-5 text-slate-700" />
-        <h2 className="text-lg font-bold text-slate-900">只需几行代码，让您的 Agent 读懂世界</h2>
+        <h2 className="text-xl font-bold text-slate-900">只需几行代码，让您的 Agent 读懂世界</h2>
       </div>
 
       <div className="bg-slate-50/80 border border-slate-200/80 rounded-2xl overflow-hidden">
@@ -264,7 +264,7 @@ function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (
             transition={{ duration: 0.15 }}
           >
             <pre className="p-5 overflow-x-auto">
-              <code className="text-[13px] font-mono text-slate-700 leading-relaxed whitespace-pre">
+              <code className="text-[14px] font-mono text-slate-700 leading-relaxed whitespace-pre">
                 {example.code.split('\n').map((line, i) => {
                   // Simple syntax highlighting for light theme
                   if (line.trim().startsWith('#') || line.trim().startsWith('//')) {
@@ -316,7 +316,7 @@ function FAQSection() {
       <div className="flex items-center gap-2.5 mb-4">
         <div className="w-1 h-5 rounded-full bg-blue-500" />
         <BookOpen className="w-5 h-5 text-slate-700" />
-        <h2 className="text-lg font-bold text-slate-900">开发者 FAQ</h2>
+        <h2 className="text-xl font-bold text-slate-900">开发者 FAQ</h2>
       </div>
 
       <div className="space-y-6">
@@ -339,7 +339,7 @@ function FAQSection() {
                       onClick={() => toggle(key)}
                       className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
                     >
-                      <span className="text-[14px] font-medium text-slate-800 leading-snug">{faq.q}</span>
+                      <span className="text-[15px] font-medium text-slate-800 leading-snug">{faq.q}</span>
                       <ChevronDown
                         className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
                           isOpen ? "rotate-180" : ""
@@ -355,7 +355,7 @@ function FAQSection() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-4 text-[13px] text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+                          <div className="px-5 pb-4 text-[14px] text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
                             {faq.a}
                           </div>
                         </motion.div>
@@ -381,22 +381,29 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white border border-slate-200/80 rounded-2xl p-5 hover:border-slate-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className="group bg-white border border-slate-200/80 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
-      <div className="flex items-start gap-3.5 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
+      <div className="flex items-start gap-4 mb-3">
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-[16px] font-semibold text-slate-900 mb-1">{item.name}</h3>
-          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-3">{item.description}</p>
+          <h3 className="text-lg font-bold text-slate-900 mb-1">{item.name}</h3>
+          {item.highlight && (
+            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mb-1">
+              {item.highlight}
+            </span>
+          )}
         </div>
       </div>
+
+      {/* Description */}
+      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
 
       {/* Code snippet — Light theme */}
       {item.code && (
         <div className="mt-auto pt-3">
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
-            <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <code className="text-[12px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3.5 py-3">
+            <Terminal className="w-4 h-4 text-slate-400 shrink-0" />
+            <code className="text-[13px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
             <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
           </div>
         </div>
@@ -409,10 +416,10 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
             href={item.guideUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
           >
             {item.guideLabel}
-            <ExternalLink className="w-3 h-3" />
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
       )}
@@ -651,7 +658,7 @@ export default function Home() {
                       <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
                         {info.title}
                       </h1>
-                      <p className="text-[14px] text-slate-500 leading-relaxed max-w-2xl">
+                      <p className="text-[15px] text-slate-500 leading-relaxed max-w-2xl">
                         {info.subtitle}
                       </p>
                     </div>

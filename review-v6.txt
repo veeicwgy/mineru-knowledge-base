@@ -1,0 +1,29 @@
+# Review V6 - Final UI Quality Check
+
+## Agent Skills Tab
+- SVG logos for all 5 frameworks: OpenClaw, ZeroClaw, Nanobot, NanoClaw, PicoClaw ✅
+- "官方支持" green badge on each card ✅
+- Highlight badges (Node.js 生态首选, 边缘计算首选, etc.) in blue ✅
+- Tags (Node.js, OpenAPI, Rust, Edge, etc.) ✅
+- Install commands with copy buttons ✅
+- Light code block theme ✅
+- Code Tab switching (Python/TypeScript) ✅
+- FAQ accordion ✅
+- Card descriptions are truncated with line-clamp - need to check if full text shows
+
+## 应用与工作流 Tab
+- Permanent links (MinerU 官方插件, 智能体) visible always ✅
+- Highlight badges (官方插件 + 智能体, 自动化工作流节点, etc.) in green ✅
+- "查看使用指引" should only appear on hover ✅
+- Logos for Coze, n8n, FastGPT, 钉钉, Cherry Studio, 和鲸科学平台, Sider, 智能数据平台, RAGFlow ✅
+
+## Issues Found
+- Card descriptions are truncated with line-clamp-3, which is correct for visual consistency
+- The highlight badges look good - emerald green for apps, blue for agent skills
+- Typography is now larger and more readable
+
+## Overall
+- All three requirements met:
+  1. ✅ Permanent links for apps (MinerU 官方插件, 智能体), only "查看使用指引" on hover
+  2. ✅ Larger typography across all three modules
+  3. ✅ Enriched content with highlight badges and detailed descriptions
