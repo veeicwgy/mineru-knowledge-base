@@ -542,7 +542,7 @@ export default function Home() {
     },
     rag: {
       title: "RAG 框架集成",
-      subtitle: "深度适配主流 RAG 与数据编排框架，在最前置的数据清洗阶段完成高保真文本转换。",
+      subtitle: "无缝接入 LangChain、Dify、RAGFlow、Flowise 等主流框架，从文档解析到知识库构建一站式打通。",
       accent: "from-violet-500 to-purple-400",
     },
     apps: {
