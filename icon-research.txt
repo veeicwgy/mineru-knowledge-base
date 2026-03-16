@@ -1,0 +1,21 @@
+Icon Research Results - 2026-03-16
+
+1. OpenClaw: Red crab/lobster mascot character (round body, antennae, cyan eyes)
+   - Best icon: /home/ubuntu/upload/search_images/v0DBRLoXnXp4.webp (512x512 clean icon)
+   
+2. ZeroClaw: Blue ice dragon/mechanical creature with "ZEROCLAW" text
+   - Best icon: /home/ubuntu/upload/search_images/XCkccFnGyxsV.webp (300x300 clean)
+   - Alt: /home/ubuntu/upload/search_images/q3pV58uOqAb7.png (800x800)
+
+3. NanoClaw: Teal/turquoise crab mascot (cute, with antennae/claws)
+   - Best icon: from search result index 2 - /home/ubuntu/upload/search_images/UPz9iUyrv50D.png
+
+4. Nanobot: Red robot icon with crown, square face
+   - Best icon: /home/ubuntu/upload/search_images/fLctxhUnNgWT.png (2134x2134 official from nanobot.ai)
+   - Alt: /home/ubuntu/upload/search_images/pG0tIohJFJH4.png (banner)
+
+5. PicoClaw: Red crab/shrimp mascot with "Let's Go" text
+   - Best icon: /home/ubuntu/upload/search_images/eRKZD6sqUZrF.jpg (from search)
+   - The mascot is a red crab/shrimp character
+
+Plan: Upload all 5 icons using manus-upload-file --webdev and use CDN URLs in code.

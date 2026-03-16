@@ -3,9 +3,11 @@
  * 左侧固定导航 + 右侧内容滚动
  * 模块：Agent Skills / CLI/SDK / RAG 框架 / 应用与工作流
  * 侧边栏底部：开发者 FAQ + API 文档
+ * 支持亮色/暗黑模式切换
  */
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
@@ -17,13 +19,11 @@ import {
   type SkillItem,
   type RAGItem,
   type AppItem,
-  type CLICommandGroup,
 } from "@/data/ecosystem";
 import {
   Bot,
   Wrench,
   LayoutGrid,
-  Search,
   Copy,
   Check,
   ExternalLink,
@@ -38,6 +38,21 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+/* ─── CDN Icon URLs for Agent Skills ─── */
+const ICON_OPENCLAW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/v0DBRLoXnXp4_cecf1c2f.webp";
+const ICON_ZEROCLAW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/XCkccFnGyxsV_2e1821b7.webp";
+const ICON_NANOCLAW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/UPz9iUyrv50D_94226b7d.png";
+const ICON_NANOBOT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/fLctxhUnNgWT_c334d931.png";
+const ICON_PICOCLAW = "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/eRKZD6sqUZrF_f97608ed.jpg";
+
+const skillIconMap: Record<string, string> = {
+  openclaw: ICON_OPENCLAW,
+  zeroclaw: ICON_ZEROCLAW,
+  nanoclaw: ICON_NANOCLAW,
+  nanobot: ICON_NANOBOT,
+  picoclaw: ICON_PICOCLAW,
+};
+
 /* ─── Sidebar Modules ─── */
 const modules = [
   { id: "skills", label: "Agent Skills", icon: Bot, count: agentSkills.length },
@@ -46,7 +61,7 @@ const modules = [
   { id: "apps", label: "应用与工作流", icon: LayoutGrid, count: appWorkflows.length },
 ] as const;
 
-type ModuleId = (typeof modules)[number]["id"];
+type ModuleId = (typeof modules)[number]["id"] | "faq";
 
 /* ─── Copy Helper ─── */
 function useCopy() {
@@ -60,74 +75,8 @@ function useCopy() {
   return { copiedId, copy };
 }
 
-/* ─── SVG Logos for Agent Skills ─── */
-function OpenClawLogo({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="40" height="40" rx="10" fill="#0F172A"/>
-      <path d="M12 14h16v2H12zM12 19h12v2H12zM12 24h14v2H12z" fill="#38BDF8"/>
-      <circle cx="30" cy="15" r="3" fill="#22D3EE"/>
-      <path d="M27 22l4 4-4 4" stroke="#22D3EE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
-function ZeroClawLogo({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="40" height="40" rx="10" fill="#7C2D12"/>
-      <path d="M13 13h14l-14 14h14" stroke="#FB923C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <circle cx="28" cy="13" r="2" fill="#FDBA74"/>
-      <circle cx="13" cy="27" r="2" fill="#FDBA74"/>
-    </svg>
-  );
-}
-
-function NanobotLogo({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="40" height="40" rx="10" fill="#1E3A5F"/>
-      <circle cx="20" cy="18" r="6" stroke="#60A5FA" strokeWidth="2"/>
-      <path d="M16 26c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round"/>
-      <circle cx="18" cy="17" r="1.5" fill="#93C5FD"/>
-      <circle cx="22" cy="17" r="1.5" fill="#93C5FD"/>
-      <path d="M20 10v-2M14 12l-1.5-1.5M26 12l1.5-1.5" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round"/>
-      <rect x="14" y="29" width="12" height="2" rx="1" fill="#3B82F6"/>
-    </svg>
-  );
-}
-
-function NanoClawLogo({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="40" height="40" rx="10" fill="#1E3A8A"/>
-      <path d="M14 28V12l6 16 6-16v16" stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <rect x="11" y="10" width="18" height="2" rx="1" fill="#93C5FD"/>
-    </svg>
-  );
-}
-
-function PicoClawLogo({ size = 40 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="40" height="40" rx="10" fill="#065F46"/>
-      <path d="M20 10l8 5v10l-8 5-8-5V15l8-5z" stroke="#34D399" strokeWidth="2" strokeLinejoin="round"/>
-      <path d="M20 15l4 2.5v5L20 25l-4-2.5v-5L20 15z" fill="#6EE7B7" fillOpacity="0.4"/>
-      <circle cx="20" cy="20" r="2" fill="#34D399"/>
-    </svg>
-  );
-}
-
-const skillLogos: Record<string, React.FC<{ size?: number }>> = {
-  openclaw: OpenClawLogo,
-  zeroclaw: ZeroClawLogo,
-  nanobot: NanobotLogo,
-  nanoclaw: NanoClawLogo,
-  picoclaw: PicoClawLogo,
-};
-
-/* ─── Logo Component for RAG & Apps ─── */
-function LogoIcon({ src, fallback, name, size = 40 }: { src: string; fallback?: string; name: string; size?: number }) {
+/* ─── Logo Component ─── */
+function LogoIcon({ src, fallback, name, size = 40, isDark }: { src: string; fallback?: string; name: string; size?: number; isDark?: boolean }) {
   const [error, setError] = useState(false);
   if (!src || error) {
     return (
@@ -145,21 +94,25 @@ function LogoIcon({ src, fallback, name, size = 40 }: { src: string; fallback?: 
       alt={`${name} logo`}
       width={size}
       height={size}
-      className="rounded-xl shrink-0 object-contain bg-white"
+      className={`rounded-xl shrink-0 object-contain ${isDark ? "bg-slate-700" : "bg-white"}`}
       onError={() => setError(true)}
     />
   );
 }
 
 /* ─── CopyButton ─── */
-function CopyButton({ text, id, copiedId, onCopy }: {
-  text: string; id: string; copiedId: string | null; onCopy: (text: string, id: string) => void;
+function CopyButton({ text, id, copiedId, onCopy, isDark }: {
+  text: string; id: string; copiedId: string | null; onCopy: (text: string, id: string) => void; isDark?: boolean;
 }) {
   const isCopied = copiedId === id;
   return (
     <button
       onClick={() => onCopy(text, id)}
-      className="p-1.5 rounded-md hover:bg-slate-200/60 text-slate-400 hover:text-slate-600 transition-colors"
+      className={`p-1.5 rounded-md transition-colors ${
+        isDark
+          ? "hover:bg-slate-600/60 text-slate-500 hover:text-slate-300"
+          : "hover:bg-slate-200/60 text-slate-400 hover:text-slate-600"
+      }`}
       title="复制"
     >
       {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
@@ -168,64 +121,72 @@ function CopyButton({ text, id, copiedId, onCopy }: {
 }
 
 /* ═══════════════════════════════════════════════════════
-   Module 1: Agent Skills
+   Module 1: Agent Skills (no installCmd / code)
    ═══════════════════════════════════════════════════════ */
-function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: string | null; onCopy: (t: string, id: string) => void }) {
-  const LogoComponent = skillLogos[item.id];
+function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
+  const iconUrl = skillIconMap[item.id];
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className={`group rounded-2xl p-6 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full ${
+        isDark
+          ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+          : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+      }`}
     >
       <div className="flex items-start gap-4 mb-4">
-        {LogoComponent ? (
-          <div className="shrink-0"><LogoComponent size={44} /></div>
+        {iconUrl ? (
+          <img src={iconUrl} alt={`${item.name} logo`} className="w-11 h-11 rounded-xl shrink-0 object-contain" />
         ) : (
-          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
+          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-lg font-bold text-slate-900 truncate">{item.name}</h3>
-            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60">
+            <h3 className={`text-lg font-bold truncate ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
+            <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+              isDark
+                ? "bg-emerald-900/40 text-emerald-400 border-emerald-700/60"
+                : "bg-emerald-50 text-emerald-600 border-emerald-200/60"
+            }`}>
               官方支持
             </span>
           </div>
           {item.registry && (
-            <p className="text-sm text-slate-400 mb-1">{item.registry}</p>
+            <p className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>{item.registry}</p>
           )}
         </div>
       </div>
 
       {item.highlight && (
         <div className="mb-3">
-          <span className="text-[12px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-blue-600 border border-blue-100">
+          <span className={`text-[12px] font-semibold px-2.5 py-1 rounded-md border ${
+            isDark
+              ? "bg-blue-900/30 text-blue-400 border-blue-700/50"
+              : "bg-blue-50 text-blue-600 border-blue-100"
+          }`}>
             {item.highlight}
           </span>
         </div>
       )}
 
-      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
+      <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
       {item.tags && item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mt-auto">
           {item.tags.map((tag) => (
-            <span key={tag} className="text-[13px] font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
+            <span key={tag} className={`text-[13px] font-medium px-2.5 py-1 rounded-md ${
+              isDark
+                ? "bg-slate-700/60 text-slate-400"
+                : "bg-slate-100 text-slate-600"
+            }`}>
               {tag}
             </span>
           ))}
         </div>
       )}
-
-      <div className="mt-auto pt-4 border-t border-slate-100">
-        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3.5 py-3">
-          <Terminal className="w-4 h-4 text-slate-400 shrink-0" />
-          <code className="text-[13px] font-mono text-slate-700 flex-1 truncate">{item.installCmd}</code>
-          <CopyButton text={item.installCmd} id={`install-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
-        </div>
-      </div>
     </motion.div>
   );
 }
@@ -233,7 +194,7 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
 /* ═══════════════════════════════════════════════════════
    Module: CLI/SDK
    ═══════════════════════════════════════════════════════ */
-function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t: string, id: string) => void }) {
+function CLISection({ copiedId, onCopy, isDark }: { copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
   const [activeTabs, setActiveTabs] = useState<Record<string, number>>({});
 
   const getActiveTab = (groupId: string) => activeTabs[groupId] || 0;
@@ -249,26 +210,30 @@ function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t:
           const activeTab = group.tabs[activeIdx];
 
           return (
-            <div key={group.id} className="bg-white/95 border border-slate-200/60 rounded-2xl overflow-hidden">
-              {/* Group Header */}
+            <div key={group.id} className={`rounded-2xl overflow-hidden border ${
+              isDark
+                ? "bg-slate-800/80 border-slate-700/60"
+                : "bg-white/95 border-slate-200/60"
+            }`}>
               <div className="px-6 pt-6 pb-4">
                 <div className="flex items-center gap-2.5 mb-2">
-                  <FileCode2 className="w-5 h-5 text-indigo-500" />
-                  <h2 className="text-lg font-bold text-slate-900">{group.title}</h2>
+                  <FileCode2 className={`w-5 h-5 ${isDark ? "text-indigo-400" : "text-indigo-500"}`} />
+                  <h2 className={`text-lg font-bold ${isDark ? "text-slate-100" : "text-slate-900"}`}>{group.title}</h2>
                 </div>
-                <p className="text-[14px] text-slate-500 leading-relaxed">{group.description}</p>
+                <p className={`text-[14px] leading-relaxed ${isDark ? "text-slate-400" : "text-slate-500"}`}>{group.description}</p>
               </div>
 
-              {/* Tab bar */}
-              <div className="flex items-center border-y border-slate-200/80 px-6 bg-slate-50/50">
+              <div className={`flex items-center border-y px-6 ${
+                isDark ? "border-slate-700/80 bg-slate-800/50" : "border-slate-200/80 bg-slate-50/50"
+              }`}>
                 {group.tabs.map((tab, i) => (
                   <button
                     key={tab.label}
                     onClick={() => setActiveTab(group.id, i)}
                     className={`px-4 py-3 text-[13px] font-medium border-b-2 transition-all ${
                       i === activeIdx
-                        ? "border-indigo-500 text-indigo-600"
-                        : "border-transparent text-slate-400 hover:text-slate-600"
+                        ? isDark ? "border-indigo-400 text-indigo-400" : "border-indigo-500 text-indigo-600"
+                        : isDark ? "border-transparent text-slate-500 hover:text-slate-300" : "border-transparent text-slate-400 hover:text-slate-600"
                     }`}
                   >
                     {tab.label}
@@ -276,7 +241,6 @@ function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t:
                 ))}
               </div>
 
-              {/* Commands */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${group.id}-${activeIdx}`}
@@ -287,17 +251,23 @@ function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t:
                   className="p-6 space-y-3"
                 >
                   {activeTab.commands.map((cmd, cmdIdx) => (
-                    <div key={cmdIdx} className="group/cmd">
-                      <p className="text-[12px] text-slate-400 font-medium mb-1.5 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 inline-block" />
+                    <div key={cmdIdx}>
+                      <p className={`text-[12px] font-medium mb-1.5 flex items-center gap-1.5 ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full inline-block ${isDark ? "bg-indigo-400" : "bg-indigo-400"}`} />
                         {cmd.description}
                       </p>
-                      <div className="flex items-start gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-4 py-3">
-                        <Terminal className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                        <pre className="text-[13px] font-mono text-slate-700 flex-1 overflow-x-auto whitespace-pre-wrap break-all leading-relaxed">
+                      <div className={`flex items-start gap-2 rounded-lg px-4 py-3 border ${
+                        isDark
+                          ? "bg-slate-900/60 border-slate-700/80"
+                          : "bg-slate-50 border-slate-200/80"
+                      }`}>
+                        <Terminal className={`w-4 h-4 shrink-0 mt-0.5 ${isDark ? "text-slate-500" : "text-slate-400"}`} />
+                        <pre className={`text-[13px] font-mono flex-1 overflow-x-auto whitespace-pre-wrap break-all leading-relaxed ${
+                          isDark ? "text-slate-300" : "text-slate-700"
+                        }`}>
                           {cmd.code}
                         </pre>
-                        <CopyButton text={cmd.code} id={`cli-${group.id}-${activeIdx}-${cmdIdx}`} copiedId={copiedId} onCopy={onCopy} />
+                        <CopyButton text={cmd.code} id={`cli-${group.id}-${activeIdx}-${cmdIdx}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
                       </div>
                     </div>
                   ))}
@@ -311,8 +281,8 @@ function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t:
   );
 }
 
-/* ─── FAQ Accordion (Sidebar Bottom) ─── */
-function FAQSection() {
+/* ─── FAQ Accordion ─── */
+function FAQSection({ isDark }: { isDark: boolean }) {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
   const toggle = (key: string) => {
@@ -329,7 +299,9 @@ function FAQSection() {
       <div className="space-y-6">
         {faqCategories.map((cat) => (
           <div key={cat.title}>
-            <h3 className="text-[13px] font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <h3 className={`text-[13px] font-semibold uppercase tracking-wider mb-3 flex items-center gap-2 ${
+              isDark ? "text-slate-500" : "text-slate-400"
+            }`}>
               <Sparkles className="w-3.5 h-3.5" />
               {cat.title}
             </h3>
@@ -340,17 +312,21 @@ function FAQSection() {
                 return (
                   <div
                     key={key}
-                    className="border border-slate-200/60 rounded-xl bg-white/95 overflow-hidden hover:border-slate-300 transition-colors"
+                    className={`border rounded-xl overflow-hidden transition-colors ${
+                      isDark
+                        ? "border-slate-700/60 bg-slate-800/80 hover:border-slate-600"
+                        : "border-slate-200/60 bg-white/95 hover:border-slate-300"
+                    }`}
                   >
                     <button
                       onClick={() => toggle(key)}
                       className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
                     >
-                      <span className="text-[14px] font-medium text-slate-800 leading-snug">{faq.q}</span>
+                      <span className={`text-[14px] font-medium leading-snug ${isDark ? "text-slate-200" : "text-slate-800"}`}>{faq.q}</span>
                       <ChevronDown
-                        className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+                          isDark ? "text-slate-500" : "text-slate-400"
+                        } ${isOpen ? "rotate-180" : ""}`}
                       />
                     </button>
                     <AnimatePresence initial={false}>
@@ -362,7 +338,9 @@ function FAQSection() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-4 text-[13px] text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+                          <div className={`px-5 pb-4 text-[13px] leading-relaxed border-t pt-3 ${
+                            isDark ? "text-slate-400 border-slate-700" : "text-slate-500 border-slate-100"
+                          }`}>
                             {faq.a}
                           </div>
                         </motion.div>
@@ -382,34 +360,42 @@ function FAQSection() {
 /* ═══════════════════════════════════════════════════════
    Module 2: RAG 框架
    ═══════════════════════════════════════════════════════ */
-function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string | null; onCopy: (t: string, id: string) => void }) {
+function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className={`group rounded-2xl p-6 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full ${
+        isDark
+          ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+          : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+      }`}
     >
       <div className="flex items-start gap-3.5 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-slate-900 truncate">{item.name}</h3>
+          <h3 className={`text-lg font-bold truncate ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
           {item.highlight && (
-            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mt-1">
+            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border mt-1 ${
+              isDark
+                ? "bg-violet-900/30 text-violet-400 border-violet-700/50"
+                : "bg-violet-50 text-violet-600 border-violet-100"
+            }`}>
               {item.highlight}
             </span>
           )}
         </div>
       </div>
 
-      <p className="text-[14px] text-slate-600 leading-relaxed mb-3">{item.description}</p>
+      <p className={`text-[14px] leading-relaxed mb-3 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
       {item.features && item.features.length > 0 && (
         <div className="space-y-1.5 mb-3">
           {item.features.map((feat, i) => (
             <div key={i} className="flex items-start gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-              <span className="text-[13px] text-slate-500 leading-snug">{feat}</span>
+              <span className={`text-[13px] leading-snug ${isDark ? "text-slate-400" : "text-slate-500"}`}>{feat}</span>
             </div>
           ))}
         </div>
@@ -418,7 +404,11 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       {item.tags && item.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-3">
           {item.tags.map((tag) => (
-            <span key={tag} className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 border border-slate-200/60">
+            <span key={tag} className={`text-[11px] font-medium px-2 py-0.5 rounded-md border ${
+              isDark
+                ? "bg-slate-700/60 text-slate-400 border-slate-600/60"
+                : "bg-slate-100 text-slate-500 border-slate-200/60"
+            }`}>
               {tag}
             </span>
           ))}
@@ -427,15 +417,19 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
 
       {item.code && (
         <div className="mb-3">
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
-            <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <code className="text-[12px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
-            <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
+          <div className={`flex items-center gap-2 rounded-lg px-3 py-2.5 border ${
+            isDark
+              ? "bg-slate-900/60 border-slate-700/80"
+              : "bg-slate-50 border-slate-200/80"
+          }`}>
+            <Terminal className={`w-3.5 h-3.5 shrink-0 ${isDark ? "text-slate-500" : "text-slate-400"}`} />
+            <code className={`text-[12px] font-mono flex-1 truncate ${isDark ? "text-slate-300" : "text-slate-600"}`}>{item.code}</code>
+            <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
           </div>
         </div>
       )}
 
-      <div className="mt-auto pt-3 border-t border-slate-100 space-y-2.5">
+      <div className={`mt-auto pt-3 border-t space-y-2.5 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.links && item.links.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {item.links.map((link) => (
@@ -444,7 +438,11 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[12px] font-medium px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 transition-colors"
+                className={`inline-flex items-center gap-1.5 text-[12px] font-medium px-2.5 py-1.5 rounded-lg border transition-colors ${
+                  isDark
+                    ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
+                    : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
+                }`}
               >
                 <Github className="w-3 h-3" />
                 {link.label}
@@ -458,7 +456,9 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
             href={item.guideUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className={`inline-flex items-center gap-1.5 text-[13px] font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 ${
+              isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"
+            }`}
           >
             {item.guideLabel}
             <ExternalLink className="w-3 h-3" />
@@ -472,29 +472,37 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
 /* ═══════════════════════════════════════════════════════
    Module 3: 应用与工作流
    ═══════════════════════════════════════════════════════ */
-function AppCard({ item }: { item: AppItem }) {
+function AppCard({ item, isDark }: { item: AppItem; isDark: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className={`group rounded-2xl p-6 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full ${
+        isDark
+          ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+          : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+      }`}
     >
       <div className="flex items-start gap-4 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-slate-900 mb-1">{item.name}</h3>
+          <h3 className={`text-lg font-bold mb-1 ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
           {item.highlight && (
-            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-100">
+            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border ${
+              isDark
+                ? "bg-emerald-900/30 text-emerald-400 border-emerald-700/50"
+                : "bg-emerald-50 text-emerald-600 border-emerald-100"
+            }`}>
               {item.highlight}
             </span>
           )}
         </div>
       </div>
 
-      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
+      <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
-      <div className="mt-auto pt-4 border-t border-slate-100 space-y-3">
+      <div className={`mt-auto pt-4 border-t space-y-3 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.links && item.links.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {item.links.map((link) => (
@@ -503,7 +511,11 @@ function AppCard({ item }: { item: AppItem }) {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 transition-colors"
+                className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border transition-colors ${
+                  isDark
+                    ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
+                    : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
+                }`}
               >
                 {link.label}
                 <ExternalLink className="w-3 h-3" />
@@ -515,7 +527,9 @@ function AppCard({ item }: { item: AppItem }) {
           href={item.guideUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[14px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
+          className={`inline-flex items-center gap-1.5 text-[14px] font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 ${
+            isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"
+          }`}
         >
           查看使用指引
           <ExternalLink className="w-3.5 h-3.5" />
@@ -530,38 +544,10 @@ function AppCard({ item }: { item: AppItem }) {
    ═══════════════════════════════════════════════════════ */
 export default function Home() {
   const [activeModule, setActiveModule] = useState<ModuleId>("skills");
-  const [searchQuery, setSearchQuery] = useState("");
   const { copiedId, copy } = useCopy();
   const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        document.getElementById("search-input")?.focus();
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
-
-  const filteredSkills = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return agentSkills;
-    return agentSkills.filter((i) => i.name.toLowerCase().includes(q) || i.description.toLowerCase().includes(q));
-  }, [searchQuery]);
-
-  const filteredRAG = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return ragFrameworks;
-    return ragFrameworks.filter((i) => i.name.toLowerCase().includes(q) || i.description.toLowerCase().includes(q));
-  }, [searchQuery]);
-
-  const filteredApps = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return appWorkflows;
-    return appWorkflows.filter((i) => i.name.toLowerCase().includes(q) || i.description.toLowerCase().includes(q));
-  }, [searchQuery]);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const moduleInfo: Record<ModuleId, { title: string; subtitle: string; accent: string }> = {
     skills: {
@@ -584,26 +570,40 @@ export default function Home() {
       subtitle: "与知名平台深度集成，通过插件、节点或内置引擎的方式，让 MinerU 融入您的生产力工具链。",
       accent: "from-emerald-500 to-teal-400",
     },
+    faq: {
+      title: "开发者 FAQ",
+      subtitle: "常见问题解答，帮助您快速了解 MinerU 的接入方式、计费规则与技术能力。",
+      accent: "from-amber-500 to-orange-400",
+    },
   };
 
   const info = moduleInfo[activeModule];
 
   const switchModule = (id: ModuleId) => {
     setActiveModule(id);
-    setSearchQuery("");
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#f0f4f9] via-[#f4f7fb] to-[#edf1f8]">
+    <div className={`min-h-screen flex flex-col ${
+      isDark
+        ? "bg-gradient-to-br from-[#0f1219] via-[#131825] to-[#0e1420]"
+        : "bg-gradient-to-br from-[#f0f4f9] via-[#f4f7fb] to-[#edf1f8]"
+    }`}>
       <Navbar />
 
       <div className="flex-grow pt-16">
         <div className="flex h-[calc(100vh-64px)]">
           {/* ─── Left Sidebar ─── */}
-          <aside className="hidden md:flex flex-col w-[220px] shrink-0 border-r border-slate-200/50 bg-white/70 backdrop-blur-sm">
+          <aside className={`hidden md:flex flex-col w-[220px] shrink-0 border-r backdrop-blur-sm ${
+            isDark
+              ? "border-slate-700/50 bg-[#151827]/70"
+              : "border-slate-200/50 bg-white/70"
+          }`}>
             <div className="p-4 flex-1">
-              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-3 px-2">
+              <p className={`text-[11px] font-semibold uppercase tracking-wider mb-3 px-2 ${
+                isDark ? "text-slate-500" : "text-slate-400"
+              }`}>
                 生态模块
               </p>
               <nav className="flex flex-col gap-0.5">
@@ -616,21 +616,23 @@ export default function Home() {
                       onClick={() => switchModule(mod.id)}
                       className={`relative flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-150 text-left ${
                         isActive
-                          ? "bg-blue-50 text-blue-700"
-                          : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+                          ? isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-50 text-blue-700"
+                          : isDark ? "text-slate-400 hover:bg-slate-800/60 hover:text-slate-200" : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                       }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="sidebar-indicator"
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-blue-500"
+                          className={`absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full ${isDark ? "bg-blue-400" : "bg-blue-500"}`}
                           transition={{ type: "spring", stiffness: 500, damping: 35 }}
                         />
                       )}
-                      <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-500" : ""}`} />
+                      <Icon className={`w-4 h-4 shrink-0 ${isActive ? (isDark ? "text-blue-400" : "text-blue-500") : ""}`} />
                       <span>{mod.label}</span>
                       {mod.count !== null && (
-                        <span className={`ml-auto text-[11px] font-semibold ${isActive ? "text-blue-400" : "text-slate-300"}`}>
+                        <span className={`ml-auto text-[11px] font-semibold ${
+                          isActive ? (isDark ? "text-blue-500" : "text-blue-400") : (isDark ? "text-slate-600" : "text-slate-300")
+                        }`}>
                           {mod.count}
                         </span>
                       )}
@@ -641,13 +643,13 @@ export default function Home() {
             </div>
 
             {/* Sidebar bottom: FAQ + API 文档 */}
-            <div className="p-4 border-t border-slate-100">
+            <div className={`p-4 border-t ${isDark ? "border-slate-700/50" : "border-slate-100"}`}>
               <button
-                onClick={() => switchModule("faq" as ModuleId)}
+                onClick={() => switchModule("faq")}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] w-full text-left transition-colors ${
-                  activeModule === ("faq" as ModuleId)
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                  activeModule === "faq"
+                    ? isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-50 text-blue-700"
+                    : isDark ? "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60" : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                 }`}
               >
                 <HelpCircle className="w-4 h-4" />
@@ -657,7 +659,9 @@ export default function Home() {
                 href="https://mineru.net/docs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-colors"
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] transition-colors ${
+                  isDark ? "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60" : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                }`}
               >
                 <BookOpen className="w-4 h-4" />
                 API 文档
@@ -669,7 +673,9 @@ export default function Home() {
           {/* ─── Right Content ─── */}
           <main ref={contentRef} className="flex-1 min-w-0 overflow-y-auto">
             {/* Mobile module switcher */}
-            <div className="md:hidden flex items-center gap-1 p-3 border-b border-slate-200 bg-white overflow-x-auto sticky top-0 z-10">
+            <div className={`md:hidden flex items-center gap-1 p-3 border-b overflow-x-auto sticky top-0 z-10 ${
+              isDark ? "border-slate-700 bg-[#151827]" : "border-slate-200 bg-white"
+            }`}>
               {modules.map((mod) => {
                 const Icon = mod.icon;
                 const isActive = activeModule === mod.id;
@@ -678,7 +684,9 @@ export default function Home() {
                     key={mod.id}
                     onClick={() => switchModule(mod.id)}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium whitespace-nowrap transition-all ${
-                      isActive ? "bg-blue-50 text-blue-700" : "text-slate-500 hover:bg-slate-50"
+                      isActive
+                        ? isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-50 text-blue-700"
+                        : isDark ? "text-slate-400 hover:bg-slate-800" : "text-slate-500 hover:bg-slate-50"
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -687,9 +695,11 @@ export default function Home() {
                 );
               })}
               <button
-                onClick={() => switchModule("faq" as ModuleId)}
+                onClick={() => switchModule("faq")}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium whitespace-nowrap transition-all ${
-                  activeModule === ("faq" as ModuleId) ? "bg-blue-50 text-blue-700" : "text-slate-500 hover:bg-slate-50"
+                  activeModule === "faq"
+                    ? isDark ? "bg-blue-900/30 text-blue-400" : "bg-blue-50 text-blue-700"
+                    : isDark ? "text-slate-400 hover:bg-slate-800" : "text-slate-500 hover:bg-slate-50"
                 }`}
               >
                 <HelpCircle className="w-3.5 h-3.5" />
@@ -707,71 +717,45 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="mb-6 pb-6 border-b border-slate-200/70"
+                  className={`mb-6 pb-6 border-b ${isDark ? "border-slate-700/70" : "border-slate-200/70"}`}
                 >
                   <div className="flex items-start gap-3">
-                    <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${info?.accent || "from-blue-500 to-cyan-400"} shrink-0 mt-1`} />
+                    <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${info.accent} shrink-0 mt-1`} />
                     <div>
-                      <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-                        {info?.title || "开发者 FAQ"}
+                      <h1 className={`text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 ${isDark ? "text-slate-100" : "text-slate-900"}`}>
+                        {info.title}
                       </h1>
-                      <p className="text-[14px] text-slate-500 leading-relaxed max-w-2xl">
-                        {info?.subtitle || "常见问题解答，帮助您快速了解 MinerU 的接入方式、计费规则与技术能力。"}
+                      <p className={`text-[14px] leading-relaxed max-w-2xl ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                        {info.subtitle}
                       </p>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Search bar (hide for FAQ) */}
-              {activeModule !== ("faq" as ModuleId) && (
-                <div className="relative mb-6 max-w-xl">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    id="search-input"
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="搜索名称、描述或关键词..."
-                    className="w-full pl-10 pr-20 py-2.5 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all"
-                  />
-                  <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 font-mono">
-                    Ctrl K
-                  </kbd>
-                </div>
-              )}
-
               {/* ─── Agent Skills Content ─── */}
               {activeModule === "skills" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                    {filteredSkills.length > 0 ? (
-                      filteredSkills.map((item) => (
-                        <SkillCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} />
-                      ))
-                    ) : (
-                      <EmptyState />
-                    )}
+                    {agentSkills.map((item) => (
+                      <SkillCard key={item.id} item={item} isDark={isDark} />
+                    ))}
                   </div>
                 </motion.div>
               )}
 
               {/* ─── CLI/SDK Content ─── */}
               {activeModule === "cli" && (
-                <CLISection copiedId={copiedId} onCopy={copy} />
+                <CLISection copiedId={copiedId} onCopy={copy} isDark={isDark} />
               )}
 
               {/* ─── RAG Content ─── */}
               {activeModule === "rag" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                    {filteredRAG.length > 0 ? (
-                      filteredRAG.map((item) => (
-                        <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} />
-                      ))
-                    ) : (
-                      <EmptyState />
-                    )}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {ragFrameworks.map((item) => (
+                      <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -780,20 +764,16 @@ export default function Home() {
               {activeModule === "apps" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                    {filteredApps.length > 0 ? (
-                      filteredApps.map((item) => (
-                        <AppCard key={item.id} item={item} />
-                      ))
-                    ) : (
-                      <EmptyState />
-                    )}
+                    {appWorkflows.map((item) => (
+                      <AppCard key={item.id} item={item} isDark={isDark} />
+                    ))}
                   </div>
                 </motion.div>
               )}
 
               {/* ─── FAQ Content ─── */}
-              {activeModule === ("faq" as ModuleId) && (
-                <FAQSection />
+              {activeModule === "faq" && (
+                <FAQSection isDark={isDark} />
               )}
             </div>
 
@@ -801,16 +781,6 @@ export default function Home() {
           </main>
         </div>
       </div>
-    </div>
-  );
-}
-
-/* ─── Empty State ─── */
-function EmptyState() {
-  return (
-    <div className="col-span-full py-20 text-center">
-      <Search className="w-10 h-10 mx-auto text-slate-300 mb-3" />
-      <p className="text-sm text-slate-400">未找到匹配的结果，请尝试其他关键词。</p>
     </div>
   );
 }

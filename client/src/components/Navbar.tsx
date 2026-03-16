@@ -1,9 +1,10 @@
 /*
  * MinerU 生态与社区 — 顶部导航栏
- * 1:1 还原 mineru.net 官方导航栏设计：
- * 左侧 Logo + 中间胶囊菜单（首页/API/客户端/生态与社区）+ 右侧操作按钮组
+ * 1:1 还原 mineru.net 官方导航栏设计
+ * 左侧 Logo + 中间胶囊菜单 + 右侧操作按钮组（含暗黑模式切换）
  */
 import { useState, useEffect } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const MINERU_ICON =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/EjrS6V4Yvl4f_743d5ccc.png";
@@ -17,6 +18,8 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -28,37 +31,41 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 h-16 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+          ? isDark
+            ? "bg-[#1a1d2e]/90 backdrop-blur-xl border-b border-slate-700/60 shadow-[0_1px_3px_rgba(0,0,0,0.3)]"
+            : "bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
           : "bg-transparent"
       }`}
     >
       <div className="h-full max-w-[1440px] mx-auto px-5 lg:px-8 flex items-center justify-between">
-        {/* ─── Left: Logo ─── */}
+        {/* Left: Logo */}
         <a
           href="https://mineru.net"
           className="flex items-center gap-2.5 hover:opacity-80 transition-opacity shrink-0"
         >
-          <img
-            src={MINERU_ICON}
-            alt="MinerU"
-            className="w-7 h-7 object-contain"
-          />
-          <span className="text-[17px] font-extrabold text-slate-900 tracking-tight">
+          <img src={MINERU_ICON} alt="MinerU" className="w-7 h-7 object-contain" />
+          <span className={`text-[17px] font-extrabold tracking-tight ${isDark ? "text-slate-100" : "text-slate-900"}`}>
             MinerU
           </span>
         </a>
 
-        {/* ─── Center: Capsule Menu ─── */}
+        {/* Center: Capsule Menu */}
         <div className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-0.5 bg-white/80 backdrop-blur-md border border-slate-200/70 rounded-full px-1.5 py-1 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+          <div className={`flex items-center gap-0.5 backdrop-blur-md border rounded-full px-1.5 py-1 shadow-[0_1px_4px_rgba(0,0,0,0.04)] ${
+            isDark
+              ? "bg-slate-800/80 border-slate-700/70"
+              : "bg-white/80 border-slate-200/70"
+          }`}>
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 className={`px-4 py-1.5 rounded-full text-[13.5px] transition-all duration-150 whitespace-nowrap ${
                   link.active
-                    ? "font-bold text-slate-900"
-                    : "font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-50/80"
+                    ? isDark ? "font-bold text-slate-100" : "font-bold text-slate-900"
+                    : isDark
+                      ? "font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                      : "font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-50/80"
                 }`}
               >
                 {link.label}
@@ -67,22 +74,37 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ─── Right: Action Buttons ─── */}
+        {/* Right: Action Buttons */}
         <div className="flex items-center gap-2">
           {/* Dark mode toggle */}
           <button
-            className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
-            title="深色模式"
-            onClick={() => {}}
+            className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
+              isDark
+                ? "text-amber-400 hover:text-amber-300 hover:bg-slate-700/60"
+                : "text-slate-500 hover:text-slate-800 hover:bg-slate-100/60"
+            }`}
+            title={isDark ? "切换亮色模式" : "切换深色模式"}
+            onClick={toggleTheme}
           >
-            <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            {isDark ? (
+              <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
           </button>
 
           {/* Language switch */}
           <button
-            className="hidden sm:flex items-center justify-center px-2 h-8 rounded-full text-[13px] font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            className={`hidden sm:flex items-center justify-center px-2 h-8 rounded-full text-[13px] font-semibold transition-colors ${
+              isDark
+                ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/60"
+                : "text-slate-500 hover:text-slate-800 hover:bg-slate-100/60"
+            }`}
             title="Switch Language"
             onClick={() => {}}
           >
@@ -94,7 +116,11 @@ export default function Navbar() {
             href="https://github.com/opendatalab/MinerU"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
+              isDark
+                ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/60"
+                : "text-slate-500 hover:text-slate-800 hover:bg-slate-100/60"
+            }`}
             title="GitHub"
           >
             <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
@@ -105,17 +131,25 @@ export default function Navbar() {
           {/* 在线使用 button */}
           <a
             href="https://mineru.net"
-            className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-slate-300 text-[13px] font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-all"
+            className={`hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full border text-[13px] font-medium transition-all ${
+              isDark
+                ? "border-slate-600 text-slate-300 hover:border-slate-500 hover:bg-slate-800"
+                : "border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-50"
+            }`}
           >
             在线使用
-            <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className={`w-3 h-3 ${isDark ? "text-slate-500" : "text-slate-400"}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
 
           {/* User avatar */}
           <button
-            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
+              isDark
+                ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/60"
+                : "text-slate-500 hover:text-slate-800 hover:bg-slate-100/60"
+            }`}
             title="用户"
             onClick={() => {}}
           >
@@ -127,17 +161,21 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ─── Mobile: Bottom capsule menu ─── */}
+      {/* Mobile: Bottom capsule menu */}
       <div className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-0.5 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-full px-2 py-1 shadow-lg">
+        <div className={`flex items-center gap-0.5 backdrop-blur-xl border rounded-full px-2 py-1 shadow-lg ${
+          isDark
+            ? "bg-slate-800/95 border-slate-700/70"
+            : "bg-white/95 border-slate-200/70"
+        }`}>
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               className={`px-3 py-1.5 rounded-full text-[12px] transition-all ${
                 link.active
-                  ? "font-bold text-slate-900 bg-slate-100/80"
-                  : "font-medium text-slate-500"
+                  ? isDark ? "font-bold text-slate-100 bg-slate-700/80" : "font-bold text-slate-900 bg-slate-100/80"
+                  : isDark ? "font-medium text-slate-400" : "font-medium text-slate-500"
               }`}
             >
               {link.label}

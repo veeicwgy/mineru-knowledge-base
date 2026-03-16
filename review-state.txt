@@ -1,0 +1,8 @@
+Light mode review:
+- Navbar: MinerU logo + capsule menu + action buttons - all correct
+- Sidebar: Agent Skills(5), CLI/SDK, RAG框架(4), 应用与工作流(8), 开发者FAQ, API文档 - correct structure
+- Agent Skills cards: No search bar, no installCmd code - correct
+- Cards show official platform icons (OpenClaw red octopus, ZeroClaw blue crab, Nanobot red robot, NanoClaw gray, PicoClaw gray)
+- Background: light blue-gray gradient - correct
+- Section header has gradient accent bar on left - correct
+- Need to test: dark mode toggle, CLI/SDK page, RAG page, Apps page, FAQ page
