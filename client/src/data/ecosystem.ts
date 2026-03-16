@@ -53,6 +53,21 @@ export interface CodeExample {
   code: string;
 }
 
+/* MCP Client Types */
+export interface MCPIntegrationTab {
+  label: string;
+  description: string;
+  code: string;
+  lang: string;
+}
+
+export interface MCPClientData {
+  title: string;
+  description: string;
+  workflowSteps: { step: string; detail: string }[];
+  integrations: MCPIntegrationTab[];
+}
+
 /* CLI/SDK Command Types */
 export interface CLICommandGroup {
   id: string;
@@ -392,6 +407,32 @@ export const cliSdkGroups: CLICommandGroup[] = [
     ]
   }
 ];
+
+/* ─── MCP Client Data ─── */
+export const mcpClientData: MCPClientData = {
+  title: "MinerU MCP Client",
+  description: "作为大模型（如 Cursor、Claude Desktop）调用 MinerU 解析服务的标准化客户端。大模型将用户指令分析为参数（文件路径、页码范围、输出格式等），通过 MCP 协议传递给 MinerU MCP Server，Server 完成解析后将结构化结果返回至大模型客户端。",
+  workflowSteps: [
+    { step: "用户指令", detail: "用户在大模型客户端中输入自然语言指令，如'解析这份 PDF 的第 3-5 页'" },
+    { step: "参数解析", detail: "大模型将指令分析为结构化参数：文件路径、页码范围、输出格式等" },
+    { step: "MCP 调用", detail: "参数通过 MCP 协议传递给 MinerU MCP Server 执行解析" },
+    { step: "结果返回", detail: "解析完成后，结构化 Markdown/JSON 结果返回至大模型客户端" },
+  ],
+  integrations: [
+    {
+      label: "Cursor 集成",
+      description: "在 Cursor 的 MCP 配置文件中添加 MinerU MCP Server：",
+      lang: "json",
+      code: `{\n  "mcpServers": {\n    "mineru": {\n      "command": "uvx",\n      "args": [\n        "mineru-mcp"\n      ],\n      "env": {\n        "MINERU_API_KEY": "YOUR_API_KEY"\n      }\n    }\n  }\n}`,
+    },
+    {
+      label: "通用集成",
+      description: "适用于任何支持 MCP 协议的大模型客户端（Claude Desktop、Windsurf 等）：",
+      lang: "bash",
+      code: `# 安装 MinerU MCP Server\npip install mineru-mcp\n\n# 启动 MCP Server（stdio 模式）\nmineru-mcp --api-key YOUR_API_KEY\n\n# 或通过环境变量配置\nexport MINERU_API_KEY="YOUR_API_KEY"\nmineru-mcp`,
+    },
+  ],
+};
 
 /* ─── Module 3: 应用与工作流 ─── */
 export const appWorkflows: AppItem[] = [

@@ -16,6 +16,7 @@ import {
   appWorkflows,
   cliSdkGroups,
   faqCategories,
+  mcpClientData,
   type SkillItem,
   type RAGItem,
   type AppItem,
@@ -55,7 +56,7 @@ const skillIconMap: Record<string, string> = {
 
 /* ─── Sidebar Modules ─── */
 const modules = [
-  { id: "skills", label: "Agent Skills", icon: Bot, count: agentSkills.length },
+  { id: "skills", label: "Skills & MCP", icon: Bot, count: agentSkills.length },
   { id: "cli", label: "CLI/SDK", icon: Terminal, count: null },
   { id: "rag", label: "RAG 框架", icon: Wrench, count: ragFrameworks.length },
   { id: "apps", label: "应用与工作流", icon: LayoutGrid, count: appWorkflows.length },
@@ -278,6 +279,143 @@ function CLISection({ copiedId, onCopy, isDark }: { copiedId: string | null; onC
         })}
       </div>
     </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   MCP Client Section
+   ═══════════════════════════════════════════════════════ */
+function MCPSection({ copiedId, onCopy, isDark }: { copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const activeIntegration = mcpClientData.integrations[activeTab];
+
+  return (
+    <div className="mt-10">
+      {/* Section Divider */}
+      <div className={`flex items-center gap-3 mb-6 pb-4 border-b ${
+        isDark ? "border-slate-700/70" : "border-slate-200/70"
+      }`}>
+        <div className={`w-1 h-7 rounded-full bg-gradient-to-b from-purple-500 to-indigo-400 shrink-0`} />
+        <div>
+          <h2 className={`text-xl font-extrabold tracking-tight ${
+            isDark ? "text-slate-100" : "text-slate-900"
+          }`}>
+            {mcpClientData.title}
+          </h2>
+          <p className={`text-[13px] leading-relaxed mt-1 max-w-2xl ${
+            isDark ? "text-slate-400" : "text-slate-500"
+          }`}>
+            {mcpClientData.description}
+          </p>
+        </div>
+      </div>
+
+      {/* Workflow Steps */}
+      <div className={`rounded-2xl border p-6 mb-6 ${
+        isDark
+          ? "bg-slate-800/80 border-slate-700/60"
+          : "bg-white/95 border-slate-200/60"
+      }`}>
+        <h3 className={`text-[13px] font-semibold uppercase tracking-wider mb-4 flex items-center gap-2 ${
+          isDark ? "text-slate-500" : "text-slate-400"
+        }`}>
+          <Sparkles className="w-3.5 h-3.5" />
+          工作流程
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {mcpClientData.workflowSteps.map((ws, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-[12px] font-bold shrink-0 ${
+                isDark
+                  ? "bg-indigo-900/40 text-indigo-400 border border-indigo-700/50"
+                  : "bg-indigo-50 text-indigo-600 border border-indigo-100"
+              }`}>
+                {i + 1}
+              </div>
+              <div>
+                <p className={`text-[13px] font-semibold mb-0.5 ${
+                  isDark ? "text-slate-200" : "text-slate-800"
+                }`}>{ws.step}</p>
+                <p className={`text-[12px] leading-relaxed ${
+                  isDark ? "text-slate-500" : "text-slate-400"
+                }`}>{ws.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Integration Tabs */}
+      <div className={`rounded-2xl overflow-hidden border ${
+        isDark
+          ? "bg-slate-800/80 border-slate-700/60"
+          : "bg-white/95 border-slate-200/60"
+      }`}>
+        <div className="px-6 pt-5 pb-3">
+          <h3 className={`text-[15px] font-bold ${
+            isDark ? "text-slate-100" : "text-slate-900"
+          }`}>集成示例</h3>
+        </div>
+
+        <div className={`flex items-center border-y px-6 ${
+          isDark ? "border-slate-700/80 bg-slate-800/50" : "border-slate-200/80 bg-slate-50/50"
+        }`}>
+          {mcpClientData.integrations.map((tab, i) => (
+            <button
+              key={tab.label}
+              onClick={() => setActiveTab(i)}
+              className={`px-4 py-3 text-[13px] font-medium border-b-2 transition-all ${
+                i === activeTab
+                  ? isDark ? "border-indigo-400 text-indigo-400" : "border-indigo-500 text-indigo-600"
+                  : isDark ? "border-transparent text-slate-500 hover:text-slate-300" : "border-transparent text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="p-6"
+          >
+            <p className={`text-[13px] mb-4 ${
+              isDark ? "text-slate-400" : "text-slate-500"
+            }`}>{activeIntegration.description}</p>
+            <div className={`relative rounded-lg border overflow-hidden ${
+              isDark
+                ? "bg-slate-900/60 border-slate-700/80"
+                : "bg-slate-50 border-slate-200/80"
+            }`}>
+              <div className={`flex items-center justify-between px-4 py-2 border-b ${
+                isDark ? "border-slate-700/80" : "border-slate-200/80"
+              }`}>
+                <span className={`text-[11px] font-mono uppercase tracking-wider ${
+                  isDark ? "text-slate-500" : "text-slate-400"
+                }`}>{activeIntegration.lang}</span>
+                <CopyButton
+                  text={activeIntegration.code}
+                  id={`mcp-${activeTab}`}
+                  copiedId={copiedId}
+                  onCopy={onCopy}
+                  isDark={isDark}
+                />
+              </div>
+              <pre className={`px-4 py-4 text-[13px] font-mono leading-relaxed overflow-x-auto ${
+                isDark ? "text-slate-300" : "text-slate-700"
+              }`}>
+                {activeIntegration.code}
+              </pre>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }
 
@@ -551,8 +689,8 @@ export default function Home() {
 
   const moduleInfo: Record<ModuleId, { title: string; subtitle: string; accent: string }> = {
     skills: {
-      title: "Agent Skills 技能中心",
-      subtitle: "MinerU 官方支持的 5 大 Agent 框架解析技能，覆盖 Node.js / Python / TypeScript / Rust / Go 全语言生态。",
+      title: "Skills & MCP",
+      subtitle: "MinerU 官方支持的 Agent 框架技能与 MCP Client 集成，覆盖全语言生态与主流大模型客户端。",
       accent: "from-blue-500 to-cyan-400",
     },
     cli: {
@@ -733,14 +871,18 @@ export default function Home() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* ─── Agent Skills Content ─── */}
+              {/* ─── Skills & MCP Content ─── */}
               {activeModule === "skills" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+                  {/* Agent Skills Cards */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                     {agentSkills.map((item) => (
                       <SkillCard key={item.id} item={item} isDark={isDark} />
                     ))}
                   </div>
+
+                  {/* MCP Client Section */}
+                  <MCPSection copiedId={copiedId} onCopy={copy} isDark={isDark} />
                 </motion.div>
               )}
 
