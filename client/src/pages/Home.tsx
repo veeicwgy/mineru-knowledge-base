@@ -31,6 +31,9 @@ import {
   Code2,
   BookOpen,
   Sparkles,
+  Github,
+  CheckCircle2,
+  Tag,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -392,23 +395,50 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-5 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
+      {/* Header: Logo + Name + Highlight */}
       <div className="flex items-start gap-3.5 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-xl font-bold text-slate-900 truncate">{item.name}</h3>
+          <h3 className="text-lg font-bold text-slate-900 truncate">{item.name}</h3>
           {item.highlight && (
-            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mt-0.5">
+            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mt-1">
               {item.highlight}
             </span>
           )}
         </div>
       </div>
 
+      {/* Description */}
+      <p className="text-[14px] text-slate-600 leading-relaxed mb-3">{item.description}</p>
+
+      {/* Features list */}
+      {item.features && item.features.length > 0 && (
+        <div className="space-y-1.5 mb-3">
+          {item.features.map((feat, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+              <span className="text-[13px] text-slate-500 leading-snug">{feat}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Tags */}
+      {item.tags && item.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {item.tags.map((tag) => (
+            <span key={tag} className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 border border-slate-200/60">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       {/* Code snippet — Light theme */}
       {item.code && (
-        <div className="mt-auto pt-3">
+        <div className="mb-3">
           <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
             <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <code className="text-[12px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
@@ -417,9 +447,26 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         </div>
       )}
 
-      {/* Guide button — Hidden by default, visible on hover */}
-      {item.guideLabel && item.guideUrl && (
-        <div className={`${item.code ? "mt-3" : "mt-auto pt-3"}`}>
+      {/* Links & Guide — Bottom section */}
+      <div className="mt-auto pt-3 border-t border-slate-100 space-y-2.5">
+        {item.links && item.links.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {item.links.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[12px] font-medium px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 transition-colors"
+              >
+                <Github className="w-3 h-3" />
+                {link.label}
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+            ))}
+          </div>
+        )}
+        {item.guideLabel && item.guideUrl && (
           <a
             href={item.guideUrl}
             target="_blank"
@@ -429,8 +476,8 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
             {item.guideLabel}
             <ExternalLink className="w-3 h-3" />
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </motion.div>
   );
 }

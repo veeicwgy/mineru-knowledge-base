@@ -1,0 +1,30 @@
+RAG 框架集成调研结果：
+
+1. Dify
+   - GitHub: https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru
+   - 集成方式: Dify 官方插件（tools/mineru），支持 API 和本地部署两种模式
+   - 功能: 将 PDF/DOC/DOCX/PPT/PPTX/PNG/JPG/JPEG 转为 Markdown/JSON
+   - 支持 MinerU 官方 API（https://mineru.net）和本地部署
+   - 输出: Markdown 文本、JSON 内容列表、导出格式文件（HTML/DOC/LaTeX）、图片提取
+   - 描述: 官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用
+
+2. RAGFlow
+   - 从 v0.22.0 起，RAGFlow 内置 MinerU（≥ 2.6.3）作为可选 PDF 解析器
+   - RAGFlow 作为 MinerU 的远程客户端，调用 MinerU API 解析文档
+   - 支持 pipeline、vlm-transformers、vlm-sglang 三种后端模式
+   - GitHub: https://github.com/infiniflow/ragflow
+   - 文档: https://ragflow.io/docs/select_pdf_parser
+   - 描述: 平台内置预处理引擎，攻克多模态文档切片（Chunking）难题，保障 RAG 效果
+
+3. LangChain
+   - 通过 MineruLoader 集成，作为 LangChain 的 Document Loader
+   - 将 PDF 等外部数据源统一转换为 LangChain 可处理的 Document 格式
+   - 配合 MarkdownHeaderTextSplitter 按标题层级智能切片
+   - GitHub: https://github.com/opendatalab/MinerU (主仓库)
+   - 描述: 作为 Loader 深度集成至 LangChain 生态
+
+4. Flowise
+   - 通过自定义 Document Loader 节点接入
+   - 零代码拖拽式工作流搭建
+   - GitHub: https://github.com/FlowiseAI/Flowise
+   - 描述: 提供开箱即用的拖拽式 Document Loader 节点

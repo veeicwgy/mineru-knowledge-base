@@ -26,6 +26,9 @@ export interface RAGItem {
   code?: string;
   guideLabel?: string;
   guideUrl?: string;
+  tags?: string[];
+  links?: { label: string; url: string }[];
+  features?: string[];
 }
 
 export interface AppItem {
@@ -203,33 +206,60 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "langchain",
     name: "LangChain",
-    description: "作为 Loader 深度集成至 LangChain 生态，将各种外部数据源（如 PDF）统一转换为 LangChain 可处理的 Document 格式。",
+    description: "作为 Loader 深度集成至 LangChain 生态，将各种外部数据源（如 PDF）统一转换为 LangChain 可处理的 Document 格式。配合 MarkdownHeaderTextSplitter 按标题层级智能切片，彻底消除按字数硬切导致的语义割裂问题。",
     highlight: "官方推荐 Loader",
     logo: lobe("langchain"),
     code: "from langchain_community.document_loaders import MineruLoader",
     guideLabel: "查看指南",
-    guideUrl: "#",
+    guideUrl: "https://github.com/opendatalab/MinerU",
+    tags: ["Python", "Document Loader", "RAG Pipeline"],
+    features: ["支持 PDF/DOCX/PPT 等多格式解析", "按标题层级智能切片", "输出纯净 Markdown 与 JSON"],
+    links: [
+      { label: "MinerU 主仓库", url: "https://github.com/opendatalab/MinerU" },
+    ],
   },
   {
     id: "dify",
     name: "Dify",
-    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。",
-    highlight: "知识库预处理首选",
+    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。支持 MinerU 官方 API 与本地部署双模式，可解析 PDF、DOC、PPT、图片等多种格式，输出 Markdown、JSON、HTML、LaTeX 等多种格式。",
+    highlight: "官方插件集成",
     logo: lobe("dify"),
+    tags: ["Dify Plugin", "API + 本地部署", "多格式导出"],
+    features: ["支持 MinerU 官方 API 与本地部署", "解析 PDF/DOC/PPT/图片等 8 种格式", "导出 Markdown、HTML、LaTeX 等格式"],
+    links: [
+      { label: "MinerU 官方插件", url: "https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru" },
+    ],
+    guideLabel: "GitHub",
+    guideUrl: "https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru",
   },
   {
     id: "ragflow",
     name: "RAGFlow",
-    description: "平台内置预处理引擎，攻克多模态文档切片（Chunking）难题，保障 RAG 效果。",
-    highlight: "深度版面分析引擎",
+    description: "平台内置预处理引擎，攻克多模态文档切片（Chunking）难题，保障 RAG 效果。从 v0.22.0 起内置 MinerU 作为可选 PDF 解析器，支持 pipeline、VLM 等多种后端模式。",
+    highlight: "平台内置引擎",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
+    tags: ["内置解析器", "v0.22.0+", "多后端模式"],
+    features: ["内置 MinerU 作为可选 PDF 解析器", "支持 pipeline / VLM 多种后端", "精准物理与逻辑版面分析"],
+    links: [
+      { label: "RAGFlow 仓库", url: "https://github.com/infiniflow/ragflow" },
+      { label: "解析器配置文档", url: "https://ragflow.io/docs/select_pdf_parser" },
+    ],
+    guideLabel: "配置文档",
+    guideUrl: "https://ragflow.io/docs/select_pdf_parser",
   },
   {
     id: "flowise",
     name: "Flowise",
-    description: "提供开箱即用的拖拽式 Document Loader 节点，极速赋予 Agent 阅读复杂文档的能力。零代码即可完成文档解析工作流搭建。",
+    description: "提供开箱即用的拖拽式 Document Loader 节点，极速赋予 Agent 阅读复杂文档的能力。零代码即可完成文档解析工作流搭建，适合非技术背景用户快速上手。",
     highlight: "零代码拖拽接入",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
+    tags: ["拖拽式工作流", "零代码", "Document Loader"],
+    features: ["拖拽式可视化工作流搭建", "内置 Document Loader 节点", "支持与向量数据库无缝对接"],
+    links: [
+      { label: "Flowise 仓库", url: "https://github.com/FlowiseAI/Flowise" },
+    ],
+    guideLabel: "GitHub",
+    guideUrl: "https://github.com/FlowiseAI/Flowise",
   },
 ];
 
