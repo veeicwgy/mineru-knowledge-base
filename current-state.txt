@@ -1,0 +1,19 @@
+Current page state after v4 updates (2026-03-16):
+
+Completed changes:
+1. Navbar: MinerU icon (official logo) + centered capsule menu + right action buttons
+2. Background: Light blue-gray gradient from-[#f0f4f9] via-[#f4f7fb] to-[#edf1f8]
+3. All "50万" references changed to "1万" across ecosystem.ts, index.html, skills.txt
+4. Card backgrounds: bg-white/95 with softer borders
+5. Sidebar: Semi-transparent bg-white/70 with backdrop-blur
+6. Footer: Semi-transparent bg-white/60 with backdrop-blur
+
+Verified working:
+- All 3 tabs (Agent Skills, RAG 框架, 应用与工作流) switch correctly
+- Code showcase section visible with light theme
+- FAQ section with all questions visible
+- "1万页" text confirmed in FAQ items
+- Code comment shows "每日 1 万页免费额度"
+
+Page looks clean and professional with the gradient background.
+The navbar matches the reference design closely.

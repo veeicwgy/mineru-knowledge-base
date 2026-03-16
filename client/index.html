@@ -24,7 +24,7 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD",
-        "description": "免登录极速版，每日 50 万页免费额度"
+        "description": "免登录极速版，每日 1 万页免费额度"
       },
       "author": {
         "@type": "Organization",
@@ -43,7 +43,7 @@
           "name": "需要注册账号才能让 Agent 使用吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "不需要。我们默认提供"免登录极速版"，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 50 万页的免费解析额度，速度极快，开箱即用。"
+            "text": "不需要。我们默认提供"免登录极速版"，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 1 万页的免费解析额度，速度极快，开箱即用。"
           }
         },
         {
@@ -88,7 +88,7 @@
         },
         {
           "@type": "Question",
-          "name": "如果当天的 50 万页免费额度耗尽怎么办？",
+          "name": "如果当天的 1 万页免费额度耗尽怎么办？",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "接口会返回标准的 HTTP 429 状态码，并附带 retry_after 秒数提示。响应体中会明确指示 Agent 进入休眠等待（SLEEP and WAIT）状态，直到次日额度重置。"

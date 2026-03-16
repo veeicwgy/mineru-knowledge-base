@@ -175,33 +175,44 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white border border-slate-200/80 rounded-2xl p-5 hover:border-slate-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
-      <div className="flex items-start gap-3.5 mb-3">
+      <div className="flex items-start gap-4 mb-4">
         {LogoComponent ? (
-          <div className="shrink-0"><LogoComponent size={40} /></div>
+          <div className="shrink-0"><LogoComponent size={44} /></div>
         ) : (
-          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
+          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-[16px] font-semibold text-slate-900 truncate">{item.name}</h3>
-            <span className="shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60">
+            <h3 className="text-lg font-bold text-slate-900 truncate">{item.name}</h3>
+            <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60">
               官方支持
             </span>
           </div>
           {item.registry && (
-            <p className="text-[12px] text-slate-400 mb-1">{item.registry}</p>
+            <p className="text-sm text-slate-400 mb-1">{item.registry}</p>
           )}
-          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-2">{item.description}</p>
         </div>
       </div>
 
+      {/* Highlight badge */}
+      {item.highlight && (
+        <div className="mb-3">
+          <span className="text-[12px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-blue-600 border border-blue-100">
+            {item.highlight}
+          </span>
+        </div>
+      )}
+
+      {/* Description */}
+      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
+
       {/* Tags */}
       {item.tags && item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {item.tags.map((tag) => (
-            <span key={tag} className="text-[12px] font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
+            <span key={tag} className="text-[13px] font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
               {tag}
             </span>
           ))}
@@ -209,9 +220,9 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
       )}
 
       {/* Install command — Light theme */}
-      <div className="mt-auto pt-3 border-t border-slate-100">
-        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
-          <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+      <div className="mt-auto pt-4 border-t border-slate-100">
+        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3.5 py-3">
+          <Terminal className="w-4 h-4 text-slate-400 shrink-0" />
           <code className="text-[13px] font-mono text-slate-700 flex-1 truncate">{item.installCmd}</code>
           <CopyButton text={item.installCmd} id={`install-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
         </div>
@@ -230,10 +241,10 @@ function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (
       <div className="flex items-center gap-2.5 mb-4">
         <div className="w-1 h-5 rounded-full bg-blue-500" />
         <Code2 className="w-5 h-5 text-slate-700" />
-        <h2 className="text-xl font-bold text-slate-900">只需几行代码，让您的 Agent 读懂世界</h2>
+        <h2 className="text-lg font-bold text-slate-900">只需几行代码，让您的 Agent 读懂世界</h2>
       </div>
 
-      <div className="bg-slate-50/80 border border-slate-200/80 rounded-2xl overflow-hidden">
+      <div className="bg-white/80 border border-slate-200/60 rounded-2xl overflow-hidden backdrop-blur-sm">
         {/* Tab bar */}
         <div className="flex items-center border-b border-slate-200/80 px-4 bg-white/60">
           {codeExamples.map((ex, i) => (
@@ -264,7 +275,7 @@ function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (
             transition={{ duration: 0.15 }}
           >
             <pre className="p-5 overflow-x-auto">
-              <code className="text-[14px] font-mono text-slate-700 leading-relaxed whitespace-pre">
+              <code className="text-[13px] font-mono text-slate-700 leading-relaxed whitespace-pre">
                 {example.code.split('\n').map((line, i) => {
                   // Simple syntax highlighting for light theme
                   if (line.trim().startsWith('#') || line.trim().startsWith('//')) {
@@ -316,7 +327,7 @@ function FAQSection() {
       <div className="flex items-center gap-2.5 mb-4">
         <div className="w-1 h-5 rounded-full bg-blue-500" />
         <BookOpen className="w-5 h-5 text-slate-700" />
-        <h2 className="text-xl font-bold text-slate-900">开发者 FAQ</h2>
+        <h2 className="text-lg font-bold text-slate-900">开发者 FAQ</h2>
       </div>
 
       <div className="space-y-6">
@@ -333,13 +344,13 @@ function FAQSection() {
                 return (
                   <div
                     key={key}
-                    className="border border-slate-200/80 rounded-xl bg-white overflow-hidden hover:border-slate-300 transition-colors"
+                    className="border border-slate-200/60 rounded-xl bg-white/95 overflow-hidden hover:border-slate-300 transition-colors"
                   >
                     <button
                       onClick={() => toggle(key)}
                       className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left"
                     >
-                      <span className="text-[15px] font-medium text-slate-800 leading-snug">{faq.q}</span>
+                      <span className="text-[14px] font-medium text-slate-800 leading-snug">{faq.q}</span>
                       <ChevronDown
                         className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
                           isOpen ? "rotate-180" : ""
@@ -355,7 +366,7 @@ function FAQSection() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-4 text-[14px] text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+                          <div className="px-5 pb-4 text-[13px] text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
                             {faq.a}
                           </div>
                         </motion.div>
@@ -381,29 +392,26 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white border border-slate-200/80 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-5 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
-      <div className="flex items-start gap-4 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
+      <div className="flex items-start gap-3.5 mb-3">
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-slate-900 mb-1">{item.name}</h3>
+          <h3 className="text-xl font-bold text-slate-900 truncate">{item.name}</h3>
           {item.highlight && (
-            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mb-1">
+            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-600 border border-violet-100 mt-0.5">
               {item.highlight}
             </span>
           )}
         </div>
       </div>
 
-      {/* Description */}
-      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
-
       {/* Code snippet — Light theme */}
       {item.code && (
         <div className="mt-auto pt-3">
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3.5 py-3">
-            <Terminal className="w-4 h-4 text-slate-400 shrink-0" />
-            <code className="text-[13px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
+            <Terminal className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <code className="text-[12px] font-mono text-slate-600 flex-1 truncate">{item.code}</code>
             <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} />
           </div>
         </div>
@@ -416,10 +424,10 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
             href={item.guideUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
           >
             {item.guideLabel}
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3" />
           </a>
         </div>
       )}
@@ -436,42 +444,50 @@ function AppCard({ item }: { item: AppItem }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="group bg-white border border-slate-200/80 rounded-2xl p-5 hover:border-slate-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
+      className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
-      <div className="flex items-start gap-3.5 mb-3">
-        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} />
+      <div className="flex items-start gap-4 mb-3">
+        <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-[16px] font-semibold text-slate-900 mb-1">{item.name}</h3>
-          <p className="text-[14px] text-slate-600 leading-relaxed line-clamp-2">{item.description}</p>
+          <h3 className="text-lg font-bold text-slate-900 mb-1">{item.name}</h3>
+          {item.highlight && (
+            <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-600 border border-emerald-100">
+              {item.highlight}
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Links */}
-      <div className="mt-auto pt-3 space-y-2">
+      {/* Description */}
+      <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
+
+      {/* Permanent links — Always visible */}
+      <div className="mt-auto pt-4 border-t border-slate-100 space-y-3">
         {item.links && item.links.length > 0 && (
-          <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+          <div className="flex flex-wrap gap-2">
             {item.links.map((link) => (
               <a
                 key={link.url}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[12px] font-medium px-2.5 py-1 rounded-lg bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-800 border border-slate-200/60 transition-colors"
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 transition-colors"
               >
                 {link.label}
-                <ExternalLink className="w-2.5 h-2.5" />
+                <ExternalLink className="w-3 h-3" />
               </a>
             ))}
           </div>
         )}
+        {/* Guide button — Hidden by default, visible on hover */}
         <a
           href={item.guideUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
+          className="inline-flex items-center gap-1.5 text-[14px] font-medium text-blue-600 hover:text-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
         >
           查看使用指引
-          <ExternalLink className="w-3 h-3" />
+          <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
     </motion.div>
@@ -545,13 +561,13 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#f0f4f9] via-[#f4f7fb] to-[#edf1f8]">
       <Navbar />
 
       <div className="flex-grow pt-16">
         <div className="flex h-[calc(100vh-64px)]">
           {/* ─── Left Sidebar ─── */}
-          <aside className="hidden md:flex flex-col w-[220px] shrink-0 border-r border-slate-200/70 bg-white">
+          <aside className="hidden md:flex flex-col w-[220px] shrink-0 border-r border-slate-200/50 bg-white/70 backdrop-blur-sm">
             <div className="p-4 flex-1">
               <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-3 px-2">
                 生态模块
@@ -658,7 +674,7 @@ export default function Home() {
                       <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
                         {info.title}
                       </h1>
-                      <p className="text-[15px] text-slate-500 leading-relaxed max-w-2xl">
+                      <p className="text-[14px] text-slate-500 leading-relaxed max-w-2xl">
                         {info.subtitle}
                       </p>
                     </div>

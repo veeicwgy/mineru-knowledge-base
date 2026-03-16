@@ -1,16 +1,10 @@
-Review Notes - Sidebar Layout v3 (Final Refactor)
+Review Notes - v4 (Navbar + Background Update)
 ===================================================
-Date: 2026-03-13
+Date: 2026-03-16
 
-Screenshot shows:
-1. Left sidebar with 3 modules: Agent Skills (5), RAG 框架 (9), 应用与工作流 (8) - GOOD
-2. Active module highlighted with dark bg - GOOD
-3. Right content area with title, subtitle, search bar - GOOD
-4. 3-column card grid with logo, name, official badge, description, tags - GOOD
-5. Agent/Developer prompt card below cards - GOOD
-6. Top navbar with MinerU / 生态与社区 breadcrumb - GOOD
-
-Issues to fix:
-- OpenClaw card shows "O" fallback - CDN URL may not work for "openclaw" slug
-- Need to verify RAG 框架 and 应用与工作流 tabs work correctly
-- Overall layout matches the SaaS console style requested
+Completed:
+1. Navbar: MinerU icon + capsule menu + right action buttons - matches reference
+2. Background: Light blue-gray gradient applied
+3. Content: 50万 -> 1万 updated across all files
+4. Sidebar: Semi-transparent with backdrop blur
+5. Footer: Updated to match new background style

@@ -3,7 +3,7 @@
  */
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200/70 bg-white">
+    <footer className="border-t border-slate-200/50 bg-white/60 backdrop-blur-sm">
       <div className="px-5 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center">

@@ -1,0 +1,24 @@
+Reference Image Analysis for Navbar Design:
+
+Image 1 (Navbar close-up):
+- Background: Light blue/lavender gradient (approximately #f0f2ff to #e8ecf8)
+- Left: MinerU logo (black U-shape icon) + "MinerU" text in bold black
+- Center: Capsule/pill-shaped container with white background, rounded corners, containing 4 nav items:
+  - 首页 | API | 客户端 | 生态与社区 (last one is bold/active)
+  - Items separated by spacing, no visible dividers
+  - Active item: bold black text
+  - Inactive items: regular weight gray/dark text
+- Right section (left to right):
+  - Dark mode toggle icon (crescent moon)
+  - "EN" text for language switch
+  - GitHub icon (Octocat)
+  - "在线使用" button with border/outline style + dropdown chevron
+  - User avatar icon (person silhouette)
+
+Image 2 (Full page):
+- Same navbar as above but with additional "SEO" badge next to MinerU logo (orange/red pill badge)
+- Right side also has "在线使用" outline button + "登录" dark button
+- Page background: Light blue-gray gradient (#f4f7fb or similar)
+- Below navbar: Hero section with "MinerU 合作伙伴生态" title
+- Cards: White background, subtle border, rounded corners, 3-column grid
+- Each card: Logo + Name, description text, link buttons at bottom

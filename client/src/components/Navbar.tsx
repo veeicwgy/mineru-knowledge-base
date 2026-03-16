@@ -1,9 +1,19 @@
 /*
  * MinerU 生态与社区 — 顶部导航栏
- * 简洁品牌导航，与侧边栏布局配合
+ * 1:1 还原 mineru.net 官方导航栏设计：
+ * 左侧 Logo + 中间胶囊菜单（首页/API/客户端/生态与社区）+ 右侧操作按钮组
  */
 import { useState, useEffect } from "react";
-import { ExternalLink } from "lucide-react";
+
+const MINERU_ICON =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/EjrS6V4Yvl4f_743d5ccc.png";
+
+const navLinks = [
+  { label: "首页", href: "https://mineru.net", active: false },
+  { label: "API", href: "https://mineru.net/api", active: false },
+  { label: "客户端", href: "https://mineru.net/client", active: false },
+  { label: "生态与社区", href: "#", active: true },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,54 +28,121 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 h-16 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-gray-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
-          : "bg-white border-b border-gray-100"
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+          : "bg-transparent"
       }`}
     >
-      <div className="h-full px-5 flex items-center justify-between">
-        {/* Left: Logo + breadcrumb */}
-        <div className="flex items-center gap-3">
-          <a href="https://mineru.net" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-sm">M</span>
-            </div>
-            <span
-              className="text-[15px] font-bold text-gray-900"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              MinerU
-            </span>
-          </a>
-          <span className="text-gray-300 text-sm">/</span>
-          <span className="text-[14px] font-medium text-gray-600">生态与社区</span>
+      <div className="h-full max-w-[1440px] mx-auto px-5 lg:px-8 flex items-center justify-between">
+        {/* ─── Left: Logo ─── */}
+        <a
+          href="https://mineru.net"
+          className="flex items-center gap-2.5 hover:opacity-80 transition-opacity shrink-0"
+        >
+          <img
+            src={MINERU_ICON}
+            alt="MinerU"
+            className="w-7 h-7 object-contain"
+          />
+          <span className="text-[17px] font-extrabold text-slate-900 tracking-tight">
+            MinerU
+          </span>
+        </a>
+
+        {/* ─── Center: Capsule Menu ─── */}
+        <div className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
+          <div className="flex items-center gap-0.5 bg-white/80 backdrop-blur-md border border-slate-200/70 rounded-full px-1.5 py-1 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`px-4 py-1.5 rounded-full text-[13.5px] transition-all duration-150 whitespace-nowrap ${
+                  link.active
+                    ? "font-bold text-slate-900"
+                    : "font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-50/80"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Right: Links */}
-        <div className="flex items-center gap-1">
-          <a
-            href="https://mineru.net"
-            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+        {/* ─── Right: Action Buttons ─── */}
+        <div className="flex items-center gap-2">
+          {/* Dark mode toggle */}
+          <button
+            className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            title="深色模式"
+            onClick={() => {}}
           >
-            产品
-          </a>
-          <a
-            href="#"
-            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+            <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {/* Language switch */}
+          <button
+            className="hidden sm:flex items-center justify-center px-2 h-8 rounded-full text-[13px] font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            title="Switch Language"
+            onClick={() => {}}
           >
-            文档
-          </a>
+            EN
+          </button>
+
+          {/* GitHub */}
           <a
             href="https://github.com/opendatalab/MinerU"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            title="GitHub"
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
             </svg>
-            <span className="hidden sm:inline">GitHub</span>
-            <ExternalLink className="w-3 h-3" />
           </a>
+
+          {/* 在线使用 button */}
+          <a
+            href="https://mineru.net"
+            className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-slate-300 text-[13px] font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-all"
+          >
+            在线使用
+            <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+
+          {/* User avatar */}
+          <button
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100/60 transition-colors"
+            title="用户"
+            onClick={() => {}}
+          >
+            <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="12" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* ─── Mobile: Bottom capsule menu ─── */}
+      <div className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+        <div className="flex items-center gap-0.5 bg-white/95 backdrop-blur-xl border border-slate-200/70 rounded-full px-2 py-1 shadow-lg">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className={`px-3 py-1.5 rounded-full text-[12px] transition-all ${
+                link.active
+                  ? "font-bold text-slate-900 bg-slate-100/80"
+                  : "font-medium text-slate-500"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>

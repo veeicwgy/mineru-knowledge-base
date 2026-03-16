@@ -1,0 +1,3 @@
+MinerU Logo: A stylized U-shape with a cute face (two dots as eyes on top right). The icon is black on white. It looks like a U-shaped container/cup with two small circles on top-right as "eyes" and a curved line inside as a "smile". The text "MinerU" follows in bold rounded sans-serif font.
+
+For the navbar SVG, I'll create a simplified version of this logo icon.

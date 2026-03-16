@@ -12,7 +12,7 @@ MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot
 - Nanobot (Python): pip install mineru-parse-py
 - NanoClaw (TypeScript): npm install mineru-parse-nano
 - PicoClaw (Go): go get github.com/opendatalab/mineru-parse-go
-特性：免登录极速版（每日 50 万页免费额度）、高精度版（API Key 开启公式/表格还原）、双模一键切换。
+特性：免登录极速版（每日 1 万页免费额度）、高精度版（API Key 开启公式/表格还原）、双模一键切换。
 
 ## Tab 2: 核心数据编排框架
 面向算法/AI 工程师。纯代码级 Document Loader 接入。
@@ -37,5 +37,5 @@ MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot
 - Agent-friendly error handling (agent_instruction)
 
 ## Modes
-- fast: No login required, basic text extraction, 500K pages/day free quota
+- fast: No login required, basic text extraction, 10K pages/day free quota
 - precise: API key required, full structure recognition with Markdown and LaTeX output

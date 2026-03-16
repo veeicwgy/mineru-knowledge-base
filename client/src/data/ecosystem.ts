@@ -120,7 +120,7 @@ export const codeExamples: CodeExample[] = [
     code: `from nanobot import Agent
 from mineru_parse_py import MineruSkill
 
-# 极简接入：免登录快速版，每日 50W 页免费额度
+# 极简接入：免登录快速版，每日 1 万页免费额度
 agent = Agent(tools=[MineruSkill(mode="fast")])
 response = agent.run("帮我提取这份 PDF 里的所有文本：sample.pdf")`,
   },
@@ -145,7 +145,7 @@ export const faqCategories: FAQCategory[] = [
     items: [
       {
         q: "需要注册账号才能让 Agent 使用吗？",
-        a: "不需要。我们默认提供“免登录极速版”，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 50 万页的免费解析额度，速度极快，开箱即用。",
+        a: "不需要。我们默认提供“免登录极速版”，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 1 万页的免费解析额度，速度极快，开箱即用。",
       },
       {
         q: "如何切换为支持复杂公式和表格的完整版？",
@@ -178,7 +178,7 @@ export const faqCategories: FAQCategory[] = [
         a: "不会。我们的 API 专为 Agent 设计了自然语言异常引导。当遇到超限（400 错误）时，会返回一段 agent_instruction 指令，引导 Agent 在本地调用 Python（如 PyMuPDF）切分文件或压缩后再循环重试，实现完全的自动闭环。",
       },
       {
-        q: "如果当天的 50 万页免费额度耗尽怎么办？",
+        q: "如果当天的 1 万页免费额度耗尽怎么办？",
         a: "接口会返回标准的 HTTP 429 状态码，并附带 retry_after 秒数提示。响应体中会明确指示 Agent 进入休眠等待（SLEEP and WAIT）状态，直到次日额度重置。",
       },
     ],
