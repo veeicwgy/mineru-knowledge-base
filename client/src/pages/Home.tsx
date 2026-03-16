@@ -241,7 +241,7 @@ function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (
       <div className="flex items-center gap-2.5 mb-4">
         <div className="w-1 h-5 rounded-full bg-blue-500" />
         <Code2 className="w-5 h-5 text-slate-700" />
-        <h2 className="text-lg font-bold text-slate-900">只需几行代码，让您的 Agent 读懂世界</h2>
+        <h2 className="text-lg font-bold text-slate-900">原生 CLI 封装，为大模型提供标准化的终端执行环境</h2>
       </div>
 
       <div className="bg-white/80 border border-slate-200/60 rounded-2xl overflow-hidden backdrop-blur-sm">
