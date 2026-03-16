@@ -1,0 +1,39 @@
+# MinerU Ecosystem - robots.txt
+# https://mineru.net/ecosystem
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_internal/
+
+# Sitemap
+Sitemap: https://mineru.net/sitemap.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1
+
+# AI / LLM Agent Discovery
+User-agent: GPTBot
+Allow: /
+Allow: /skills.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /skills.txt
+
+User-agent: Claude-Web
+Allow: /
+Allow: /skills.txt
+
+User-agent: Anthropic-AI
+Allow: /
+Allow: /skills.txt
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /

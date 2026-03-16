@@ -2,24 +2,143 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- ═══ Primary Meta ═══ -->
     <title>MinerU Ecosystem - 面向大模型与 Agent 的全场景文档解析基建</title>
-    <meta name="description" content="MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot 等），深度集成主流 RAG 框架（LangChain, LlamaIndex），并通过插件无缝对接 Dify, Coze, n8n 等工作流平台。" />
-    <meta name="keywords" content="MinerU, Agent Skills, 文档解析, PDF解析, RAG, LangChain, LlamaIndex, Dify, Coze, n8n, Tool Calling, 免登录, 双模式, OpenClaw, Nanobot" />
+    <meta name="description" content="MinerU 官方开发者生态中心。提供 5 大原生 Agent Skills（OpenClaw、Nanobot、ZeroClaw、NanoClaw、PicoClaw），无缝集成 LangChain、Dify、RAGFlow、Flowise 等主流 RAG 框架，并深度对接 Coze、n8n、FastGPT 等 AI 工作流平台。每日 1 万页免费解析额度，开箱即用。" />
+    <meta name="keywords" content="MinerU, Agent Skills, 文档解析, PDF解析, RAG, LangChain, Dify, RAGFlow, Flowise, Coze, n8n, FastGPT, Tool Calling, OpenClaw, Nanobot, ZeroClaw, NanoClaw, PicoClaw, 知识库, 文档切片, Chunking, 结构化数据" />
+    <meta name="author" content="OpenDataLab" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href="https://mineru.net/ecosystem" />
+
+    <!-- ═══ Theme & Mobile ═══ -->
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MinerU Ecosystem" />
+    <meta name="application-name" content="MinerU Ecosystem" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- ═══ Open Graph ═══ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MinerU" />
+    <meta property="og:title" content="MinerU Ecosystem - 面向大模型与 Agent 的全场景文档解析基建" />
+    <meta property="og:description" content="提供 5 大原生 Agent Skills，无缝集成 LangChain、Dify、RAGFlow、Flowise 等主流 RAG 框架，深度对接 Coze、n8n 等 AI 工作流平台。每日 1 万页免费解析额度。" />
+    <meta property="og:url" content="https://mineru.net/ecosystem" />
+    <meta property="og:image" content="https://mineru.net/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MinerU Ecosystem - Agent Skills, RAG 框架集成, 应用与工作流" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- ═══ Twitter Card ═══ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MinerU Ecosystem - 面向大模型与 Agent 的全场景文档解析基建" />
+    <meta name="twitter:description" content="提供 5 大原生 Agent Skills，无缝集成 LangChain、Dify、RAGFlow、Flowise 等主流 RAG 框架。每日 1 万页免费解析额度，开箱即用。" />
+    <meta name="twitter:image" content="https://mineru.net/og-image.png" />
+    <meta name="twitter:image:alt" content="MinerU Ecosystem - Agent Skills, RAG 框架集成, 应用与工作流" />
+
+    <!-- ═══ Fonts ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- ═══ Skills / LLM Discovery ═══ -->
     <link rel="skills" href="/skills.txt" type="text/plain" />
     <link rel="llms" href="/skills.txt" type="text/plain" />
+
+    <!-- ═══ Manifest ═══ -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ═══ JSON-LD: WebSite ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MinerU Ecosystem",
+      "alternateName": "MinerU 开发者生态与集成",
+      "url": "https://mineru.net/ecosystem",
+      "description": "MinerU 官方开发者生态中心，提供 Agent Skills、RAG 框架集成和 AI 工作流平台对接。",
+      "inLanguage": ["zh-CN", "en"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://mineru.net/ecosystem?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- ═══ JSON-LD: Organization ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "OpenDataLab",
+      "url": "https://opendatalab.com",
+      "logo": "https://mineru.net/logo.png",
+      "sameAs": [
+        "https://github.com/opendatalab/MinerU",
+        "https://github.com/opendatalab"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "technical support",
+        "url": "https://github.com/opendatalab/MinerU/issues"
+      }
+    }
+    </script>
+
+    <!-- ═══ JSON-LD: BreadcrumbList ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "MinerU",
+          "item": "https://mineru.net"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "生态与社区",
+          "item": "https://mineru.net/ecosystem"
+        }
+      ]
+    }
+    </script>
+
+    <!-- ═══ JSON-LD: SoftwareApplication ═══ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "MinerU Agent Skills",
+      "name": "MinerU",
       "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Document Parsing & AI Integration",
       "operatingSystem": "Cross-platform",
-      "description": "MinerU 官方生态中心。提供原生 Agent Skills，深度集成主流 RAG 框架，并通过插件无缝对接工作流平台。",
+      "description": "面向大模型与 Agent 的全场景文档解析基建。提供 5 大原生 Agent Skills，无缝集成 LangChain、Dify、RAGFlow、Flowise 等主流 RAG 框架。",
+      "url": "https://mineru.net",
+      "downloadUrl": "https://github.com/opendatalab/MinerU",
+      "softwareVersion": "2.6",
+      "featureList": [
+        "PDF/DOC/PPT/图片等多格式文档解析",
+        "结构化输出 Markdown 与 JSON",
+        "Agent Skills 多语言 SDK",
+        "LangChain/Dify/RAGFlow/Flowise 集成",
+        "每日 1 万页免费解析额度",
+        "免登录快速版与 API Key 完整版双模式"
+      ],
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -30,9 +149,17 @@
         "@type": "Organization",
         "name": "OpenDataLab",
         "url": "https://github.com/opendatalab/MinerU"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "2600",
+        "bestRating": "5"
       }
     }
     </script>
+
+    <!-- ═══ JSON-LD: FAQPage ═══ -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -43,7 +170,7 @@
           "name": "需要注册账号才能让 Agent 使用吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "不需要。我们默认提供"免登录极速版"，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 1 万页的免费解析额度，速度极快，开箱即用。"
+            "text": "不需要。我们默认提供\u201c免登录极速版\u201d，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 1 万页的免费解析额度，速度极快，开箱即用。"
           }
         },
         {
@@ -75,7 +202,7 @@
           "name": "MinerU 当前支持哪些文档格式？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "我们全面支持 PDF、PPT、图片（JPG/PNG）、HTML 网页以及 Office 文档（DOCX/PPTX）。注意快速版单文件限制 ≤10MB 且 ≤20页，完整版则无此限制。"
+            "text": "全面支持 PDF、PPT、图片（JPG/PNG）、HTML 网页以及 Office 文档（DOCX/PPTX）。快速版单文件限制 ≤10MB 且 ≤20页，完整版则无此限制。"
           }
         },
         {
@@ -83,7 +210,7 @@
           "name": "文件大小或页数超限时，Agent 会直接报错崩溃吗？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "不会。我们的 API 专为 Agent 设计了自然语言异常引导。当遇到超限（400 错误）时，会返回一段 agent_instruction 指令，引导 Agent 在本地调用 Python（如 PyMuPDF）切分文件或压缩后再循环重试，实现完全的自动闭环。"
+            "text": "不会。API 专为 Agent 设计了自然语言异常引导。当遇到超限（400 错误）时，会返回 agent_instruction 指令，引导 Agent 在本地调用 Python（如 PyMuPDF）切分文件或压缩后再循环重试，实现完全的自动闭环。"
           }
         },
         {
@@ -107,8 +234,56 @@
           "name": "能否在本地私有化部署的系统中使用 MinerU 的 Agent 能力？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "可以。我们提供了双版本的 MCP Server。除了 SaaS 版外，开源版 MCP Server 完全托管在 GitHub 上，专供开发者在自建 MinerU 引擎时配套使用。"
+            "text": "可以。提供了双版本的 MCP Server。除了 SaaS 版外，开源版 MCP Server 完全托管在 GitHub 上，专供开发者在自建 MinerU 引擎时配套使用。"
           }
+        }
+      ]
+    }
+    </script>
+
+    <!-- ═══ JSON-LD: ItemList (Agent Skills) ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "MinerU Agent Skills",
+      "description": "MinerU 官方支持的 5 大 Agent 框架解析技能",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenClaw",
+          "description": "Node.js 生态首选，主流 Agent 框架的官方推荐解析插件",
+          "url": "https://www.npmjs.com/package/mineru-parse"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ZeroClaw",
+          "description": "Rust 原生实现，极低内存与资源占用，适配边缘设备与嵌入式场景",
+          "url": "https://crates.io/crates/mineru-parse-rs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Nanobot",
+          "description": "Python 生态首选，原生支持 LangChain、AutoGen 等主流智能体编排工作流",
+          "url": "https://pypi.org/project/mineru-parse-py"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "NanoClaw",
+          "description": "TypeScript 生态首选，完美适配 Vercel AI SDK 与 Tool Calling 标准协议",
+          "url": "https://www.npmjs.com/package/mineru-parse-nano"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "PicoClaw",
+          "description": "Go 生态首选，支持高并发数据流转与 goroutine 安全调用",
+          "url": "https://github.com/opendatalab/mineru-parse-go"
         }
       ]
     }

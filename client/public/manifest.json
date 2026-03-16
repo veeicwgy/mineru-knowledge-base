@@ -1,0 +1,19 @@
+{
+  "name": "MinerU Ecosystem - 开发者生态与集成",
+  "short_name": "MinerU Ecosystem",
+  "description": "面向大模型与 Agent 的全场景文档解析基建。提供 Agent Skills、RAG 框架集成和 AI 工作流平台对接。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f4f9",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait-primary",
+  "lang": "zh-CN",
+  "categories": ["developer", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
