@@ -53,6 +53,14 @@ export interface CodeExample {
   code: string;
 }
 
+/* CLI/SDK Command Types */
+export interface CLICommandGroup {
+  id: string;
+  title: string;
+  description: string;
+  tabs: { label: string; commands: { description: string; code: string }[] }[];
+}
+
 /* ─── Logo CDN URLs ─── */
 const lobe = (slug: string) =>
   `https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/${slug}.png`;
@@ -263,6 +271,128 @@ export const ragFrameworks: RAGItem[] = [
   },
 ];
 
+/* ─── Module: CLI/SDK ─── */
+export const cliSdkGroups: CLICommandGroup[] = [
+  {
+    id: "mineru-cli",
+    title: "MinerU Open API CLI",
+    description: "通过命令行快速调用 MinerU Open API，支持文件解析、格式转换等核心功能。",
+    tabs: [
+      {
+        label: "Mac & Linux",
+        commands: [
+          {
+            description: "安装 MinerU CLI",
+            code: "pip install mineru-cli"
+          },
+          {
+            description: "解析 PDF 文件为 Markdown",
+            code: "mineru parse --input sample.pdf --output result.md"
+          },
+          {
+            description: "批量解析目录下所有文档",
+            code: "mineru parse --input ./docs/ --output ./results/ --format markdown"
+          },
+          {
+            description: "使用 VLM 模型解析（高精度模式）",
+            code: "mineru parse --input sample.pdf --model vlm --output result.md"
+          }
+        ]
+      },
+      {
+        label: "Windows",
+        commands: [
+          {
+            description: "安装 MinerU CLI",
+            code: "pip install mineru-cli"
+          },
+          {
+            description: "解析 PDF 文件为 Markdown",
+            code: "mineru parse --input sample.pdf --output result.md"
+          },
+          {
+            description: "批量解析目录下所有文档",
+            code: "mineru parse --input .\\docs\\ --output .\\results\\ --format markdown"
+          },
+          {
+            description: "使用 VLM 模型解析（高精度模式）",
+            code: "mineru parse --input sample.pdf --model vlm --output result.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "mineru-api",
+    title: "MinerU Open API",
+    description: "通过 HTTP API 直接调用 MinerU 解析服务，适用于集成到自有系统或工作流中。",
+    tabs: [
+      {
+        label: "Mac",
+        commands: [
+          {
+            description: "创建解析任务",
+            code: `curl -X POST 'https://mineru.net/api/v4/extract/task' \\
+  -H 'Authorization: Bearer YOUR_TOKEN' \\
+  -H 'Content-Type: application/json' \\
+  -d '{"url": "https://example.com/sample.pdf", "model_version": "vlm"}'`
+          },
+          {
+            description: "查询任务结果",
+            code: `curl -X GET 'https://mineru.net/api/v4/extract/task/{task_id}' \\
+  -H 'Authorization: Bearer YOUR_TOKEN'`
+          },
+          {
+            description: "Python SDK 调用",
+            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
+          }
+        ]
+      },
+      {
+        label: "Windows",
+        commands: [
+          {
+            description: "创建解析任务（PowerShell）",
+            code: "Invoke-RestMethod -Uri 'https://mineru.net/api/v4/extract/task' `\n  -Method POST `\n  -Headers @{\"Authorization\"=\"Bearer YOUR_TOKEN\"; \"Content-Type\"=\"application/json\"} `\n  -Body '{\"url\": \"https://example.com/sample.pdf\", \"model_version\": \"vlm\"}'"
+          },
+          {
+            description: "查询任务结果（PowerShell）",
+            code: "Invoke-RestMethod -Uri 'https://mineru.net/api/v4/extract/task/{task_id}' `\n  -Method GET `\n  -Headers @{\"Authorization\"=\"Bearer YOUR_TOKEN\"}"
+          },
+          {
+            description: "Python SDK 调用",
+            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
+          }
+        ]
+      },
+      {
+        label: "Linux",
+        commands: [
+          {
+            description: "创建解析任务",
+            code: `curl -X POST 'https://mineru.net/api/v4/extract/task' \\
+  -H 'Authorization: Bearer YOUR_TOKEN' \\
+  -H 'Content-Type: application/json' \\
+  -d '{"url": "https://example.com/sample.pdf", "model_version": "vlm"}'`
+          },
+          {
+            description: "查询任务结果",
+            code: `curl -X GET 'https://mineru.net/api/v4/extract/task/{task_id}' \\
+  -H 'Authorization: Bearer YOUR_TOKEN'`
+          },
+          {
+            description: "批量文件解析",
+            code: `curl -X POST 'https://mineru.net/api/v4/extract/task/batch' \\
+  -H 'Authorization: Bearer YOUR_TOKEN' \\
+  -H 'Content-Type: application/json' \\
+  -d '{"files": [{"url": "https://example.com/doc1.pdf"}, {"url": "https://example.com/doc2.pdf"}], "model_version": "vlm"}'`
+          }
+        ]
+      }
+    ]
+  }
+];
+
 /* ─── Module 3: 应用与工作流 ─── */
 export const appWorkflows: AppItem[] = [
   {
@@ -340,12 +470,5 @@ export const appWorkflows: AppItem[] = [
     logoFallback: "#8B5CF6",
     guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/DataFlow/",
   },
-  {
-    id: "ragflow-app",
-    name: "RAGFlow",
-    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析。支持复杂表格、公式与多栏布局的高保真还原。",
-    highlight: "GraphRAG 深度集成",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/RagFlow/",
-  },
+
 ];

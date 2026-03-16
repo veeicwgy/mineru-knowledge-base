@@ -1,8 +1,8 @@
 /*
  * MinerU 开发者生态与集成 — 主页面
  * 左侧固定导航 + 右侧内容滚动
- * 三大模块：Agent Skills / RAG 框架 / 应用与工作流
- * Design: 清爽浅色高亮侧边栏 + 渐变模块头部 + 明亮代码块 + 精致 SVG Logo
+ * 模块：Agent Skills / CLI/SDK / RAG 框架 / 应用与工作流
+ * 侧边栏底部：开发者 FAQ + API 文档
  */
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,11 +12,12 @@ import {
   agentSkills,
   ragFrameworks,
   appWorkflows,
-  codeExamples,
+  cliSdkGroups,
   faqCategories,
   type SkillItem,
   type RAGItem,
   type AppItem,
+  type CLICommandGroup,
 } from "@/data/ecosystem";
 import {
   Bot,
@@ -28,18 +29,19 @@ import {
   ExternalLink,
   Terminal,
   ChevronDown,
-  Code2,
   BookOpen,
   Sparkles,
   Github,
   CheckCircle2,
-  Tag,
+  FileCode2,
+  HelpCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
 /* ─── Sidebar Modules ─── */
 const modules = [
   { id: "skills", label: "Agent Skills", icon: Bot, count: agentSkills.length },
+  { id: "cli", label: "CLI/SDK", icon: Terminal, count: null },
   { id: "rag", label: "RAG 框架", icon: Wrench, count: ragFrameworks.length },
   { id: "apps", label: "应用与工作流", icon: LayoutGrid, count: appWorkflows.length },
 ] as const;
@@ -168,8 +170,6 @@ function CopyButton({ text, id, copiedId, onCopy }: {
 /* ═══════════════════════════════════════════════════════
    Module 1: Agent Skills
    ═══════════════════════════════════════════════════════ */
-
-/* ─── Skill Card with SVG Logo ─── */
 function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: string | null; onCopy: (t: string, id: string) => void }) {
   const LogoComponent = skillLogos[item.id];
 
@@ -199,7 +199,6 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
         </div>
       </div>
 
-      {/* Highlight badge */}
       {item.highlight && (
         <div className="mb-3">
           <span className="text-[12px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-blue-600 border border-blue-100">
@@ -208,10 +207,8 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
         </div>
       )}
 
-      {/* Description */}
       <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
 
-      {/* Tags */}
       {item.tags && item.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-4">
           {item.tags.map((tag) => (
@@ -222,7 +219,6 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
         </div>
       )}
 
-      {/* Install command — Light theme */}
       <div className="mt-auto pt-4 border-t border-slate-100">
         <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3.5 py-3">
           <Terminal className="w-4 h-4 text-slate-400 shrink-0" />
@@ -234,85 +230,88 @@ function SkillCard({ item, copiedId, onCopy }: { item: SkillItem; copiedId: stri
   );
 }
 
-/* ─── Code Showcase — Light Theme ─── */
-function CodeShowcase({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t: string, id: string) => void }) {
-  const [activeTab, setActiveTab] = useState(0);
-  const example = codeExamples[activeTab];
+/* ═══════════════════════════════════════════════════════
+   Module: CLI/SDK
+   ═══════════════════════════════════════════════════════ */
+function CLISection({ copiedId, onCopy }: { copiedId: string | null; onCopy: (t: string, id: string) => void }) {
+  const [activeTabs, setActiveTabs] = useState<Record<string, number>>({});
+
+  const getActiveTab = (groupId: string) => activeTabs[groupId] || 0;
+  const setActiveTab = (groupId: string, idx: number) => {
+    setActiveTabs((prev) => ({ ...prev, [groupId]: idx }));
+  };
 
   return (
-    <div className="mt-10">
-      <div className="flex items-center gap-2.5 mb-4">
-        <div className="w-1 h-5 rounded-full bg-blue-500" />
-        <Code2 className="w-5 h-5 text-slate-700" />
-        <h2 className="text-lg font-bold text-slate-900">原生 CLI 封装，为大模型提供标准化的终端执行环境</h2>
-      </div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+      <div className="space-y-8">
+        {cliSdkGroups.map((group) => {
+          const activeIdx = getActiveTab(group.id);
+          const activeTab = group.tabs[activeIdx];
 
-      <div className="bg-white/80 border border-slate-200/60 rounded-2xl overflow-hidden backdrop-blur-sm">
-        {/* Tab bar */}
-        <div className="flex items-center border-b border-slate-200/80 px-4 bg-white/60">
-          {codeExamples.map((ex, i) => (
-            <button
-              key={ex.label}
-              onClick={() => setActiveTab(i)}
-              className={`px-4 py-3 text-[13px] font-medium border-b-2 transition-all ${
-                i === activeTab
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-slate-400 hover:text-slate-600"
-              }`}
-            >
-              {ex.label}
-            </button>
-          ))}
-          <div className="ml-auto">
-            <CopyButton text={example.code} id={`code-${activeTab}`} copiedId={copiedId} onCopy={onCopy} />
-          </div>
-        </div>
+          return (
+            <div key={group.id} className="bg-white/95 border border-slate-200/60 rounded-2xl overflow-hidden">
+              {/* Group Header */}
+              <div className="px-6 pt-6 pb-4">
+                <div className="flex items-center gap-2.5 mb-2">
+                  <FileCode2 className="w-5 h-5 text-indigo-500" />
+                  <h2 className="text-lg font-bold text-slate-900">{group.title}</h2>
+                </div>
+                <p className="text-[14px] text-slate-500 leading-relaxed">{group.description}</p>
+              </div>
 
-        {/* Code content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <pre className="p-5 overflow-x-auto">
-              <code className="text-[13px] font-mono text-slate-700 leading-relaxed whitespace-pre">
-                {example.code.split('\n').map((line, i) => {
-                  // Simple syntax highlighting for light theme
-                  if (line.trim().startsWith('#') || line.trim().startsWith('//')) {
-                    return <div key={i} className="text-slate-400 italic">{line}</div>;
-                  }
-                  // Highlight keywords
-                  const highlighted = line
-                    .replace(/(from|import|const|await|new)/g, '<kw>$1</kw>')
-                    .replace(/"([^"]*)"/g, '<str>"$1"</str>')
-                    .replace(/'([^']*)'/g, "<str>'$1'</str>");
-                  
-                  if (highlighted !== line) {
-                    return (
-                      <div key={i} dangerouslySetInnerHTML={{
-                        __html: highlighted
-                          .replace(/<kw>/g, '<span style="color:#6366f1;font-weight:500">')
-                          .replace(/<\/kw>/g, '</span>')
-                          .replace(/<str>/g, '<span style="color:#059669">')
-                          .replace(/<\/str>/g, '</span>')
-                      }} />
-                    );
-                  }
-                  return <div key={i}>{line}</div>;
-                })}
-              </code>
-            </pre>
-          </motion.div>
-        </AnimatePresence>
+              {/* Tab bar */}
+              <div className="flex items-center border-y border-slate-200/80 px-6 bg-slate-50/50">
+                {group.tabs.map((tab, i) => (
+                  <button
+                    key={tab.label}
+                    onClick={() => setActiveTab(group.id, i)}
+                    className={`px-4 py-3 text-[13px] font-medium border-b-2 transition-all ${
+                      i === activeIdx
+                        ? "border-indigo-500 text-indigo-600"
+                        : "border-transparent text-slate-400 hover:text-slate-600"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Commands */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${group.id}-${activeIdx}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="p-6 space-y-3"
+                >
+                  {activeTab.commands.map((cmd, cmdIdx) => (
+                    <div key={cmdIdx} className="group/cmd">
+                      <p className="text-[12px] text-slate-400 font-medium mb-1.5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 inline-block" />
+                        {cmd.description}
+                      </p>
+                      <div className="flex items-start gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-4 py-3">
+                        <Terminal className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                        <pre className="text-[13px] font-mono text-slate-700 flex-1 overflow-x-auto whitespace-pre-wrap break-all leading-relaxed">
+                          {cmd.code}
+                        </pre>
+                        <CopyButton text={cmd.code} id={`cli-${group.id}-${activeIdx}-${cmdIdx}`} copiedId={copiedId} onCopy={onCopy} />
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-/* ─── FAQ Accordion ─── */
+/* ─── FAQ Accordion (Sidebar Bottom) ─── */
 function FAQSection() {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
@@ -326,13 +325,7 @@ function FAQSection() {
   };
 
   return (
-    <div className="mt-10">
-      <div className="flex items-center gap-2.5 mb-4">
-        <div className="w-1 h-5 rounded-full bg-blue-500" />
-        <BookOpen className="w-5 h-5 text-slate-700" />
-        <h2 className="text-lg font-bold text-slate-900">开发者 FAQ</h2>
-      </div>
-
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
       <div className="space-y-6">
         {faqCategories.map((cat) => (
           <div key={cat.title}>
@@ -382,7 +375,7 @@ function FAQSection() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -397,7 +390,6 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
       transition={{ duration: 0.3 }}
       className="group bg-white/95 border border-slate-200/60 rounded-2xl p-6 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full"
     >
-      {/* Header: Logo + Name + Highlight */}
       <div className="flex items-start gap-3.5 mb-3">
         <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} />
         <div className="flex-1 min-w-0">
@@ -410,10 +402,8 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         </div>
       </div>
 
-      {/* Description */}
       <p className="text-[14px] text-slate-600 leading-relaxed mb-3">{item.description}</p>
 
-      {/* Features list */}
       {item.features && item.features.length > 0 && (
         <div className="space-y-1.5 mb-3">
           {item.features.map((feat, i) => (
@@ -425,7 +415,6 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         </div>
       )}
 
-      {/* Tags */}
       {item.tags && item.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-3">
           {item.tags.map((tag) => (
@@ -436,7 +425,6 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         </div>
       )}
 
-      {/* Code snippet — Light theme */}
       {item.code && (
         <div className="mb-3">
           <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-2.5">
@@ -447,7 +435,6 @@ function RAGCard({ item, copiedId, onCopy }: { item: RAGItem; copiedId: string |
         </div>
       )}
 
-      {/* Links & Guide — Bottom section */}
       <div className="mt-auto pt-3 border-t border-slate-100 space-y-2.5">
         {item.links && item.links.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -505,10 +492,8 @@ function AppCard({ item }: { item: AppItem }) {
         </div>
       </div>
 
-      {/* Description */}
       <p className="text-[15px] text-slate-600 leading-relaxed mb-4">{item.description}</p>
 
-      {/* Permanent links — Always visible */}
       <div className="mt-auto pt-4 border-t border-slate-100 space-y-3">
         {item.links && item.links.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -526,7 +511,6 @@ function AppCard({ item }: { item: AppItem }) {
             ))}
           </div>
         )}
-        {/* Guide button — Hidden by default, visible on hover */}
         <a
           href={item.guideUrl}
           target="_blank"
@@ -550,7 +534,6 @@ export default function Home() {
   const { copiedId, copy } = useCopy();
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Ctrl+K shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -562,7 +545,6 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // Filter items based on search
   const filteredSkills = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return agentSkills;
@@ -586,6 +568,11 @@ export default function Home() {
       title: "Agent Skills 技能中心",
       subtitle: "MinerU 官方支持的 5 大 Agent 框架解析技能，覆盖 Node.js / Python / TypeScript / Rust / Go 全语言生态。",
       accent: "from-blue-500 to-cyan-400",
+    },
+    cli: {
+      title: "CLI/SDK 命令中心",
+      subtitle: "提供可直接复制运行的命令，快速集成 MinerU 文档解析能力到您的开发环境中。",
+      accent: "from-indigo-500 to-blue-400",
     },
     rag: {
       title: "RAG 框架集成",
@@ -633,7 +620,6 @@ export default function Home() {
                           : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                       }`}
                     >
-                      {/* Active indicator bar */}
                       {isActive && (
                         <motion.div
                           layoutId="sidebar-indicator"
@@ -643,38 +629,37 @@ export default function Home() {
                       )}
                       <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-500" : ""}`} />
                       <span>{mod.label}</span>
-                      <span className={`ml-auto text-[11px] font-semibold ${isActive ? "text-blue-400" : "text-slate-300"}`}>
-                        {mod.count}
-                      </span>
+                      {mod.count !== null && (
+                        <span className={`ml-auto text-[11px] font-semibold ${isActive ? "text-blue-400" : "text-slate-300"}`}>
+                          {mod.count}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
               </nav>
             </div>
 
-            {/* Sidebar bottom */}
+            {/* Sidebar bottom: FAQ + API 文档 */}
             <div className="p-4 border-t border-slate-100">
-              <a
-                href="https://github.com/opendatalab/MinerU"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-colors"
+              <button
+                onClick={() => switchModule("faq" as ModuleId)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] w-full text-left transition-colors ${
+                  activeModule === ("faq" as ModuleId)
+                    ? "bg-blue-50 text-blue-700"
+                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                }`}
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-                GitHub
-                <ExternalLink className="w-3 h-3 ml-auto" />
-              </a>
+                <HelpCircle className="w-4 h-4" />
+                开发者 FAQ
+              </button>
               <a
                 href="https://mineru.net/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+                <BookOpen className="w-4 h-4" />
                 API 文档
                 <ExternalLink className="w-3 h-3 ml-auto" />
               </a>
@@ -701,11 +686,20 @@ export default function Home() {
                   </button>
                 );
               })}
+              <button
+                onClick={() => switchModule("faq" as ModuleId)}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium whitespace-nowrap transition-all ${
+                  activeModule === ("faq" as ModuleId) ? "bg-blue-50 text-blue-700" : "text-slate-500 hover:bg-slate-50"
+                }`}
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                FAQ
+              </button>
             </div>
 
             {/* Content area */}
             <div className="p-6 lg:p-8 max-w-6xl">
-              {/* Section Header with gradient background */}
+              {/* Section Header */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeModule}
@@ -716,39 +710,40 @@ export default function Home() {
                   className="mb-6 pb-6 border-b border-slate-200/70"
                 >
                   <div className="flex items-start gap-3">
-                    <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${info.accent} shrink-0 mt-1`} />
+                    <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${info?.accent || "from-blue-500 to-cyan-400"} shrink-0 mt-1`} />
                     <div>
                       <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
-                        {info.title}
+                        {info?.title || "开发者 FAQ"}
                       </h1>
                       <p className="text-[14px] text-slate-500 leading-relaxed max-w-2xl">
-                        {info.subtitle}
+                        {info?.subtitle || "常见问题解答，帮助您快速了解 MinerU 的接入方式、计费规则与技术能力。"}
                       </p>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Search bar */}
-              <div className="relative mb-6 max-w-xl">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  id="search-input"
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="搜索名称、描述或关键词..."
-                  className="w-full pl-10 pr-20 py-2.5 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all"
-                />
-                <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 font-mono">
-                  Ctrl K
-                </kbd>
-              </div>
+              {/* Search bar (hide for FAQ) */}
+              {activeModule !== ("faq" as ModuleId) && (
+                <div className="relative mb-6 max-w-xl">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    id="search-input"
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="搜索名称、描述或关键词..."
+                    className="w-full pl-10 pr-20 py-2.5 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-all"
+                  />
+                  <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 font-mono">
+                    Ctrl K
+                  </kbd>
+                </div>
+              )}
 
               {/* ─── Agent Skills Content ─── */}
               {activeModule === "skills" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  {/* Cards grid */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                     {filteredSkills.length > 0 ? (
                       filteredSkills.map((item) => (
@@ -758,13 +753,12 @@ export default function Home() {
                       <EmptyState />
                     )}
                   </div>
-
-                  {/* Code showcase */}
-                  {!searchQuery && <CodeShowcase copiedId={copiedId} onCopy={copy} />}
-
-                  {/* FAQ */}
-                  {!searchQuery && <FAQSection />}
                 </motion.div>
+              )}
+
+              {/* ─── CLI/SDK Content ─── */}
+              {activeModule === "cli" && (
+                <CLISection copiedId={copiedId} onCopy={copy} />
               )}
 
               {/* ─── RAG Content ─── */}
@@ -795,6 +789,11 @@ export default function Home() {
                     )}
                   </div>
                 </motion.div>
+              )}
+
+              {/* ─── FAQ Content ─── */}
+              {activeModule === ("faq" as ModuleId) && (
+                <FAQSection />
               )}
             </div>
 

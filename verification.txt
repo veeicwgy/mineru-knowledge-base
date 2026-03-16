@@ -1,0 +1,9 @@
+验证结果 2026-03-16
+
+1. Agent Skills - 正常显示5张卡片，代码展示区已移除，FAQ已移除 ✅
+2. CLI/SDK - 新页面正常显示，MinerU Open API CLI (Mac&Linux/Windows tabs) + MinerU Open API (Mac/Windows/Linux tabs) ✅
+3. RAG 框架 - 4张卡片正常 ✅
+4. 应用与工作流 - 显示8张卡片（Coze, n8n, FastGPT, 钉钉, Cherry Studio, 和鲸科学平台, Sider, 智能数据平台），RAGFlow已移除 ✅
+5. 开发者 FAQ - 已移至侧边栏底部，点击可展开独立页面，折叠面板正常工作 ✅
+6. 侧边栏底部 - GitHub链接已替换为"开发者FAQ"和"API文档" ✅
+7. 一键复制 - CLI/SDK页面复制按钮正常 ✅
