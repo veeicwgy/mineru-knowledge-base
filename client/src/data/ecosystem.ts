@@ -203,7 +203,7 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "langchain",
     name: "LangChain",
-    description: "解决默认 Loader 遇到图表即乱码的痛点。配合 MarkdownHeaderTextSplitter 按标题层级智能切片，彻底消除按字数硬切导致的语义割裂问题。",
+    description: "作为 Loader 深度集成至 LangChain 生态，将各种外部数据源（如 PDF）统一转换为 LangChain 可处理的 Document 格式。",
     highlight: "官方推荐 Loader",
     logo: lobe("langchain"),
     code: "from langchain_community.document_loaders import MineruLoader",
@@ -213,14 +213,14 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "dify",
     name: "Dify",
-    description: "作为核心预处理节点或官方插件，将图文混排文档一站式转化为高质量问答知识库。支持 PDF、PPT、图片等多格式自动解析入库。",
+    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。",
     highlight: "知识库预处理首选",
     logo: lobe("dify"),
   },
   {
     id: "ragflow",
     name: "RAGFlow",
-    description: "作为平台内置的深度文档解析引擎，结合 GraphRAG 提供精准的物理与逻辑版面分析，支持复杂表格与多栏布局的高保真还原。",
+    description: "平台内置预处理引擎，攻克多模态文档切片（Chunking）难题，保障 RAG 效果。",
     highlight: "深度版面分析引擎",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
   },
