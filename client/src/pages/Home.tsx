@@ -289,9 +289,45 @@ function MCPSection({ copiedId, onCopy, isDark }: { copiedId: string | null; onC
   const [activeTab, setActiveTab] = useState(0);
   const activeIntegration = mcpClientData.integrations[activeTab];
 
+  const stepIcons: Record<string, React.ReactNode> = {
+    message: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+    cpu: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <rect x="9" y="9" width="6" height="6" />
+        <path d="M15 2v2" /><path d="M15 20v2" /><path d="M2 15h2" /><path d="M2 9h2" /><path d="M20 15h2" /><path d="M20 9h2" /><path d="M9 2v2" /><path d="M9 20v2" />
+      </svg>
+    ),
+    server: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="8" rx="2" />
+        <rect x="2" y="14" width="20" height="8" rx="2" />
+        <circle cx="6" cy="6" r="1" fill="currentColor" />
+        <circle cx="6" cy="18" r="1" fill="currentColor" />
+      </svg>
+    ),
+    check: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
+    ),
+  };
+
+  const stepColors = [
+    { bg: isDark ? "bg-blue-900/30" : "bg-blue-50", border: isDark ? "border-blue-700/40" : "border-blue-200", text: isDark ? "text-blue-400" : "text-blue-600", num: isDark ? "bg-blue-800/50 text-blue-300" : "bg-blue-100 text-blue-700" },
+    { bg: isDark ? "bg-violet-900/30" : "bg-violet-50", border: isDark ? "border-violet-700/40" : "border-violet-200", text: isDark ? "text-violet-400" : "text-violet-600", num: isDark ? "bg-violet-800/50 text-violet-300" : "bg-violet-100 text-violet-700" },
+    { bg: isDark ? "bg-indigo-900/30" : "bg-indigo-50", border: isDark ? "border-indigo-700/40" : "border-indigo-200", text: isDark ? "text-indigo-400" : "text-indigo-600", num: isDark ? "bg-indigo-800/50 text-indigo-300" : "bg-indigo-100 text-indigo-700" },
+    { bg: isDark ? "bg-emerald-900/30" : "bg-emerald-50", border: isDark ? "border-emerald-700/40" : "border-emerald-200", text: isDark ? "text-emerald-400" : "text-emerald-600", num: isDark ? "bg-emerald-800/50 text-emerald-300" : "bg-emerald-100 text-emerald-700" },
+  ];
+
   return (
     <div className="mt-10">
-      {/* Section Divider */}
+      {/* Section Header */}
       <div className={`flex items-center gap-3 mb-6 pb-4 border-b ${
         isDark ? "border-slate-700/70" : "border-slate-200/70"
       }`}>
@@ -302,46 +338,66 @@ function MCPSection({ copiedId, onCopy, isDark }: { copiedId: string | null; onC
           }`}>
             {mcpClientData.title}
           </h2>
-          <p className={`text-[13px] leading-relaxed mt-1 max-w-2xl ${
-            isDark ? "text-slate-400" : "text-slate-500"
+          <p className={`text-[14px] leading-relaxed mt-1 font-medium ${
+            isDark ? "text-slate-300" : "text-slate-700"
           }`}>
             {mcpClientData.description}
+          </p>
+          <p className={`text-[13px] leading-relaxed mt-0.5 ${
+            isDark ? "text-slate-500" : "text-slate-400"
+          }`}>
+            {mcpClientData.subtitle}
           </p>
         </div>
       </div>
 
-      {/* Workflow Steps */}
+      {/* Workflow Steps - Enhanced with icons and colors */}
       <div className={`rounded-2xl border p-6 mb-6 ${
         isDark
           ? "bg-slate-800/80 border-slate-700/60"
           : "bg-white/95 border-slate-200/60"
       }`}>
-        <h3 className={`text-[13px] font-semibold uppercase tracking-wider mb-4 flex items-center gap-2 ${
+        <h3 className={`text-[13px] font-semibold uppercase tracking-wider mb-5 flex items-center gap-2 ${
           isDark ? "text-slate-500" : "text-slate-400"
         }`}>
           <Sparkles className="w-3.5 h-3.5" />
           工作流程
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {mcpClientData.workflowSteps.map((ws, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-[12px] font-bold shrink-0 ${
-                isDark
-                  ? "bg-indigo-900/40 text-indigo-400 border border-indigo-700/50"
-                  : "bg-indigo-50 text-indigo-600 border border-indigo-100"
-              }`}>
-                {i + 1}
+          {mcpClientData.workflowSteps.map((ws, i) => {
+            const color = stepColors[i];
+            return (
+              <div key={i} className="relative">
+                <div className={`rounded-xl border p-4 h-full transition-all hover:shadow-md ${
+                  color.bg
+                } ${color.border}`}>
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${color.num}`}>
+                      {stepIcons[ws.icon] || <span className="text-[12px] font-bold">{i + 1}</span>}
+                    </div>
+                    <div className={`text-[11px] font-bold uppercase tracking-wider ${color.text}`}>
+                      Step {i + 1}
+                    </div>
+                  </div>
+                  <p className={`text-[14px] font-semibold mb-1 ${
+                    isDark ? "text-slate-200" : "text-slate-800"
+                  }`}>{ws.step}</p>
+                  <p className={`text-[12px] leading-relaxed ${
+                    isDark ? "text-slate-400" : "text-slate-500"
+                  }`}>{ws.detail}</p>
+                </div>
+                {i < 3 && (
+                  <div className={`hidden lg:flex absolute top-1/2 -right-3 -translate-y-1/2 z-10 ${
+                    isDark ? "text-slate-600" : "text-slate-300"
+                  }`}>
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                )}
               </div>
-              <div>
-                <p className={`text-[13px] font-semibold mb-0.5 ${
-                  isDark ? "text-slate-200" : "text-slate-800"
-                }`}>{ws.step}</p>
-                <p className={`text-[12px] leading-relaxed ${
-                  isDark ? "text-slate-500" : "text-slate-400"
-                }`}>{ws.detail}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

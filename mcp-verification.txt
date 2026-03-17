@@ -1,0 +1,22 @@
+MCP Server Section Verification - 2026-03-17
+
+1. Description refined:
+   - Title: "MCP Server" ✅
+   - Main description: "MinerU Model Context Protocol (MCP) Server：大模型客户端与 MinerU 的桥梁，实现参数化、结构化文档解析。" ✅
+   - Subtitle: "支持 Cursor、Claude Desktop、Windsurf 等主流大模型客户端..." ✅
+
+2. Workflow Steps Enhanced:
+   - Step 1 (Blue): 用户指令 - message icon ✅
+   - Step 2 (Violet): 参数解析 - cpu icon ✅
+   - Step 3 (Indigo): MCP 调用 - server icon ✅
+   - Step 4 (Emerald): 结果返回 - check icon ✅
+   - Each step has colored background card ✅
+   - Arrow connectors between steps ✅
+   - "STEP N" label above each step ✅
+
+3. Integration Tabs:
+   - Cursor 集成 tab with JSON code block ✅
+   - 通用集成 tab ✅
+   - Copy button on code blocks ✅
+
+4. No errors in dev server or browser console ✅

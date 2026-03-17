@@ -64,7 +64,8 @@ export interface MCPIntegrationTab {
 export interface MCPClientData {
   title: string;
   description: string;
-  workflowSteps: { step: string; detail: string }[];
+  subtitle: string;
+  workflowSteps: { step: string; detail: string; icon: string }[];
   integrations: MCPIntegrationTab[];
 }
 
@@ -396,12 +397,13 @@ export const cliSdkGroups: CLICommandGroup[] = [
 /* ─── MCP Client Data ─── */
 export const mcpClientData: MCPClientData = {
   title: "MCP Server",
-  description: "作为大模型（如 Cursor、Claude Desktop）调用 MinerU 解析服务的标准化客户端。大模型将用户指令分析为参数（文件路径、页码范围、输出格式等），通过 MCP 协议传递给 MinerU MCP Server，Server 完成解析后将结构化结果返回至大模型客户端。",
+  description: "MinerU Model Context Protocol (MCP) Server：大模型客户端与 MinerU 的桥梁，实现参数化、结构化文档解析。",
+  subtitle: "支持 Cursor、Claude Desktop、Windsurf 等主流大模型客户端，通过标准 MCP 协议无缝调用 MinerU 解析服务。",
   workflowSteps: [
-    { step: "用户指令", detail: "用户在大模型客户端中输入自然语言指令，如'解析这份 PDF 的第 3-5 页'" },
-    { step: "参数解析", detail: "大模型将指令分析为结构化参数：文件路径、页码范围、输出格式等" },
-    { step: "MCP 调用", detail: "参数通过 MCP 协议传递给 MinerU MCP Server 执行解析" },
-    { step: "结果返回", detail: "解析完成后，结构化 Markdown/JSON 结果返回至大模型客户端" },
+    { step: "用户指令", detail: "在大模型客户端输入自然语言，如'解析这份 PDF 的第 3-5 页'", icon: "message" },
+    { step: "参数解析", detail: "大模型将指令拆解为结构化参数：路径、页码、格式等", icon: "cpu" },
+    { step: "MCP 调用", detail: "参数通过 MCP 协议传递给 MinerU Server 执行解析", icon: "server" },
+    { step: "结果返回", detail: "结构化 Markdown / JSON 结果返回至大模型客户端", icon: "check" },
   ],
   integrations: [
     {
