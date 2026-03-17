@@ -410,7 +410,7 @@ export const cliSdkGroups: CLICommandGroup[] = [
 
 /* ─── MCP Client Data ─── */
 export const mcpClientData: MCPClientData = {
-  title: "MinerU MCP Client",
+  title: "MCP Server",
   description: "作为大模型（如 Cursor、Claude Desktop）调用 MinerU 解析服务的标准化客户端。大模型将用户指令分析为参数（文件路径、页码范围、输出格式等），通过 MCP 协议传递给 MinerU MCP Server，Server 完成解析后将结构化结果返回至大模型客户端。",
   workflowSteps: [
     { step: "用户指令", detail: "用户在大模型客户端中输入自然语言指令，如'解析这份 PDF 的第 3-5 页'" },
