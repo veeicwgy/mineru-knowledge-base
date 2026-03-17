@@ -175,7 +175,7 @@ export const faqCategories: FAQCategory[] = [
       },
       {
         q: "如何切换为支持复杂公式和表格的完整版？",
-        a: "在接入 Skill 时，将 mode 参数设为 precise 并传入您的 API Key（需在控制台获取），即可无缝切换为高精度模式，结构化输出纯净的 Markdown 与 LaTeX 公式。",
+        a: "在接入 Skill 时，选择高精度通道解析 并传入您的 API Key（需在控制台获取），即可无缝切换为高精度模式，结构化输出纯净的 Markdown 与 LaTeX 公式。",
       },
       {
         q: "网页 (URL) 解析和文件解析的额度是怎么扣减的？",
