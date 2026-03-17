@@ -290,7 +290,7 @@ export const ragFrameworks: RAGItem[] = [
 export const cliSdkGroups: CLICommandGroup[] = [
   {
     id: "mineru-cli",
-    title: "MinerU Open API CLI",
+    title: "Open API CLI",
     description: "通过命令行快速调用 MinerU Open API，支持文件解析、格式转换等核心功能。",
     tabs: [
       {
@@ -339,68 +339,53 @@ export const cliSdkGroups: CLICommandGroup[] = [
   },
   {
     id: "mineru-api",
-    title: "MinerU Open API",
+    title: "Open API",
     description: "通过 HTTP API 直接调用 MinerU 解析服务，适用于集成到自有系统或工作流中。",
     tabs: [
       {
-        label: "Mac",
+        label: "Python",
         commands: [
           {
             description: "创建解析任务",
-            code: `curl -X POST 'https://mineru.net/api/v4/extract/task' \\
-  -H 'Authorization: Bearer YOUR_TOKEN' \\
-  -H 'Content-Type: application/json' \\
-  -d '{"url": "https://example.com/sample.pdf", "model_version": "vlm"}'`
+            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
           },
           {
             description: "查询任务结果",
-            code: `curl -X GET 'https://mineru.net/api/v4/extract/task/{task_id}' \\
-  -H 'Authorization: Bearer YOUR_TOKEN'`
-          },
-          {
-            description: "Python SDK 调用",
-            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
-          }
-        ]
-      },
-      {
-        label: "Windows",
-        commands: [
-          {
-            description: "创建解析任务（PowerShell）",
-            code: "Invoke-RestMethod -Uri 'https://mineru.net/api/v4/extract/task' `\n  -Method POST `\n  -Headers @{\"Authorization\"=\"Bearer YOUR_TOKEN\"; \"Content-Type\"=\"application/json\"} `\n  -Body '{\"url\": \"https://example.com/sample.pdf\", \"model_version\": \"vlm\"}'"
-          },
-          {
-            description: "查询任务结果（PowerShell）",
-            code: "Invoke-RestMethod -Uri 'https://mineru.net/api/v4/extract/task/{task_id}' `\n  -Method GET `\n  -Headers @{\"Authorization\"=\"Bearer YOUR_TOKEN\"}"
-          },
-          {
-            description: "Python SDK 调用",
-            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
-          }
-        ]
-      },
-      {
-        label: "Linux",
-        commands: [
-          {
-            description: "创建解析任务",
-            code: `curl -X POST 'https://mineru.net/api/v4/extract/task' \\
-  -H 'Authorization: Bearer YOUR_TOKEN' \\
-  -H 'Content-Type: application/json' \\
-  -d '{"url": "https://example.com/sample.pdf", "model_version": "vlm"}'`
-          },
-          {
-            description: "查询任务结果",
-            code: `curl -X GET 'https://mineru.net/api/v4/extract/task/{task_id}' \\
-  -H 'Authorization: Bearer YOUR_TOKEN'`
+            code: `import requests\n\ntoken = "YOUR_TOKEN"\ntask_id = "YOUR_TASK_ID"\nurl = f"https://mineru.net/api/v4/extract/task/{task_id}"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\nres = requests.get(url, headers=header)\nprint(res.json())`
           },
           {
             description: "批量文件解析",
-            code: `curl -X POST 'https://mineru.net/api/v4/extract/task/batch' \\
-  -H 'Authorization: Bearer YOUR_TOKEN' \\
-  -H 'Content-Type: application/json' \\
-  -d '{"files": [{"url": "https://example.com/doc1.pdf"}, {"url": "https://example.com/doc2.pdf"}], "model_version": "vlm"}'`
+            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task/batch"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "files": [\n        {"url": "https://example.com/doc1.pdf"},\n        {"url": "https://example.com/doc2.pdf"}\n    ],\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
+          }
+        ]
+      },
+      {
+        label: "GO",
+        commands: [
+          {
+            description: "创建解析任务",
+            code: `package main\n\nimport (\n    "bytes"\n    "encoding/json"\n    "fmt"\n    "net/http"\n    "io"\n)\n\nfunc main() {\n    url := "https://mineru.net/api/v4/extract/task"\n    data := map[string]string{\n        "url": "https://example.com/sample.pdf",\n        "model_version": "vlm",\n    }\n    body, _ := json.Marshal(data)\n    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(body))\n    req.Header.Set("Authorization", "Bearer YOUR_TOKEN")\n    req.Header.Set("Content-Type", "application/json")\n    client := &http.Client{}\n    resp, _ := client.Do(req)\n    defer resp.Body.Close()\n    result, _ := io.ReadAll(resp.Body)\n    fmt.Println(string(result))\n}`
+          },
+          {
+            description: "查询任务结果",
+            code: `package main\n\nimport (\n    "fmt"\n    "net/http"\n    "io"\n)\n\nfunc main() {\n    taskID := "YOUR_TASK_ID"\n    url := fmt.Sprintf("https://mineru.net/api/v4/extract/task/%s", taskID)\n    req, _ := http.NewRequest("GET", url, nil)\n    req.Header.Set("Authorization", "Bearer YOUR_TOKEN")\n    client := &http.Client{}\n    resp, _ := client.Do(req)\n    defer resp.Body.Close()\n    result, _ := io.ReadAll(resp.Body)\n    fmt.Println(string(result))\n}`
+          }
+        ]
+      },
+      {
+        label: "JavaScript / TypeScript",
+        commands: [
+          {
+            description: "创建解析任务",
+            code: `const res = await fetch("https://mineru.net/api/v4/extract/task", {\n  method: "POST",\n  headers: {\n    "Authorization": "Bearer YOUR_TOKEN",\n    "Content-Type": "application/json",\n  },\n  body: JSON.stringify({\n    url: "https://example.com/sample.pdf",\n    model_version: "vlm",\n  }),\n});\nconst data = await res.json();\nconsole.log(data);`
+          },
+          {
+            description: "查询任务结果",
+            code: `const taskId = "YOUR_TASK_ID";\nconst res = await fetch(\n  \`https://mineru.net/api/v4/extract/task/\${taskId}\`,\n  {\n    headers: { "Authorization": "Bearer YOUR_TOKEN" },\n  }\n);\nconst data = await res.json();\nconsole.log(data);`
+          },
+          {
+            description: "批量文件解析",
+            code: `const res = await fetch("https://mineru.net/api/v4/extract/task/batch", {\n  method: "POST",\n  headers: {\n    "Authorization": "Bearer YOUR_TOKEN",\n    "Content-Type": "application/json",\n  },\n  body: JSON.stringify({\n    files: [\n      { url: "https://example.com/doc1.pdf" },\n      { url: "https://example.com/doc2.pdf" },\n    ],\n    model_version: "vlm",\n  }),\n});\nconst data = await res.json();\nconsole.log(data);`
           }
         ]
       }
