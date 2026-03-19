@@ -1,0 +1,9 @@
+RAG 框架卡片优化验证结果：
+
+1. 卡片尺寸：4 张卡片现在使用与 AppCard 相同的 p-6、text-lg、gap-4、size-44 等参数 ✅
+2. Flowise 链接区：底部显示"敬请期待"灰色标签，无可点击链接 ✅
+3. RAGFlow 链接区：仅显示"RAGFlow 仓库"一个链接，无 hover 配置文档提示 ✅
+4. Dify 链接区：直接显示"MinerU 官方插件"链接，无需 hover ✅
+5. LangChain 链接区：直接显示"MinerU 主仓库"链接 ✅
+6. 所有卡片等高 2x2 网格布局 ✅
+7. 暗黑模式需要验证

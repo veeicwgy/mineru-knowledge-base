@@ -29,6 +29,7 @@ export interface RAGItem {
   tags?: string[];
   links?: { label: string; url: string }[];
   features?: string[];
+  comingSoon?: boolean;
 }
 
 export interface AppItem {
@@ -253,8 +254,6 @@ export const ragFrameworks: RAGItem[] = [
     links: [
       { label: "MinerU 官方插件", url: "https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru" },
     ],
-    guideLabel: "GitHub",
-    guideUrl: "https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru",
   },
   {
     id: "ragflow",
@@ -266,10 +265,7 @@ export const ragFrameworks: RAGItem[] = [
     features: ["内置 MinerU 作为可选 PDF 解析器", "支持 pipeline / VLM 多种后端", "精准物理与逻辑版面分析"],
     links: [
       { label: "RAGFlow 仓库", url: "https://github.com/infiniflow/ragflow" },
-      { label: "解析器配置文档", url: "https://ragflow.io/docs/select_pdf_parser" },
     ],
-    guideLabel: "配置文档",
-    guideUrl: "https://ragflow.io/docs/select_pdf_parser",
   },
   {
     id: "flowise",
@@ -279,11 +275,8 @@ export const ragFrameworks: RAGItem[] = [
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
     tags: ["拖拽式工作流", "零代码", "Document Loader"],
     features: ["拖拽式可视化工作流搭建", "内置 Document Loader 节点", "支持与向量数据库无缝对接"],
-    links: [
-      { label: "Flowise 仓库", url: "https://github.com/FlowiseAI/Flowise" },
-    ],
-    guideLabel: "GitHub",
-    guideUrl: "https://github.com/FlowiseAI/Flowise",
+    links: [],
+    comingSoon: true,
   },
 ];
 

@@ -611,7 +611,7 @@ function FAQSection({ isDark }: { isDark: boolean }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   Module 2: RAG 框架
+   Module 2: RAG 框架 (卡片尺寸对齐 AppCard)
    ═══════════════════════════════════════════════════════ */
 function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
   return (
@@ -625,12 +625,13 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
           : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
       }`}
     >
-      <div className="flex items-start gap-3.5 mb-3">
+      {/* Header: logo + name + highlight - same as AppCard */}
+      <div className="flex items-start gap-4 mb-3">
         <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
         <div className="flex-1 min-w-0">
-          <h3 className={`text-lg font-bold truncate ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
+          <h3 className={`text-lg font-bold mb-1 ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
           {item.highlight && (
-            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border mt-1 ${
+            <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border ${
               isDark
                 ? "bg-violet-900/30 text-violet-400 border-violet-700/50"
                 : "bg-violet-50 text-violet-600 border-violet-100"
@@ -641,10 +642,12 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       </div>
 
-      <p className={`text-[14px] leading-relaxed mb-3 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
+      {/* Description - same font size as AppCard */}
+      <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
+      {/* Features */}
       {item.features && item.features.length > 0 && (
-        <div className="space-y-1.5 mb-3">
+        <div className="space-y-1.5 mb-4">
           {item.features.map((feat, i) => (
             <div key={i} className="flex items-start gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
@@ -654,8 +657,9 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       )}
 
+      {/* Tags */}
       {item.tags && item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {item.tags.map((tag) => (
             <span key={tag} className={`text-[11px] font-medium px-2 py-0.5 rounded-md border ${
               isDark
@@ -668,8 +672,9 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       )}
 
+      {/* Code snippet */}
       {item.code && (
-        <div className="mb-3">
+        <div className="mb-4">
           <div className={`flex items-center gap-2 rounded-lg px-3 py-2.5 border ${
             isDark
               ? "bg-slate-900/60 border-slate-700/80"
@@ -682,40 +687,40 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       )}
 
-      <div className={`mt-auto pt-3 border-t space-y-2.5 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
-        {item.links && item.links.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {item.links.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 text-[12px] font-medium px-2.5 py-1.5 rounded-lg border transition-colors ${
-                  isDark
-                    ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
-                    : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
-                }`}
-              >
-                <Github className="w-3 h-3" />
-                {link.label}
-                <ExternalLink className="w-2.5 h-2.5" />
-              </a>
-            ))}
-          </div>
-        )}
-        {item.guideLabel && item.guideUrl && (
-          <a
-            href={item.guideUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1.5 text-[13px] font-medium transition-all duration-200 opacity-0 group-hover:opacity-100 ${
-              isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"
-            }`}
-          >
-            {item.guideLabel}
-            <ExternalLink className="w-3 h-3" />
-          </a>
+      {/* Footer: links or coming soon - same spacing as AppCard */}
+      <div className={`mt-auto pt-4 border-t space-y-3 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
+        {item.comingSoon ? (
+          <span className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border ${
+            isDark
+              ? "bg-slate-700/40 text-slate-500 border-slate-600/60"
+              : "bg-slate-100 text-slate-400 border-slate-200/60"
+          }`}>
+            敬请期待
+          </span>
+        ) : (
+          <>
+            {item.links && item.links.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {item.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border transition-colors ${
+                      isDark
+                        ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
+                        : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
+                    }`}
+                  >
+                    <Github className="w-3 h-3" />
+                    {link.label}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </motion.div>
