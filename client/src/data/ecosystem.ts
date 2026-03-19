@@ -231,9 +231,10 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "langchain",
     name: "LangChain",
-    description: "深度集成至 LangChain 生态，将 PDF 等外部数据源统一转换为 Document 格式，配合标题层级智能切片。",
+    description: "作为 Loader 深度集成至 LangChain 生态，将 PDF 等外部数据源统一转换为 Document 格式。配合 MarkdownHeaderTextSplitter 按标题层级智能切片，消除语义割裂。",
     highlight: "官方推荐 Loader",
     logo: lobe("langchain"),
+    code: "from langchain_community.document_loaders import MineruLoader",
     links: [
       { label: "MinerU 主仓库", url: "https://github.com/opendatalab/MinerU" },
     ],
@@ -241,7 +242,7 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "dify",
     name: "Dify",
-    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。",
+    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。支持 API 与本地部署双模式，可解析 PDF、DOC、PPT、图片等多种格式。",
     highlight: "官方插件集成",
     logo: lobe("dify"),
     links: [
@@ -251,7 +252,7 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "ragflow",
     name: "RAGFlow",
-    description: "平台内置预处理引擎，攻克多模态文档切片难题。v0.22.0 起内置 MinerU 作为可选 PDF 解析器。",
+    description: "平台内置预处理引擎，攻克多模态文档切片（Chunking）难题。从 v0.22.0 起内置 MinerU 作为可选 PDF 解析器，支持 pipeline、VLM 等后端模式。",
     highlight: "平台内置引擎",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
     links: [
@@ -261,7 +262,7 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "flowise",
     name: "Flowise",
-    description: "拖拽式 Document Loader 节点，零代码即可完成文档解析工作流搭建。",
+    description: "提供开箱即用的拖拽式 Document Loader 节点，零代码即可完成文档解析工作流搭建，适合快速上手。",
     highlight: "零代码拖拽接入",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
     links: [],

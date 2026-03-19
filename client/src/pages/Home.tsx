@@ -613,7 +613,7 @@ function FAQSection({ isDark }: { isDark: boolean }) {
 /* ═══════════════════════════════════════════════════════
    Module 2: RAG 框架 (卡片尺寸对齐 AppCard)
    ═══════════════════════════════════════════════════════ */
-function RAGCard({ item, isDark }: { item: RAGItem; isDark: boolean }) {
+function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -642,6 +642,18 @@ function RAGCard({ item, isDark }: { item: RAGItem; isDark: boolean }) {
       </div>
 
       <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
+
+      {item.code && (
+        <div className={`flex items-center gap-2 rounded-lg px-3 py-2 mb-4 font-mono text-[12px] border ${
+          isDark
+            ? "bg-slate-900/60 border-slate-700/60 text-slate-300"
+            : "bg-slate-50/80 border-slate-200/60 text-slate-700"
+        }`}>
+          <Terminal className="w-3.5 h-3.5 flex-shrink-0 text-slate-400" />
+          <code className="flex-1 truncate">{item.code}</code>
+          <CopyButton text={item.code} id={`rag-code-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
+        </div>
+      )}
 
       <div className={`mt-auto pt-4 border-t space-y-3 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.comingSoon ? (
@@ -974,7 +986,7 @@ export default function Home() {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {ragFrameworks.map((item) => (
-                      <RAGCard key={item.id} item={item} isDark={isDark} />
+                      <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
                     ))}
                   </div>
                 </motion.div>
