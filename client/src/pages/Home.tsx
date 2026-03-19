@@ -129,25 +129,25 @@ function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className={`group rounded-2xl p-6 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full ${
+      transition={{ duration: 0.25 }}
+      className={`group rounded-xl p-4 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col ${
         isDark
-          ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
-          : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+          ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+          : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
       }`}
     >
-      <div className="flex items-start gap-4 mb-4">
+      <div className="flex items-center gap-3 mb-2.5">
         {iconUrl ? (
-          <img src={iconUrl} alt={`${item.name} logo`} className="w-11 h-11 rounded-xl shrink-0 object-contain" />
+          <img src={iconUrl} alt={`${item.name} logo`} className="w-9 h-9 rounded-lg shrink-0 object-contain" />
         ) : (
-          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
+          <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={36} isDark={isDark} />
         )}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className={`text-lg font-bold truncate ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
-            <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+          <div className="flex items-center gap-2">
+            <h3 className={`text-[15px] font-bold truncate ${isDark ? "text-slate-100" : "text-slate-900"}`}>{item.name}</h3>
+            <span className={`shrink-0 text-[9px] font-semibold px-1.5 py-0.5 rounded-full border ${
               isDark
                 ? "bg-emerald-900/40 text-emerald-400 border-emerald-700/60"
                 : "bg-emerald-50 text-emerald-600 border-emerald-200/60"
@@ -156,32 +156,30 @@ function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
             </span>
           </div>
           {item.registry && (
-            <p className={`text-sm ${isDark ? "text-slate-500" : "text-slate-400"}`}>{item.registry}</p>
+            <p className={`text-[11px] ${isDark ? "text-slate-500" : "text-slate-400"}`}>{item.registry}</p>
           )}
         </div>
       </div>
 
       {item.highlight && (
-        <div className="mb-3">
-          <span className={`text-[12px] font-semibold px-2.5 py-1 rounded-md border ${
-            isDark
-              ? "bg-blue-900/30 text-blue-400 border-blue-700/50"
-              : "bg-blue-50 text-blue-600 border-blue-100"
-          }`}>
-            {item.highlight}
-          </span>
-        </div>
+        <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-md border mb-2 w-fit ${
+          isDark
+            ? "bg-blue-900/30 text-blue-400 border-blue-700/50"
+            : "bg-blue-50 text-blue-600 border-blue-100"
+        }`}>
+          {item.highlight}
+        </span>
       )}
 
-      <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
+      <p className={`text-[13px] leading-relaxed mb-2.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
       {item.tags && item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-auto">
+        <div className="flex flex-wrap gap-1 mt-auto">
           {item.tags.map((tag) => (
-            <span key={tag} className={`text-[13px] font-medium px-2.5 py-1 rounded-md ${
+            <span key={tag} className={`text-[11px] font-medium px-2 py-0.5 rounded-md ${
               isDark
                 ? "bg-slate-700/60 text-slate-400"
-                : "bg-slate-100 text-slate-600"
+                : "bg-slate-100 text-slate-500"
             }`}>
               {tag}
             </span>
@@ -189,6 +187,67 @@ function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
         </div>
       )}
     </motion.div>
+  );
+}
+
+/* ─── Resource Links Bar ─── */
+const resourceLinks = [
+  { label: "ClawHub 托管平台", url: "https://clawhub.com/opendatalab/mineru-skills", icon: "hub" },
+  { label: "腾讯云国内镜像", url: "https://mirrors.cloud.tencent.com/opendatalab/mineru-skills", icon: "cloud" },
+  { label: "GitHub 源码下载", url: "https://github.com/opendatalab/MinerU/tree/master/skills", icon: "github" },
+];
+
+function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
+  return (
+    <div className={`rounded-xl border p-4 mb-5 ${
+      isDark
+        ? "bg-slate-800/60 border-slate-700/50"
+        : "bg-white/80 border-slate-200/50"
+    }`}>
+      <h3 className={`text-[12px] font-semibold uppercase tracking-wider mb-3 flex items-center gap-2 ${
+        isDark ? "text-slate-500" : "text-slate-400"
+      }`}>
+        <FileCode2 className="w-3.5 h-3.5" />
+        资源与部署
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        {resourceLinks.map((link) => (
+          <div
+            key={link.label}
+            className={`flex items-center gap-2.5 rounded-lg px-3 py-2.5 border transition-colors ${
+              isDark
+                ? "bg-slate-900/50 border-slate-700/60 hover:border-slate-600"
+                : "bg-slate-50/80 border-slate-200/60 hover:border-slate-300"
+            }`}
+          >
+            {link.icon === "github" ? (
+              <Github className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} />
+            ) : link.icon === "cloud" ? (
+              <svg className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
+            ) : (
+              <svg className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              </svg>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className={`text-[12px] font-medium truncate ${isDark ? "text-slate-300" : "text-slate-700"}`}>{link.label}</p>
+              <p className={`text-[10px] truncate ${isDark ? "text-slate-500" : "text-slate-400"}`}>{link.url.replace(/^https?:\/\//, '')}</p>
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+              <CopyButton text={link.url} id={`res-${link.icon}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
+              <a href={link.url} target="_blank" rel="noopener noreferrer" className={`p-1.5 rounded-md transition-colors ${
+                isDark ? "hover:bg-slate-600/60 text-slate-500 hover:text-slate-300" : "hover:bg-slate-200/60 text-slate-400 hover:text-slate-600"
+              }`}>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -930,8 +989,11 @@ export default function Home() {
               {/* ─── Skills & MCP Content ─── */}
               {activeModule === "skills" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  {/* Agent Skills Cards */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {/* Resource Links */}
+                  <ResourceBar copiedId={copiedId} onCopy={copy} isDark={isDark} />
+
+                  {/* Agent Skills Cards - compact grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                     {agentSkills.map((item) => (
                       <SkillCard key={item.id} item={item} isDark={isDark} />
                     ))}

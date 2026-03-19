@@ -86,7 +86,7 @@ export const agentSkills: SkillItem[] = [
   {
     id: "openclaw",
     name: "OpenClaw",
-    description: "主流 Node.js Agent 框架的官方推荐解析插件，提交至 openclaw SDK。支持 PDF、DOCX、PPT 等多格式文档的结构化提取，输出标准 Markdown 与 JSON。",
+    description: "Node.js Agent 框架官方推荐插件，支持 PDF/DOCX/PPT 结构化提取，输出 Markdown 与 JSON。",
     highlight: "Node.js 生态首选",
     logo: lobe("openclaw"),
     tags: ["Node.js", "OpenAPI"],
@@ -96,7 +96,7 @@ export const agentSkills: SkillItem[] = [
   {
     id: "zeroclaw",
     name: "ZeroClaw",
-    description: "Rust 原生实现，极低的内存与资源占用开销，完美适配边缘设备与嵌入式场景。支持 WASM 编译，可在浏览器端运行文档解析。",
+    description: "Rust 原生实现，极低内存占用，适配边缘设备。支持 WASM 编译，可在浏览器端运行。",
     highlight: "边缘计算首选",
     logo: "",
     logoFallback: "#E44D26",
@@ -107,7 +107,7 @@ export const agentSkills: SkillItem[] = [
   {
     id: "nanobot",
     name: "Nanobot",
-    description: "专为 Python 生态 Agent 打造，原生支持 LangChain、AutoGen 等主流智能体编排工作流。内置免登录快速版与 API Key 高精度版双模式。",
+    description: "Python 生态 Agent 首选，原生支持 LangChain、AutoGen 编排工作流，内置双模式解析。",
     highlight: "Python 生态首选",
     logo: "",
     logoFallback: "#3776AB",
@@ -118,7 +118,7 @@ export const agentSkills: SkillItem[] = [
   {
     id: "nanoclaw",
     name: "NanoClaw",
-    description: "轻量级 TypeScript 框架，导出符合 NanoClaw Skill 规范的工具函数。完美适配 Vercel AI SDK 与 Tool Calling 标准协议。",
+    description: "轻量级 TypeScript 框架，适配 Vercel AI SDK 与 Tool Calling 标准协议。",
     highlight: "TypeScript 生态首选",
     logo: "",
     logoFallback: "#3178C6",
@@ -129,7 +129,7 @@ export const agentSkills: SkillItem[] = [
   {
     id: "picoclaw",
     name: "PicoClaw",
-    description: "专为 Go 语言轻量级 Agent 提供的解析模块，支持高并发数据流转与 goroutine 安全调用。适合微服务架构下的批量文档处理。",
+    description: "Go 语言解析模块，支持高并发与 goroutine 安全调用，适合微服务批量处理。",
     highlight: "Go 生态首选",
     logo: "",
     logoFallback: "#00ADD8",
