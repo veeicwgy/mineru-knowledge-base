@@ -613,7 +613,7 @@ function FAQSection({ isDark }: { isDark: boolean }) {
 /* ═══════════════════════════════════════════════════════
    Module 2: RAG 框架 (卡片尺寸对齐 AppCard)
    ═══════════════════════════════════════════════════════ */
-function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
+function RAGCard({ item, isDark }: { item: RAGItem; isDark: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -625,7 +625,6 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
           : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
       }`}
     >
-      {/* Header: logo + name + highlight - same as AppCard */}
       <div className="flex items-start gap-4 mb-3">
         <LogoIcon src={item.logo} fallback={item.logoFallback} name={item.name} size={44} isDark={isDark} />
         <div className="flex-1 min-w-0">
@@ -642,52 +641,8 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       </div>
 
-      {/* Description - same font size as AppCard */}
       <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
-      {/* Features */}
-      {item.features && item.features.length > 0 && (
-        <div className="space-y-1.5 mb-4">
-          {item.features.map((feat, i) => (
-            <div key={i} className="flex items-start gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-              <span className={`text-[13px] leading-snug ${isDark ? "text-slate-400" : "text-slate-500"}`}>{feat}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Tags */}
-      {item.tags && item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {item.tags.map((tag) => (
-            <span key={tag} className={`text-[11px] font-medium px-2 py-0.5 rounded-md border ${
-              isDark
-                ? "bg-slate-700/60 text-slate-400 border-slate-600/60"
-                : "bg-slate-100 text-slate-500 border-slate-200/60"
-            }`}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Code snippet */}
-      {item.code && (
-        <div className="mb-4">
-          <div className={`flex items-center gap-2 rounded-lg px-3 py-2.5 border ${
-            isDark
-              ? "bg-slate-900/60 border-slate-700/80"
-              : "bg-slate-50 border-slate-200/80"
-          }`}>
-            <Terminal className={`w-3.5 h-3.5 shrink-0 ${isDark ? "text-slate-500" : "text-slate-400"}`} />
-            <code className={`text-[12px] font-mono flex-1 truncate ${isDark ? "text-slate-300" : "text-slate-600"}`}>{item.code}</code>
-            <CopyButton text={item.code} id={`rag-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
-          </div>
-        </div>
-      )}
-
-      {/* Footer: links or coming soon - same spacing as AppCard */}
       <div className={`mt-auto pt-4 border-t space-y-3 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.comingSoon ? (
           <span className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border ${
@@ -1019,7 +974,7 @@ export default function Home() {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {ragFrameworks.map((item) => (
-                      <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
+                      <RAGCard key={item.id} item={item} isDark={isDark} />
                     ))}
                   </div>
                 </motion.div>

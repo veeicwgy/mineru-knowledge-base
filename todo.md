@@ -33,3 +33,12 @@
 - [x] 创建 robots.txt（含 AI Agent 爬虫规则）
 - [x] 创建 sitemap.xml（含 hreflang 多语言标注）
 - [x] 创建 manifest.json（PWA 基础）
+
+# RAG 卡片精简任务
+
+## 待完成
+- [ ] 精简 RAG 卡片描述文案（每个不超过 1-2 句话）
+- [ ] 移除 RAG 卡片的 features 列表（AppCard 没有 features）
+- [ ] 移除 RAG 卡片的 tags 和 code 代码块
+- [ ] RAGCard 组件结构与 AppCard 完全一致
+- [ ] 验证亮色/暗黑模式
