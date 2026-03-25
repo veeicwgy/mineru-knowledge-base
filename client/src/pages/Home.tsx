@@ -56,7 +56,7 @@ const skillIconMap: Record<string, string> = {
 
 /* ─── Sidebar Modules ─── */
 const modules = [
-  { id: "skills", label: "Skills & MCP", icon: Bot, count: agentSkills.length },
+  { id: "skills", label: "Skills & MCP", icon: Bot, count: null },
   { id: "cli", label: "CLI/SDK", icon: Terminal, count: null },
   { id: "rag", label: "RAG 框架", icon: Wrench, count: ragFrameworks.length },
   { id: "apps", label: "应用与工作流", icon: LayoutGrid, count: appWorkflows.length },
@@ -777,7 +777,7 @@ export default function Home() {
   const moduleInfo: Record<ModuleId, { title: string; subtitle: string; accent: string }> = {
     skills: {
       title: "Skills & MCP",
-      subtitle: "MinerU 官方支持的 Agent 框架技能与 MCP Client 集成，覆盖全语言生态与主流大模型客户端。",
+      subtitle: "MinerU 官方支持的 Agent 框架技能与 MCP Server 集成，覆盖全语言生态与主流大模型客户端。",
       accent: "from-blue-500 to-cyan-400",
     },
     cli: {
@@ -961,6 +961,17 @@ export default function Home() {
               {/* ─── Skills & MCP Content ─── */}
               {activeModule === "skills" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+                  {/* ── Part 1: Skills 生态 ── */}
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <Bot className={`w-5 h-5 ${isDark ? "text-blue-400" : "text-blue-500"}`} />
+                      <h2 className={`text-lg font-bold ${isDark ? "text-slate-100" : "text-slate-900"}`}>Skills 生态</h2>
+                    </div>
+                    <p className={`text-[13px] ml-[30px] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
+                      覆盖 Node.js、Rust、Python、TypeScript、Go 五大语言生态的官方 Agent Skill
+                    </p>
+                  </div>
+
                   {/* Resource Links */}
                   <ResourceBar copiedId={copiedId} onCopy={copy} isDark={isDark} />
 
@@ -971,7 +982,16 @@ export default function Home() {
                     ))}
                   </div>
 
-                  {/* MCP Client Section */}
+                  {/* ── Divider ── */}
+                  <div className={`my-10 flex items-center gap-4 ${isDark ? "text-slate-600" : "text-slate-300"}`}>
+                    <div className={`flex-1 h-px ${isDark ? "bg-slate-700/70" : "bg-slate-200"}`} />
+                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" />
+                    </svg>
+                    <div className={`flex-1 h-px ${isDark ? "bg-slate-700/70" : "bg-slate-200"}`} />
+                  </div>
+
+                  {/* ── Part 2: MCP Server ── */}
                   <MCPSection copiedId={copiedId} onCopy={copy} isDark={isDark} />
                 </motion.div>
               )}
