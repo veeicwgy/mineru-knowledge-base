@@ -275,10 +275,9 @@ export const ragFrameworks: RAGItem[] = [
     name: "RAG-Anything",
     description: "LightRAG 官方推荐文档处理层，内置 MinerU 解析能力，统一处理 PDF、图片、Office 文档等多模态内容，直接入库，适合构建高质量多模态知识库。",
     highlight: "多模态知识库",
-    logo: "",
-    logoFallback: "#38BDF8",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/rag-anything-logo_5929e29c.png",
     links: [
-      { label: "MinerU 官方插件", url: "#" },
+      { label: "RAG-Anything 仓库", url: "https://github.com/HKUDS/RAG-Anything/blob/main/raganything/parser.py" },
     ],
   },
   {
