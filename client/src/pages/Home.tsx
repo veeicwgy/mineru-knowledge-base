@@ -643,7 +643,25 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
 
       <p className={`text-[15px] leading-relaxed mb-4 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
-      {item.code && (
+      {item.fullCode ? (
+        <div className={`relative rounded-lg border overflow-hidden mb-4 ${
+          isDark
+            ? "bg-slate-900/60 border-slate-700/80"
+            : "bg-slate-50 border-slate-200/80"
+        }`}>
+          <div className={`flex items-center justify-between px-3 py-1.5 border-b ${
+            isDark ? "border-slate-700/80" : "border-slate-200/80"
+          }`}>
+            <span className={`text-[10px] font-mono uppercase tracking-wider ${
+              isDark ? "text-slate-500" : "text-slate-400"
+            }`}>python</span>
+            <CopyButton text={item.fullCode} id={`rag-fullcode-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
+          </div>
+          <pre className={`px-3 py-3 text-[12px] font-mono leading-relaxed overflow-x-auto ${
+            isDark ? "text-slate-300" : "text-slate-700"
+          }`}>{item.fullCode}</pre>
+        </div>
+      ) : item.code ? (
         <div className={`flex items-center gap-2 rounded-lg px-3 py-2 mb-4 font-mono text-[12px] border ${
           isDark
             ? "bg-slate-900/60 border-slate-700/60 text-slate-300"
@@ -653,7 +671,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
           <code className="flex-1 truncate">{item.code}</code>
           <CopyButton text={item.code} id={`rag-code-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
         </div>
-      )}
+      ) : null}
 
       <div className={`mt-auto pt-4 border-t space-y-3 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.comingSoon ? (
@@ -669,21 +687,37 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
             {item.links && item.links.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {item.links.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border transition-colors ${
-                      isDark
-                        ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
-                        : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
-                    }`}
-                  >
-                    <Github className="w-3 h-3" />
-                    {link.label}
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                  link.url === "#" ? (
+                    <span
+                      key={link.label}
+                      className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-default ${
+                        isDark
+                          ? "bg-slate-700/30 text-slate-400 border-slate-600/50"
+                          : "bg-slate-50 text-slate-500 border-slate-200/60"
+                      }`}
+                    >
+                      {link.label}
+                      <span className={`text-[10px] ${
+                        isDark ? "text-slate-500" : "text-slate-400"
+                      }`}>链接待更新</span>
+                    </span>
+                  ) : (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-1.5 text-[13px] font-medium px-3 py-1.5 rounded-lg border transition-colors ${
+                        isDark
+                          ? "bg-blue-900/20 text-blue-400 border-blue-700/40 hover:bg-blue-900/40"
+                          : "bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100"
+                      }`}
+                    >
+                      <Github className="w-3 h-3" />
+                      {link.label}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )
                 ))}
               </div>
             )}
@@ -1004,7 +1038,7 @@ export default function Home() {
               {/* ─── RAG Content ─── */}
               {activeModule === "rag" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                     {ragFrameworks.map((item) => (
                       <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
                     ))}
