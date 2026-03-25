@@ -777,27 +777,27 @@ export default function Home() {
   const moduleInfo: Record<ModuleId, { title: string; subtitle: string; accent: string }> = {
     skills: {
       title: "Skills & MCP",
-      subtitle: "MinerU 官方支持的 Agent 框架技能与 MCP Server 集成，覆盖全语言生态与主流大模型客户端。",
+      subtitle: "官方 Agent Skill 与 MCP Server 集成",
       accent: "from-blue-500 to-cyan-400",
     },
     cli: {
       title: "CLI/SDK 命令中心",
-      subtitle: "提供可直接复制运行的命令，快速集成 MinerU 文档解析能力到您的开发环境中。",
+      subtitle: "可直接复制运行的集成命令",
       accent: "from-indigo-500 to-blue-400",
     },
     rag: {
       title: "RAG 框架集成",
-      subtitle: "无缝接入 LangChain、Dify、RAGFlow、Flowise 等主流框架，从文档解析到知识库构建一站式打通。",
+      subtitle: "主流 RAG 框架集成方案",
       accent: "from-violet-500 to-purple-400",
     },
     apps: {
       title: "应用与工作流",
-      subtitle: "与知名平台深度集成，通过插件、节点或内置引擎的方式，让 MinerU 融入您的生产力工具链。",
+      subtitle: "平台插件与工作流集成",
       accent: "from-emerald-500 to-teal-400",
     },
     faq: {
       title: "开发者 FAQ",
-      subtitle: "常见问题解答，帮助您快速了解 MinerU 的接入方式、计费规则与技术能力。",
+      subtitle: "常见问题与解答",
       accent: "from-amber-500 to-orange-400",
     },
   };
