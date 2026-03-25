@@ -263,18 +263,18 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "flowise",
     name: "Flowise",
-    description: "提供开箱即用的拖拽式 Document Loader 节点，零代码即可完成文档解析工作流搭建，适合快速上手。",
-    highlight: "零代码拖拽接入",
+    description: "官方推荐插件，一键将 MinerU 解析能力接入 Flowise 工作流。复杂 PDF 结构化解析后直接转为 Document 数据，无缝衔接切分、嵌入、检索全链路。",
+    highlight: "官方推荐插件",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
     links: [
-      { label: "MinerU 官方插件", url: "https://github.com/FlowiseAI/Flowise" },
+      { label: "MinerU 官方插件", url: "#" },
     ],
   },
   {
-    id: "lightrag",
-    name: "LightRAG",
-    description: "基于图结构的轻量级 RAG 框架，通过知识图谱增强检索精度。集成 MinerU 作为文档解析前端，支持 PDF 等多格式文档的结构化提取与图谱构建。",
-    highlight: "图增强 RAG",
+    id: "rag-anything",
+    name: "RAG-Anything",
+    description: "LightRAG 官方推荐文档处理层，内置 MinerU 解析能力，统一处理 PDF、图片、Office 文档等多模态内容，直接入库，适合构建高质量多模态知识库。",
+    highlight: "多模态知识库",
     logo: "",
     logoFallback: "#38BDF8",
     links: [
@@ -284,19 +284,16 @@ export const ragFrameworks: RAGItem[] = [
   {
     id: "llamaindex",
     name: "LlamaIndex",
-    description: "作为 Reader 深度集成至 LlamaIndex 生态，将各种外部数据源（如 PDF）统一转换为 LlamaIndex 可处理的 Document 格式。支持直接接入索引、检索与查询链路，帮助开发者从文档解析到知识构建无缝衔接，提升复杂文档场景下的 RAG 效果。",
+    description: "作为 Reader 深度集成，将 PDF 等文档直接转为 LlamaIndex Document 格式，无缝接入索引与查询链路，从解析到知识构建一步到位。",
     highlight: "官方推荐 Reader",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/OIAuZUevLz4P_a7495a83.png",
     code: "from llama_index.readers.mineru import MinerUReader",
     fullCode: `from llama_index.readers.mineru import MinerUReader
 
 reader = MinerUReader()
-
-# Parse a single PDF from URL
 documents = reader.load_data(
     "https://cdn-mineru.openxlab.org.cn/demo/example.pdf"
 )
-
 print(documents[0].text)`,
     links: [
       { label: "MinerU 官方插件", url: "#" },
