@@ -619,7 +619,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`group rounded-xl p-4 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden ${
+      className={`group rounded-xl p-4 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full overflow-hidden ${
         isDark
           ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
           : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
@@ -641,7 +641,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       </div>
 
-      <p className={`text-[13px] leading-relaxed mb-2 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
+      <p className={`text-[13px] leading-relaxed mb-2 flex-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
       {item.fullCode ? (
         <div className={`relative rounded-lg border overflow-hidden mb-2 flex flex-col ${
@@ -673,7 +673,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       ) : null}
 
-      <div className={`pt-2 border-t space-y-1 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
+      <div className={`mt-auto pt-2 border-t space-y-1 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.comingSoon ? (
           <span className={`inline-flex items-center gap-1 text-[12px] font-medium px-2 py-1 rounded-md border ${
             isDark
@@ -1039,7 +1039,7 @@ export default function Home() {
               {/* ─── RAG Content ─── */}
               {activeModule === "rag" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4" style={{ gridTemplateRows: 'repeat(2, 1fr)' }}>
                     {ragFrameworks.map((item) => (
                       <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
                     ))}
