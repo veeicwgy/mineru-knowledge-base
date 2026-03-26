@@ -295,7 +295,7 @@ documents = reader.load_data(
 )
 print(documents[0].text)`,
     links: [
-      { label: "MinerU 生态 GitHub 仓库", url: "https://github.com/opendatalab/MinerU-Ecosystem" },
+      { label: "MinerU 生态", url: "https://github.com/opendatalab/MinerU-Ecosystem" },
     ],
   },
 ];

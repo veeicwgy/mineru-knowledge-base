@@ -619,7 +619,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`group rounded-xl p-4 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full overflow-hidden ${
+      className={`group rounded-xl p-4 border hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden ${
         isDark
           ? "bg-slate-800/80 border-slate-700/60 hover:border-slate-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
           : "bg-white/95 border-slate-200/60 hover:border-slate-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
@@ -641,10 +641,10 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       </div>
 
-      <p className={`text-[13px] leading-relaxed mb-2 line-clamp-2 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
+      <p className={`text-[13px] leading-relaxed mb-2 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{item.description}</p>
 
       {item.fullCode ? (
-        <div className={`relative rounded-lg border overflow-hidden mb-2 flex-1 min-h-0 flex flex-col ${
+        <div className={`relative rounded-lg border overflow-hidden mb-2 flex flex-col ${
           isDark
             ? "bg-slate-900/60 border-slate-700/80"
             : "bg-slate-50 border-slate-200/80"
@@ -657,7 +657,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
             }`}>python</span>
             <CopyButton text={item.fullCode} id={`rag-fullcode-${item.id}`} copiedId={copiedId} onCopy={onCopy} isDark={isDark} />
           </div>
-          <pre className={`px-2 py-2 text-[11px] font-mono leading-snug overflow-x-auto overflow-y-auto flex-1 min-h-0 ${
+          <pre className={`px-2 py-2 text-[11px] font-mono leading-snug overflow-x-auto overflow-y-auto max-h-[120px] ${
             isDark ? "text-slate-300" : "text-slate-700"
           }`}>{item.fullCode}</pre>
         </div>
@@ -673,7 +673,7 @@ function RAGCard({ item, copiedId, onCopy, isDark }: { item: RAGItem; copiedId: 
         </div>
       ) : null}
 
-      <div className={`mt-auto pt-2 border-t space-y-1 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
+      <div className={`pt-2 border-t space-y-1 ${isDark ? "border-slate-700" : "border-slate-100"}`}>
         {item.comingSoon ? (
           <span className={`inline-flex items-center gap-1 text-[12px] font-medium px-2 py-1 rounded-md border ${
             isDark
@@ -1039,7 +1039,7 @@ export default function Home() {
               {/* ─── RAG Content ─── */}
               {activeModule === "rag" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4" style={{ gridAutoRows: '1fr' }}>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
                     {ragFrameworks.map((item) => (
                       <RAGCard key={item.id} item={item} copiedId={copiedId} onCopy={copy} isDark={isDark} />
                     ))}
