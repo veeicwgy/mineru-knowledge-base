@@ -144,10 +144,9 @@ export const agentSkills: SkillItem[] = [
     name: "ModelScope",
     description: "ModelScope 官方审核通过的 MinerU 文档解析 Skill，支持在 ModelScope 平台直接调用，快速集成文档解析能力。",
     highlight: "ModelScope 官方",
-    logo: "",
-    logoFallback: "#6B3FA0",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/modelscope-icon_9a1eb6a1.png",
     tags: ["ModelScope", "Skill"],
-    installCmd: "modelscope.cn/skills/@mineru-extract/mineru-document-extractor",
+    installCmd: "pip install modelscope && modelscope skills call @mineru-extract/mineru-document-extractor",
     registry: "ModelScope",
   }
 ];
