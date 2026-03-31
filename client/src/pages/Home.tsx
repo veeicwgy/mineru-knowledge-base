@@ -1008,7 +1008,7 @@ export default function Home() {
                       <h2 className={`text-lg font-bold ${isDark ? "text-slate-100" : "text-slate-900"}`}>Skills 生态</h2>
                     </div>
                     <p className={`text-[13px] ml-[30px] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-                      覆盖 Node.js、Rust、Python、TypeScript、Go 五大语言生态的官方 Agent Skill
+                      覆盖 Node.js、Rust、Python、TypeScript、Go 五大语言生态及 ModelScope 平台的官方 Agent Skill
                     </p>
                   </div>
 

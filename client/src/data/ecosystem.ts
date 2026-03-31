@@ -138,6 +138,17 @@ export const agentSkills: SkillItem[] = [
     tags: ["Go", "高并发"],
     installCmd: "go get github.com/opendatalab/mineru-parse-go",
     registry: "GitHub + ClawHub",
+  },
+  {
+    id: "modelscope",
+    name: "ModelScope",
+    description: "ModelScope 官方审核通过的 MinerU 文档解析 Skill，支持在 ModelScope 平台直接调用，快速集成文档解析能力。",
+    highlight: "ModelScope 官方",
+    logo: "",
+    logoFallback: "#6B3FA0",
+    tags: ["ModelScope", "Skill"],
+    installCmd: "modelscope.cn/skills/@mineru-extract/mineru-document-extractor",
+    registry: "ModelScope",
   }
 ];
 
