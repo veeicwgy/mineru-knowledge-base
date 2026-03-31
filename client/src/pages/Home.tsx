@@ -195,6 +195,7 @@ const resourceLinks = [
   { label: "ClawHub 托管平台", url: "https://clawhub.com/opendatalab/mineru-skills", icon: "hub" },
   { label: "腾讯云国内镜像", url: "https://mirrors.cloud.tencent.com/opendatalab/mineru-skills", icon: "cloud" },
   { label: "GitHub 源码下载", url: "https://github.com/opendatalab/MinerU/tree/master/skills", icon: "github" },
+  { label: "ModelScope Skills", url: "https://modelscope.cn/skills/@mineru-extract/mineru-document-extractor", icon: "modelscope" },
 ];
 
 function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
@@ -210,7 +211,7 @@ function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; on
         <FileCode2 className="w-3.5 h-3.5" />
         资源与部署
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
         {resourceLinks.map((link) => (
           <div
             key={link.label}
@@ -220,7 +221,11 @@ function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; on
                 : "bg-slate-50/80 border-slate-200/60 hover:border-slate-300"
             }`}
           >
-            {link.icon === "github" ? (
+            {link.icon === "modelscope" ? (
+              <svg className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : link.icon === "github" ? (
               <Github className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} />
             ) : link.icon === "cloud" ? (
               <svg className={`w-4 h-4 shrink-0 ${isDark ? "text-slate-400" : "text-slate-500"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
