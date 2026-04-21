@@ -1,6 +1,6 @@
 /*
- * MinerU 开发者生态与集成 — 数据定义
- * 三大模块：Agent Skills / RAG 框架 / 应用与工作流
+ * MinerU 知识库站点数据
+ * 目标：只保留可核验的官方信息，或明确标注来自训练营课件的补充信息。
  */
 
 /* ─── Types ─── */
@@ -55,7 +55,6 @@ export interface CodeExample {
   code: string;
 }
 
-/* MCP Client Types */
 export interface MCPIntegrationTab {
   label: string;
   description: string;
@@ -71,7 +70,6 @@ export interface MCPClientData {
   integrations: MCPIntegrationTab[];
 }
 
-/* CLI/SDK Command Types */
 export interface CLICommandGroup {
   id: string;
   title: string;
@@ -79,447 +77,500 @@ export interface CLICommandGroup {
   tabs: { label: string; commands: { description: string; code: string }[] }[];
 }
 
-/* ─── Logo CDN URLs ─── */
+/* ─── Constants ─── */
 const lobe = (slug: string) =>
   `https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/${slug}.png`;
+
+const repoDocs = "https://github.com/veeicwgy/wss-prd-1/blob/main/docs";
 
 /* ─── Module 1: Agent Skills ─── */
 export const agentSkills: SkillItem[] = [
   {
     id: "openclaw",
-    name: "OpenClaw",
-    description: "Node.js Agent 框架官方推荐插件，支持 PDF/DOCX/PPT 结构化提取，输出 Markdown 与 JSON。",
-    highlight: "Node.js 生态首选",
+    name: "OpenClaw / ClawHub",
+    description:
+      "MinerU 当前最明确的 Skill 入口。可通过官方 Skill 页面把文档解析能力接入支持 Skill 的 Agent 工作流，适合自然语言调用文档解析。",
+    highlight: "官方 Skill 页面",
     logo: lobe("openclaw"),
-    tags: ["Node.js", "OpenAPI"],
-    installCmd: "npm install mineru-parse",
-    registry: "npm + ClawHub",
+    tags: ["Skill", "自然语言调用", "官方页面"],
+    installCmd: "https://clawhub.ai/MinerU-Extract/mineru-ai",
+    registry: "ClawHub",
   },
   {
     id: "zeroclaw",
     name: "ZeroClaw",
-    description: "Rust 原生实现，极低内存占用，适配边缘设备。支持 WASM 编译，可在浏览器端运行。",
-    highlight: "边缘计算首选",
+    description:
+      "MinerU-Ecosystem README 与训练营课件都提到 ZeroClaw 等支持技能接口的 AI Agent 可复用同一 MinerU Skill 资源包。",
+    highlight: "兼容 Skill 接口",
     logo: "",
     logoFallback: "#E44D26",
-    tags: ["Rust", "Edge"],
-    installCmd: "cargo add mineru-parse-rs",
-    registry: "crates.io + ClawHub",
+    tags: ["Agent", "Skill", "兼容平台"],
+    installCmd: "https://cdn-mineru.openxlab.org.cn/open-api-cli/skill.zip",
+    registry: "技能资源包",
   },
   {
     id: "nanobot",
     name: "Nanobot",
-    description: "Python 生态 Agent 首选，原生支持 LangChain、AutoGen 编排工作流，内置双模式解析。",
-    highlight: "Python 生态首选",
+    description:
+      "训练营资料中提到的支持平台之一，适合把 MinerU 解析能力接入到对话式 Agent 和自动化工作流中。",
+    highlight: "课件补充信息",
     logo: "",
     logoFallback: "#3776AB",
-    tags: ["Python", "LangChain"],
-    installCmd: "pip install mineru-parse-py",
-    registry: "PyPI",
+    tags: ["Agent", "工作流", "训练营资料"],
+    installCmd: "https://clawhub.ai/MinerU-Extract/mineru-ai",
+    registry: "训练营课件",
   },
   {
     id: "nanoclaw",
     name: "NanoClaw",
-    description: "轻量级 TypeScript 框架，适配 Vercel AI SDK 与 Tool Calling 标准协议。",
-    highlight: "TypeScript 生态首选",
+    description:
+      "训练营资料提到的 TypeScript / Agent 场景入口，可视为 MinerU Skill 在轻量 Agent 框架中的复用面。",
+    highlight: "TypeScript 场景",
     logo: "",
     logoFallback: "#3178C6",
-    tags: ["TypeScript", "Tool Calling"],
-    installCmd: "npm install mineru-parse-nano",
-    registry: "npm + ClawHub",
+    tags: ["TypeScript", "Agent", "训练营资料"],
+    installCmd: "https://clawhub.ai/MinerU-Extract/mineru-ai",
+    registry: "训练营课件",
   },
   {
     id: "picoclaw",
     name: "PicoClaw",
-    description: "Go 语言解析模块，支持高并发与 goroutine 安全调用，适合微服务批量处理。",
-    highlight: "Go 生态首选",
+    description:
+      "训练营资料提到的 Go / 服务编排场景入口，适合补充理解 MinerU Skill 在多种 Agent 平台中的可迁移性。",
+    highlight: "Go 场景",
     logo: "",
     logoFallback: "#00ADD8",
-    tags: ["Go", "高并发"],
-    installCmd: "go get github.com/opendatalab/mineru-parse-go",
-    registry: "GitHub + ClawHub",
+    tags: ["Go", "Agent", "训练营资料"],
+    installCmd: "https://clawhub.ai/MinerU-Extract/mineru-ai",
+    registry: "训练营课件",
   },
-  {
-    id: "modelscope",
-    name: "ModelScope",
-    description: "ModelScope 官方审核通过的 MinerU 文档解析 Skill，支持在 ModelScope 平台直接调用，快速集成文档解析能力。",
-    highlight: "ModelScope 官方",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/modelscope-icon_9a1eb6a1.png",
-    tags: ["ModelScope", "Skill"],
-    installCmd: "pip install modelscope && modelscope skills call @mineru-extract/mineru-document-extractor",
-    registry: "ModelScope",
-  }
 ];
 
-/* ─── Code Examples ─── */
+/* ─── Examples ─── */
 export const codeExamples: CodeExample[] = [
   {
-    label: "Python (Nanobot)",
+    label: "Python SDK",
     lang: "python",
-    code: `from nanobot import Agent
-from mineru_parse_py import MineruSkill
+    code: `from mineru import MinerU
 
-# 极简接入：免登录快速版，每日 1 万页免费额度
-agent = Agent(tools=[MineruSkill(mode="fast")])
-response = agent.run("帮我提取这份 PDF 里的所有文本：sample.pdf")`,
+client = MinerU()
+result = client.flash_extract("https://cdn-mineru.openxlab.org.cn/demo/example.pdf")
+print(result.markdown)`,
   },
   {
-    label: "TypeScript (NanoClaw)",
+    label: "TypeScript SDK",
     lang: "typescript",
-    code: `import { NanoClaw } from 'nanoclaw';
-import { mineruParseTool } from 'mineru-parse-nano';
+    code: `import { MinerU } from "mineru-open-sdk";
 
-// 注入技能，使用 API Key 开启高精度公式与表格还原
-const agent = new NanoClaw({
-  skills: [mineruParseTool({ mode: "precise", apiKey: "KEY" })]
-});
-await agent.execute("解析科研论文并把公式转为 LaTeX。");`,
+const client = new MinerU();
+const result = await client.flashExtract(
+  "https://cdn-mineru.openxlab.org.cn/demo/example.pdf"
+);
+console.log(result.markdown);`,
   },
 ];
 
-/* ─── FAQ Data ─── */
+/* ─── FAQ ─── */
 export const faqCategories: FAQCategory[] = [
   {
-    title: "Agent 接入与计费额度",
+    title: "模式与额度",
     items: [
       {
-        q: "需要注册账号才能让 Agent 使用吗？",
-        a: "不需要。我们默认提供“免登录极速版”，只需 Agent 携带端侧生成的唯一 Device-ID，每日即可获得 1 万页的免费解析额度，速度极快，开箱即用。",
+        q: "在线 API 的轻量模式和精准模式怎么区分？",
+        a: "轻量模式无需 Token，按 IP 限频，适合 Agent 即调即用；精准模式需要 Token，支持更完整的输出和批量处理。当前官方 live docs 显示：精准模式上限为 200MB / 200 页，轻量模式上限为 10MB / 20 页。",
       },
       {
-        q: "如何切换为支持复杂公式和表格的完整版？",
-        a: "在接入 Skill 时，选择高精度通道解析 并传入您的 API Key（需在控制台获取），即可无缝切换为高精度模式，结构化输出纯净的 Markdown 与 LaTeX 公式。",
+        q: "为什么有的资料写 200 页，有的资料写 600 页？",
+        a: "这是版本漂移。官方 llms.txt 和部分历史课件曾写过 600 页，但 2026-04-21 核对 live docs 时，官方 API 文档页面显示当前上限为 200 页。对外发布时建议以 live docs 为准。",
       },
       {
-        q: "网页 (URL) 解析和文件解析的额度是怎么扣减的？",
-        a: "额度按页计数，不足一页按一页算。对于网页链接（URL）的提取，成功解析一次即算作消耗 1 页免费额度，UTC 0 点自动重置。",
+        q: "免费额度到底该看哪个数？",
+        a: "当前官方 API 文档页面写的是“每个账号每天享有 1000 页高优先级解析额度”。历史课件里出现过 2000 页说法，因此知识库里保留了差异记录，但对外使用建议优先引用官方实时页面。",
       },
     ],
   },
   {
-    title: "解析能力与文件支持",
+    title: "部署与接入",
     items: [
       {
-        q: "免登录快速版和 API Key 完整版在解析效果上有什么区别？",
-        a: "快速版专为 Agent 试用与快速预览打造，侧重基础文本与标题的极速提取；完整版（需 API Key）则保留全量结构化信息，支持跨页合并、双栏排版还原、复杂表格转化为 Markdown 以及高精度多模态图片提取。",
+        q: "什么时候该选开源版，什么时候该选在线 API？",
+        a: "数据不能上云、需要私有化或想做深度二开时优先开源版；想快速验证、批量集成或给业务系统调用时优先在线 API / CLI / SDK。",
       },
       {
-        q: "MinerU 当前支持哪些文档格式？",
-        a: "我们全面支持 PDF、PPT、图片（JPG/PNG）、HTML 网页以及 Office 文档（DOCX/PPTX）。注意快速版单文件限制 ≤10MB 且 ≤20页，完整版则无此限制。",
+        q: "CLI、SDK、MCP 三者怎么选？",
+        a: "CLI 适合命令行和脚本；SDK 适合集成进服务或业务代码；MCP 适合 Cursor、Claude Desktop、Windsurf 等 AI 客户端直接调用。",
+      },
+      {
+        q: "MCP 一定要配置 Token 吗？",
+        a: "不一定。官方 `mineru-open-mcp` 支持不带 Token 的轻量模式；如果需要精准解析、长文档或更完整能力，再配置 `MINERU_API_TOKEN`。",
       },
     ],
   },
   {
-    title: "异常处理与稳定性",
+    title: "结果与工作流",
     items: [
       {
-        q: "文件大小或页数超限时，Agent 会直接报错崩溃吗？",
-        a: "不会。我们的 API 专为 Agent 设计了自然语言异常引导。当遇到超限（400 错误）时，会返回一段 agent_instruction 指令，引导 Agent 在本地调用 Python（如 PyMuPDF）切分文件或压缩后再循环重试，实现完全的自动闭环。",
+        q: "为什么任务状态里会看到 pending、running、converting？",
+        a: "这是正常异步流程。课件和文档中常见状态包括 waiting-file、uploading、pending、running、converting、done、failed，适合直接写进排障手册或集成文档。",
       },
       {
-        q: "如果当天的 1 万页免费额度耗尽怎么办？",
-        a: "接口会返回标准的 HTTP 429 状态码，并附带 retry_after 秒数提示。响应体中会明确指示 Agent 进入休眠等待（SLEEP and WAIT）状态，直到次日额度重置。",
-      },
-    ],
-  },
-  {
-    title: "生态集成与框架适配",
-    items: [
-      {
-        q: "我使用的是 LangChain，默认 Loader 遇到论文图表经常乱码，MinerU 能解决吗？",
-        a: "完美解决。MinerU 提供了专属的 MineruLoader，配合 MarkdownHeaderTextSplitter，不仅彻底解决图表乱码痛点，还能依据标题层级进行切片，消除按字数硬切导致的语义割裂。",
+        q: "MinerU 适合做 RAG 吗？",
+        a: "适合。官方生态仓库明确提供 LangChain 和 LlamaIndex 入口，同时文档与 llms.txt 也列出了 Dify、FastGPT、RAGFlow 等知识库或工作流集成。",
       },
       {
-        q: "能否在本地私有化部署的系统中使用 MinerU 的 Agent 能力？",
-        a: "可以。我们提供了双版本的 MCP Server。除了 SaaS 版外，开源版 MCP Server 完全托管在 GitHub 上，专供开发者在自建 MinerU 引擎时配套使用。",
+        q: "MinerU 只能处理 PDF 吗？",
+        a: "不是。当前官方资料覆盖 PDF、图片、Word、PPT、HTML 等输入类型；其中 MinerU-HTML 专门面向网页正文提取。",
       },
     ],
   },
 ];
 
-/* ─── Module 2: RAG 框架 ─── */
+/* ─── Module 2: RAG / Knowledge Base ─── */
 export const ragFrameworks: RAGItem[] = [
   {
     id: "langchain",
     name: "LangChain",
-    description: "作为 Loader 深度集成至 LangChain 生态，将 PDF 等外部数据源统一转换为 Document 格式。配合 MarkdownHeaderTextSplitter 按标题层级智能切片，消除语义割裂。",
-    highlight: "官方推荐 Loader",
+    description:
+      "官方生态仓库提供 `langchain-mineru`，可把文档直接转成 LangChain `Document`，适合 RAG、检索和切分工作流。",
+    highlight: "官方 LangChain Loader",
     logo: lobe("langchain"),
-    code: "from langchain_community.document_loaders import MineruLoader",
+    code: "pip install langchain-mineru",
+    fullCode: `from langchain_mineru import MinerULoader
+
+loader = MinerULoader(source="demo.pdf")
+docs = loader.load()
+print(docs[0].page_content[:500])
+print(docs[0].metadata)`,
     links: [
-      { label: "MinerU 主仓库", url: "https://github.com/opendatalab/MinerU" },
-    ],
-  },
-  {
-    id: "dify",
-    name: "Dify",
-    description: "官方推荐插件，助力开发者快速构建基于高保真结构化文档的 RAG 应用。支持 API 与本地部署双模式，可解析 PDF、DOC、PPT、图片等多种格式。",
-    highlight: "官方插件集成",
-    logo: lobe("dify"),
-    links: [
-      { label: "MinerU 官方插件", url: "https://github.com/langgenius/dify-official-plugins/tree/main/tools/mineru" },
-    ],
-  },
-  {
-    id: "ragflow",
-    name: "RAGFlow",
-    description: "平台内置预处理引擎，攻克多模态文档切片（Chunking）难题。从 v0.22.0 起内置 MinerU 作为可选 PDF 解析器，支持 pipeline、VLM 等后端模式。",
-    highlight: "平台内置引擎",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
-    links: [
-      { label: "RAGFlow 仓库", url: "https://github.com/infiniflow/ragflow" },
-    ],
-  },
-  {
-    id: "flowise",
-    name: "Flowise",
-    description: "官方推荐插件，一键将 MinerU 解析能力接入 Flowise 工作流。复杂 PDF 结构化解析后直接转为 Document 数据，无缝衔接切分、嵌入、检索全链路。",
-    highlight: "官方推荐插件",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/flowise-logo_c7ff8541.jpg",
-    links: [
-      { label: "MinerU 官方插件", url: "#" },
-    ],
-  },
-  {
-    id: "rag-anything",
-    name: "RAG-Anything",
-    description: "LightRAG 官方推荐文档处理层，内置 MinerU 解析能力，统一处理 PDF、图片、Office 文档等多模态内容，直接入库，适合构建高质量多模态知识库。",
-    highlight: "多模态知识库",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/rag-anything-logo_5929e29c.png",
-    links: [
-      { label: "RAG-Anything 仓库", url: "https://github.com/HKUDS/RAG-Anything/blob/main/raganything/parser.py" },
+      { label: "Ecosystem 仓库", url: "https://github.com/opendatalab/MinerU-Ecosystem/tree/main/langchain_mineru" },
+      { label: "官方 README", url: "https://github.com/opendatalab/MinerU-Ecosystem" },
     ],
   },
   {
     id: "llamaindex",
     name: "LlamaIndex",
-    description: "作为 Reader 深度集成，将 PDF 等文档直接转为 LlamaIndex Document 格式，无缝接入索引与查询链路，从解析到知识构建一步到位。",
-    highlight: "官方推荐 Reader",
+    description:
+      "社区 Reader 入口 `llama-index-readers-mineru`，适合把 PDF、Word、PPT、图片、Excel 等直接转成 LlamaIndex `Document`。",
+    highlight: "LlamaIndex Reader",
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/OIAuZUevLz4P_a7495a83.png",
-    code: "from llama_index.readers.mineru import MinerUReader",
+    code: "pip install llama-index-readers-mineru",
     fullCode: `from llama_index.readers.mineru import MinerUReader
 
-reader = MinerUReader()
-documents = reader.load_data(
-    "https://cdn-mineru.openxlab.org.cn/demo/example.pdf"
-)
-print(documents[0].text)`,
+reader = MinerUReader(split_pages=True)
+documents = reader.load_data("/path/to/paper.pdf")
+
+print(documents[0].text[:500])
+print(documents[0].metadata)`,
     links: [
-      { label: "MinerU 生态", url: "https://github.com/opendatalab/MinerU-Ecosystem" },
-    ],
-  },
-];
-
-/* ─── Module: CLI/SDK ─── */
-export const cliSdkGroups: CLICommandGroup[] = [
-  {
-    id: "mineru-cli",
-    title: "Open API CLI",
-    description: "通过命令行快速调用 MinerU Open API，支持文件解析、格式转换等核心功能。",
-    tabs: [
-      {
-        label: "Mac & Linux",
-        commands: [
-          {
-            description: "安装 MinerU CLI",
-            code: "pip install mineru-cli"
-          },
-          {
-            description: "解析 PDF 文件为 Markdown",
-            code: "mineru parse --input sample.pdf --output result.md"
-          },
-          {
-            description: "批量解析目录下所有文档",
-            code: "mineru parse --input ./docs/ --output ./results/ --format markdown"
-          },
-          {
-            description: "使用 VLM 模型解析（高精度模式）",
-            code: "mineru parse --input sample.pdf --model vlm --output result.md"
-          }
-        ]
-      },
-      {
-        label: "Windows",
-        commands: [
-          {
-            description: "安装 MinerU CLI",
-            code: "pip install mineru-cli"
-          },
-          {
-            description: "解析 PDF 文件为 Markdown",
-            code: "mineru parse --input sample.pdf --output result.md"
-          },
-          {
-            description: "批量解析目录下所有文档",
-            code: "mineru parse --input .\\docs\\ --output .\\results\\ --format markdown"
-          },
-          {
-            description: "使用 VLM 模型解析（高精度模式）",
-            code: "mineru parse --input sample.pdf --model vlm --output result.md"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: "mineru-api",
-    title: "Open API",
-    description: "通过 HTTP API 直接调用 MinerU 解析服务，适用于集成到自有系统或工作流中。",
-    tabs: [
-      {
-        label: "Python",
-        commands: [
-          {
-            description: "创建解析任务",
-            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "url": "https://example.com/sample.pdf",\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
-          },
-          {
-            description: "查询任务结果",
-            code: `import requests\n\ntoken = "YOUR_TOKEN"\ntask_id = "YOUR_TASK_ID"\nurl = f"https://mineru.net/api/v4/extract/task/{task_id}"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\nres = requests.get(url, headers=header)\nprint(res.json())`
-          },
-          {
-            description: "批量文件解析",
-            code: `import requests\n\ntoken = "YOUR_TOKEN"\nurl = "https://mineru.net/api/v4/extract/task/batch"\nheader = {\n    "Content-Type": "application/json",\n    "Authorization": f"Bearer {token}"\n}\ndata = {\n    "files": [\n        {"url": "https://example.com/doc1.pdf"},\n        {"url": "https://example.com/doc2.pdf"}\n    ],\n    "model_version": "vlm"\n}\nres = requests.post(url, headers=header, json=data)\nprint(res.json())`
-          }
-        ]
-      },
-      {
-        label: "GO",
-        commands: [
-          {
-            description: "创建解析任务",
-            code: `package main\n\nimport (\n    "bytes"\n    "encoding/json"\n    "fmt"\n    "net/http"\n    "io"\n)\n\nfunc main() {\n    url := "https://mineru.net/api/v4/extract/task"\n    data := map[string]string{\n        "url": "https://example.com/sample.pdf",\n        "model_version": "vlm",\n    }\n    body, _ := json.Marshal(data)\n    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(body))\n    req.Header.Set("Authorization", "Bearer YOUR_TOKEN")\n    req.Header.Set("Content-Type", "application/json")\n    client := &http.Client{}\n    resp, _ := client.Do(req)\n    defer resp.Body.Close()\n    result, _ := io.ReadAll(resp.Body)\n    fmt.Println(string(result))\n}`
-          },
-          {
-            description: "查询任务结果",
-            code: `package main\n\nimport (\n    "fmt"\n    "net/http"\n    "io"\n)\n\nfunc main() {\n    taskID := "YOUR_TASK_ID"\n    url := fmt.Sprintf("https://mineru.net/api/v4/extract/task/%s", taskID)\n    req, _ := http.NewRequest("GET", url, nil)\n    req.Header.Set("Authorization", "Bearer YOUR_TOKEN")\n    client := &http.Client{}\n    resp, _ := client.Do(req)\n    defer resp.Body.Close()\n    result, _ := io.ReadAll(resp.Body)\n    fmt.Println(string(result))\n}`
-          }
-        ]
-      },
-      {
-        label: "JavaScript / TypeScript",
-        commands: [
-          {
-            description: "创建解析任务",
-            code: `const res = await fetch("https://mineru.net/api/v4/extract/task", {\n  method: "POST",\n  headers: {\n    "Authorization": "Bearer YOUR_TOKEN",\n    "Content-Type": "application/json",\n  },\n  body: JSON.stringify({\n    url: "https://example.com/sample.pdf",\n    model_version: "vlm",\n  }),\n});\nconst data = await res.json();\nconsole.log(data);`
-          },
-          {
-            description: "查询任务结果",
-            code: `const taskId = "YOUR_TASK_ID";\nconst res = await fetch(\n  \`https://mineru.net/api/v4/extract/task/\${taskId}\`,\n  {\n    headers: { "Authorization": "Bearer YOUR_TOKEN" },\n  }\n);\nconst data = await res.json();\nconsole.log(data);`
-          },
-          {
-            description: "批量文件解析",
-            code: `const res = await fetch("https://mineru.net/api/v4/extract/task/batch", {\n  method: "POST",\n  headers: {\n    "Authorization": "Bearer YOUR_TOKEN",\n    "Content-Type": "application/json",\n  },\n  body: JSON.stringify({\n    files: [\n      { url: "https://example.com/doc1.pdf" },\n      { url: "https://example.com/doc2.pdf" },\n    ],\n    model_version: "vlm",\n  }),\n});\nconst data = await res.json();\nconsole.log(data);`
-          }
-        ]
-      }
-    ]
-  }
-];
-
-/* ─── MCP Client Data ─── */
-export const mcpClientData: MCPClientData = {
-  title: "MCP Server",
-  description: "MinerU Model Context Protocol (MCP) Server：大模型客户端与 MinerU 的桥梁，实现参数化、结构化文档解析。",
-  subtitle: "支持 Cursor、Claude Desktop、Windsurf 等主流大模型客户端，通过标准 MCP 协议无缝调用 MinerU 解析服务。",
-  workflowSteps: [
-    { step: "用户指令", detail: "在大模型客户端输入自然语言，如'解析这份 PDF 的第 3-5 页'", icon: "message" },
-    { step: "参数解析", detail: "大模型将指令拆解为结构化参数：路径、页码、格式等", icon: "cpu" },
-    { step: "MCP 调用", detail: "参数通过 MCP 协议传递给 MinerU Server 执行解析", icon: "server" },
-    { step: "结果返回", detail: "结构化 Markdown / JSON 结果返回至大模型客户端", icon: "check" },
-  ],
-  integrations: [
-    {
-      label: "Cursor 集成",
-      description: "在 Cursor 的 MCP 配置文件中添加 MinerU MCP Server：",
-      lang: "json",
-      code: `{\n  "mcpServers": {\n    "mineru": {\n      "command": "uvx",\n      "args": [\n        "mineru-mcp"\n      ],\n      "env": {\n        "MINERU_API_KEY": "YOUR_API_KEY"\n      }\n    }\n  }\n}`,
-    },
-    {
-      label: "通用集成",
-      description: "适用于任何支持 MCP 协议的大模型客户端（Claude Desktop、Windsurf 等）：",
-      lang: "bash",
-      code: `# 安装 MinerU MCP Server\npip install mineru-mcp\n\n# 启动 MCP Server（stdio 模式）\nmineru-mcp --api-key YOUR_API_KEY\n\n# 或通过环境变量配置\nexport MINERU_API_KEY="YOUR_API_KEY"\nmineru-mcp`,
-    },
-  ],
-};
-
-/* ─── Module 3: 应用与工作流 ─── */
-export const appWorkflows: AppItem[] = [
-  {
-    id: "coze",
-    name: "Coze",
-    description: "以官方插件无缝接入智能体，赋予大模型直接阅读复杂排版文档的能力。支持 PDF、图片、网页等多格式解析，一键生成结构化知识。",
-    highlight: "官方插件 + 智能体",
-    logo: lobe("coze"),
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Coze/",
-    links: [
-      { label: "MinerU 官方插件", url: "https://www.coze.cn/store/plugin/7527957359730360354" },
-      { label: "智能体", url: "https://www.coze.cn/store/agent/7530945296076062746" },
+      { label: "Reader 仓库", url: "https://github.com/opendatalab/MinerU-Ecosystem/tree/main/llama-index-readers-mineru" },
+      { label: "官方 README", url: "https://github.com/opendatalab/MinerU-Ecosystem" },
     ],
   },
   {
-    id: "n8n",
-    name: "n8n",
-    description: "提供自动化专属节点，融入无人值守的高频工作流。支持批量文档处理与免登录调用，适合企业级文档数字化自动化流水线。",
-    highlight: "自动化工作流节点",
-    logo: lobe("n8n"),
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/n8n/",
+    id: "dify",
+    name: "Dify",
+    description:
+      "官方 llms.txt 明确列出的 Dify 插件入口，适合把 MinerU 作为文档解析步骤接入知识库和工作流编排。",
+    highlight: "官方插件",
+    logo: lobe("dify"),
     links: [
-      { label: "MinerU 官方插件", url: "https://www.npmjs.com/package/n8n-nodes-mineru" },
+      { label: "插件市场", url: "https://marketplace.dify.ai/plugins/langgenius/mineru" },
+      { label: "官方资料", url: "https://mineru.net/llms.txt" },
     ],
   },
   {
     id: "fastgpt",
     name: "FastGPT",
-    description: "原生集成至平台工具链，为知识库提供纯净 Markdown 文本，显著提升检索精度与问答质量。支持自动文档分块与索引构建。",
-    highlight: "知识库原生集成",
+    description:
+      "官方资料明确列出的知识库集成入口，适合把 MinerU 作为复杂文档解析层，为 FastGPT 提供更干净的 Markdown / 结构化结果。",
+    highlight: "知识库集成",
     logo: lobe("fastgpt"),
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/FastGPT/",
     links: [
-      { label: "MinerU 官方插件", url: "https://cloud.fastgpt.io/dashboard/systemPlugin?type=tools" },
+      { label: "官方文档", url: "https://opendatalab.github.io/MinerU/zh/usage/plugin/FastGPT/" },
+      { label: "llms.txt", url: "https://mineru.net/llms.txt" },
     ],
   },
   {
-    id: "dingtalk",
-    name: "钉钉",
-    description: "基于 MinerU 打造企业级解析工具，提供高精度的多模态文档数字化与结构化方案。支持合同、发票、报告等企业文档的智能提取。",
-    highlight: "企业级文档数字化",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/dingtalk-logo_f83f9ed8.jpg",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/DingTalk/",
+    id: "ragflow",
+    name: "RAGFlow",
+    description:
+      "官方资料明确列出的文档解析集成入口，适合在多文档知识库和企业问答场景中复用 MinerU 的结构化输出。",
+    highlight: "RAG 工作流",
+    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/ragflow-logo_47220700.jpg",
+    links: [
+      { label: "官方文档", url: "https://opendatalab.github.io/MinerU/zh/usage/plugin/RagFlow/" },
+      { label: "llms.txt", url: "https://mineru.net/llms.txt" },
+    ],
   },
-  {
-    id: "cherrystudio",
-    name: "Cherry Studio",
-    description: "深度对接大模型对话交互，精准提取图表与公式，消除 AI 对复杂数据的幻觉。支持论文、技术文档的结构化解析与知识问答。",
-    highlight: "大模型对话增强",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/cherry-studio-logo_32366999.jpg",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Cherry_Studio/",
-  },
-  {
-    id: "hejing",
-    name: "和鲸科学平台",
-    description: "接入平台智能工具模块，为科研模型与 Agent 提供高精度的论文与公式解析支持。助力学术研究中的文献综述与数据提取自动化。",
-    highlight: "科研论文解析",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/heywhale-logo_835dc2d9.png",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/ModelWhale/",
-  },
-  {
-    id: "sider",
-    name: "Sider",
-    description: "深度集成至 Wisebase 知识库，为多模态智能问答提供极速、无损的文档结构化转换。支持浏览器侧边栏一键解析网页与文档。",
-    highlight: "浏览器侧边栏集成",
-    logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663059542092/nMHgDdS4MtnzdkKrwaYG8X/sider-logo_d51d9ab0.jpg",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Sider/",
-  },
-  {
-    id: "smartdata",
-    name: "智能数据平台",
-    description: "原生集成至核心知识库，自动化处理海量多模态文档，输出标准机器可读数据。支持批量文档的结构化转换与数据治理流程。",
-    highlight: "数据治理自动化",
-    logo: "",
-    logoFallback: "#8B5CF6",
-    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/DataFlow/",
-  },
+];
 
+/* ─── Module 3: CLI / SDK / HTTP API ─── */
+export const cliSdkGroups: CLICommandGroup[] = [
+  {
+    id: "open-api-cli",
+    title: "Open API CLI",
+    description: "官方命令行入口，适合快速体验、脚本批处理和轻量自动化。",
+    tabs: [
+      {
+        label: "Mac & Linux",
+        commands: [
+          {
+            description: "安装 CLI",
+            code: "curl -fsSL https://cdn-mineru.openxlab.org.cn/open-api-cli/install.sh | sh",
+          },
+          {
+            description: "免登录轻量解析",
+            code: "mineru-open-api flash-extract report.pdf",
+          },
+          {
+            description: "登录后精准解析",
+            code: "mineru-open-api auth && mineru-open-api extract report.pdf",
+          },
+          {
+            description: "导出多格式结果",
+            code: "mineru-open-api extract report.pdf -f docx,latex,html -o ./results/",
+          },
+        ],
+      },
+      {
+        label: "Windows",
+        commands: [
+          {
+            description: "安装 CLI",
+            code: "irm https://cdn-mineru.openxlab.org.cn/open-api-cli/install.ps1 | iex",
+          },
+          {
+            description: "免登录轻量解析",
+            code: "mineru-open-api flash-extract report.pdf",
+          },
+          {
+            description: "网页抽取",
+            code: "mineru-open-api crawl https://mineru.net -o ./results/",
+          },
+          {
+            description: "批量解析",
+            code: "mineru-open-api extract *.pdf -o ./results/",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sdk",
+    title: "SDK",
+    description: "官方生态仓库提供 Python、Go、TypeScript 三种常用语言 SDK。",
+    tabs: [
+      {
+        label: "Python",
+        commands: [
+          {
+            description: "安装 Python SDK",
+            code: "pip install mineru-open-sdk",
+          },
+          {
+            description: "免 Token 轻量解析",
+            code: 'from mineru import MinerU\\n\\nclient = MinerU()\\nresult = client.flash_extract("https://cdn-mineru.openxlab.org.cn/demo/example.pdf")\\nprint(result.markdown)',
+          },
+          {
+            description: "Token 精准解析",
+            code: 'from mineru import MinerU\\n\\nclient = MinerU("your-api-token")\\nresult = client.extract("https://cdn-mineru.openxlab.org.cn/demo/example.pdf")\\nprint(result.markdown)',
+          },
+        ],
+      },
+      {
+        label: "Go",
+        commands: [
+          {
+            description: "安装 Go SDK",
+            code: "go get github.com/opendatalab/MinerU-Ecosystem/sdk/go@latest",
+          },
+          {
+            description: "创建轻量解析客户端",
+            code: 'client := mineru.NewFlash()',
+          },
+          {
+            description: "创建精准解析客户端",
+            code: 'client, err := mineru.New("your-api-token")',
+          },
+        ],
+      },
+      {
+        label: "TypeScript",
+        commands: [
+          {
+            description: "安装 TypeScript SDK",
+            code: "npm install mineru-open-sdk",
+          },
+          {
+            description: "轻量解析",
+            code: 'const client = new MinerU();\\nconst result = await client.flashExtract("https://cdn-mineru.openxlab.org.cn/demo/example.pdf");',
+          },
+          {
+            description: "精准解析",
+            code: 'const client = new MinerU("your-api-token");\\nconst result = await client.extract("./paper.pdf", { model: "vlm", extraFormats: ["docx"] });',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "http-api",
+    title: "HTTP API",
+    description: "适合直接接入业务系统、工作流平台和自有服务。",
+    tabs: [
+      {
+        label: "Precision API",
+        commands: [
+          {
+            description: "提交精准解析任务",
+            code: "curl -X POST https://mineru.net/api/v4/extract/task \\\n  -H 'Authorization: Bearer YOUR_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"url\":\"https://example.com/sample.pdf\",\"model_version\":\"vlm\"}'",
+          },
+          {
+            description: "查询任务结果",
+            code: "curl -H 'Authorization: Bearer YOUR_TOKEN' \\\n  https://mineru.net/api/v4/extract/task/YOUR_TASK_ID",
+          },
+        ],
+      },
+      {
+        label: "Agent API",
+        commands: [
+          {
+            description: "URL 轻量解析",
+            code: "curl -X POST https://mineru.net/api/v1/agent/parse/url \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"url\":\"https://cdn-mineru.openxlab.org.cn/demo/example.pdf\"}'",
+          },
+          {
+            description: "提醒：当前 live docs 限制",
+            code: "轻量模式 <= 10MB / 20 页；精准模式 <= 200MB / 200 页",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+/* ─── MCP ─── */
+export const mcpClientData: MCPClientData = {
+  title: "MCP Server",
+  description:
+    "官方 `mineru-open-mcp` 让 Cursor、Claude Desktop、Windsurf 等 MCP 兼容客户端直接调用 MinerU。",
+  subtitle:
+    "默认可走免登录轻量模式；需要更高精度、长文档或更完整输出时，再配置 `MINERU_API_TOKEN`。",
+  workflowSteps: [
+    { step: "用户提问", detail: "在 AI 客户端里直接描述要解析的文档任务，例如“提取这份 PDF 的表格”。", icon: "message" },
+    { step: "工具选择", detail: "客户端通过 MCP 调用 MinerU 的解析工具，而不是把文件内容硬塞进对话上下文。", icon: "cpu" },
+    { step: "执行解析", detail: "MinerU 负责文档解析、OCR、结构化输出和结果文件落盘。", icon: "server" },
+    { step: "结果回流", detail: "Markdown / JSON / 下载路径等结果返回到 AI 客户端，继续完成后续任务。", icon: "check" },
+  ],
+  integrations: [
+    {
+      label: "Cursor / Claude Desktop",
+      description: "官方推荐的本地 `uvx` 启动方式：",
+      lang: "json",
+      code: `{
+  "mcpServers": {
+    "mineru": {
+      "command": "uvx",
+      "args": ["mineru-open-mcp"],
+      "env": {
+        "MINERU_API_TOKEN": "your token"
+      }
+    }
+  }
+}`,
+    },
+    {
+      label: "Streamable HTTP",
+      description: "适合 Web MCP 客户端，或先在本地起一个 HTTP MCP 服务：",
+      lang: "bash",
+      code: `MINERU_API_TOKEN=your-token mineru-open-mcp --transport streamable-http --port 8001
+
+# 远端 SaaS MCP
+https://mcp.mineru.net/mcp`,
+    },
+  ],
+};
+
+/* ─── Module 4: 应用与工作流 ─── */
+export const appWorkflows: AppItem[] = [
+  {
+    id: "web",
+    name: "在线体验页",
+    description:
+      "最适合第一次感受解析效果。上传一份真实 PDF，快速建立对版面解析、表格、公式和结构化输出的直觉。",
+    highlight: "零安装起步",
+    logo: "",
+    logoFallback: "#2563EB",
+    guideUrl: "https://mineru.net/OpenSourceTools/Extractor",
+    links: [{ label: "立即体验", url: "https://mineru.net/OpenSourceTools/Extractor" }],
+  },
+  {
+    id: "client",
+    name: "桌面客户端",
+    description:
+      "适合非技术同学、产品经理、运营或老师等角色，用拖拽方式完成本地文档解析与导出。",
+    highlight: "图形界面",
+    logo: "",
+    logoFallback: "#0F766E",
+    guideUrl: "https://mineru.net/client",
+    links: [{ label: "客户端下载", url: "https://mineru.net/client" }],
+  },
+  {
+    id: "kie",
+    name: "KIE 文档智能抽取",
+    description:
+      "你提供的内部使用指引显示，MinerU 已经延伸到文档智能抽取流程，支持解析、分割、抽取三段式组合，适合发票、票据、表单和合同字段提取。",
+    highlight: "结构化抽取",
+    logo: "",
+    logoFallback: "#7C3AED",
+    guideUrl: `${repoDocs}/08-kie-guide.md`,
+    links: [{ label: "整理版指引", url: `${repoDocs}/08-kie-guide.md` }],
+  },
+  {
+    id: "coze",
+    name: "Coze",
+    description:
+      "官方资料明确列出的插件入口，适合把 MinerU 文档解析能力接入智能体工作流。",
+    highlight: "官方插件",
+    logo: lobe("coze"),
+    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Coze/",
+    links: [
+      { label: "官方文档", url: "https://opendatalab.github.io/MinerU/zh/usage/plugin/Coze/" },
+      { label: "插件页", url: "https://www.coze.cn/store/plugin/7527957359730360354" },
+    ],
+  },
+  {
+    id: "n8n",
+    name: "n8n",
+    description:
+      "适合自动化场景，把文档解析放进无人值守流程，如收件箱处理、归档、知识库更新和报表生成。",
+    highlight: "自动化节点",
+    logo: lobe("n8n"),
+    guideUrl: "https://opendatalab.github.io/MinerU/zh/usage/plugin/n8n/",
+    links: [
+      { label: "官方文档", url: "https://opendatalab.github.io/MinerU/zh/usage/plugin/n8n/" },
+      { label: "npm 包", url: "https://www.npmjs.com/package/n8n-nodes-mineru" },
+    ],
+  },
+  {
+    id: "feishu-kb",
+    name: "飞书知识库沉淀",
+    description:
+      "训练营课件中的典型工作流：把值得保存的网页或文档通过 MinerU 解析后沉淀到飞书知识库，适合内容运营和研究资料管理。",
+    highlight: "业务工作流",
+    logo: "",
+    logoFallback: "#3B82F6",
+    guideUrl: `${repoDocs}/03-api-and-ecosystem.md`,
+    links: [{ label: "知识库说明", url: `${repoDocs}/03-api-and-ecosystem.md` }],
+  },
+  {
+    id: "invoice",
+    name: "发票批量提取",
+    description:
+      "训练营课件中的第二个典型工作流：MinerU SDK 先提取发票内容，再交给 LLM 做字段结构化，最终写入 Excel。",
+    highlight: "票据结构化",
+    logo: "",
+    logoFallback: "#F59E0B",
+    guideUrl: `${repoDocs}/03-api-and-ecosystem.md`,
+    links: [{ label: "工作流说明", url: `${repoDocs}/03-api-and-ecosystem.md` }],
+  },
 ];

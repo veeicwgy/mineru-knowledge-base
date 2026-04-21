@@ -1,9 +1,5 @@
 /*
- * MinerU 开发者生态与集成 — 主页面
- * 左侧固定导航 + 右侧内容滚动
- * 模块：Agent Skills / CLI/SDK / RAG 框架 / 应用与工作流
- * 侧边栏底部：开发者 FAQ + API 文档
- * 支持亮色/暗黑模式切换
+ * MinerU 生态与知识库 — 主页面
  */
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -58,7 +54,7 @@ const skillIconMap: Record<string, string> = {
 const modules = [
   { id: "skills", label: "Skills & MCP", icon: Bot, count: null },
   { id: "cli", label: "CLI/SDK", icon: Terminal, count: null },
-  { id: "rag", label: "RAG 框架", icon: Wrench, count: ragFrameworks.length },
+  { id: "rag", label: "RAG / 知识库", icon: Wrench, count: ragFrameworks.length },
   { id: "apps", label: "应用与工作流", icon: LayoutGrid, count: appWorkflows.length },
 ] as const;
 
@@ -152,7 +148,7 @@ function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
                 ? "bg-emerald-900/40 text-emerald-400 border-emerald-700/60"
                 : "bg-emerald-50 text-emerald-600 border-emerald-200/60"
             }`}>
-              官方支持
+              资料整理
             </span>
           </div>
           {item.registry && (
@@ -192,10 +188,10 @@ function SkillCard({ item, isDark }: { item: SkillItem; isDark: boolean }) {
 
 /* ─── Resource Links Bar ─── */
 const resourceLinks = [
-  { label: "ClawHub 托管平台", url: "https://clawhub.com/opendatalab/mineru-skills", icon: "hub" },
-  { label: "腾讯云国内镜像", url: "https://mirrors.cloud.tencent.com/opendatalab/mineru-skills", icon: "cloud" },
-  { label: "GitHub 源码下载", url: "https://github.com/opendatalab/MinerU/tree/master/skills", icon: "github" },
-  { label: "ModelScope Skills", url: "https://modelscope.cn/skills/@mineru-extract/mineru-document-extractor", icon: "modelscope" },
+  { label: "官方 API 文档", url: "https://mineru.net/apiManage/docs", icon: "hub" },
+  { label: "官方 llms.txt", url: "https://mineru.net/llms.txt", icon: "cloud" },
+  { label: "官方开源仓库", url: "https://github.com/opendatalab/MinerU", icon: "github" },
+  { label: "官方生态仓库", url: "https://github.com/opendatalab/MinerU-Ecosystem", icon: "modelscope" },
 ];
 
 function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; onCopy: (t: string, id: string) => void; isDark: boolean }) {
@@ -209,7 +205,7 @@ function ResourceBar({ copiedId, onCopy, isDark }: { copiedId: string | null; on
         isDark ? "text-slate-500" : "text-slate-400"
       }`}>
         <FileCode2 className="w-3.5 h-3.5" />
-        资源与部署
+        官方资源
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
         {resourceLinks.map((link) => (
@@ -817,22 +813,22 @@ export default function Home() {
   const moduleInfo: Record<ModuleId, { title: string; subtitle: string; accent: string }> = {
     skills: {
       title: "Skills & MCP",
-      subtitle: "官方 Agent Skill 与 MCP Server 集成",
+      subtitle: "官方 Skill、MCP 与 Agent 接入方式",
       accent: "from-blue-500 to-cyan-400",
     },
     cli: {
       title: "CLI/SDK 命令中心",
-      subtitle: "可直接复制运行的集成命令",
+      subtitle: "官方 CLI、SDK 与 HTTP API 入口",
       accent: "from-indigo-500 to-blue-400",
     },
     rag: {
-      title: "RAG 框架集成",
-      subtitle: "主流 RAG 框架集成方案",
+      title: "RAG / 知识库集成",
+      subtitle: "LangChain、LlamaIndex 与主流知识库平台入口",
       accent: "from-violet-500 to-purple-400",
     },
     apps: {
       title: "应用与工作流",
-      subtitle: "平台插件与工作流集成",
+      subtitle: "典型平台接入与可复用业务工作流",
       accent: "from-emerald-500 to-teal-400",
     },
     faq: {
@@ -869,7 +865,7 @@ export default function Home() {
               <p className={`text-[11px] font-semibold uppercase tracking-wider mb-3 px-2 ${
                 isDark ? "text-slate-500" : "text-slate-400"
               }`}>
-                生态模块
+                知识模块
               </p>
               <nav className="flex flex-col gap-0.5">
                 {modules.map((mod) => {
@@ -921,7 +917,7 @@ export default function Home() {
                 开发者 FAQ
               </button>
               <a
-                href="https://mineru.net/docs"
+                href="https://mineru.net/apiManage/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] transition-colors ${
@@ -1008,7 +1004,7 @@ export default function Home() {
                       <h2 className={`text-lg font-bold ${isDark ? "text-slate-100" : "text-slate-900"}`}>Skills 生态</h2>
                     </div>
                     <p className={`text-[13px] ml-[30px] ${isDark ? "text-slate-500" : "text-slate-400"}`}>
-                      覆盖 Node.js、Rust、Python、TypeScript、Go 五大语言生态及 ModelScope 平台的官方 Agent Skill
+                      以官方 Skill 页面、生态仓库与训练营资料为基础整理的 Agent 接入入口；存在版本差异时以官方实时资料为准
                     </p>
                   </div>
 

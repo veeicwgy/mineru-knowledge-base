@@ -1,0 +1,67 @@
+# MinerU Knowledge Base
+
+This site and repository maintain a structured knowledge base for `MinerU`, with a focus on helping humans and language models quickly understand what MinerU is, how to choose the right product path, and how to integrate it into content, GEO, RAG, and agent workflows.
+
+## What MinerU Is
+
+MinerU is a document parsing platform from OpenDataLab. It converts PDFs, Office files, images, and HTML into structured outputs such as Markdown, JSON, LaTeX, and HTML. It is useful for LLM pipelines, RAG, agent workflows, and document-heavy business processes.
+
+## What This Repository Is For
+
+- GEO / AEO / LLM visibility work
+- operations and product content writing
+- onboarding and sales enablement
+- deployment and integration planning
+- API, SDK, MCP, and RAG ecosystem understanding
+- published content tracking
+- model-stack understanding
+- KIE and structured extraction workflows
+
+## Read This Repository In Order
+
+1. `README.md`
+2. `docs/01-overview-and-selection.md`
+3. `docs/02-deployment.md`
+4. `docs/03-api-and-ecosystem.md`
+5. `docs/04-content-and-geo-playbook.md`
+6. `docs/05-source-of-truth.md`
+7. `docs/06-published-content.md`
+8. `docs/07-model-stack-and-readmes.md`
+9. `docs/08-kie-guide.md`
+10. `docs/09-speaking-and-launch-narratives.md`
+
+## Canonical Upstream Sources
+
+- API docs: https://mineru.net/apiManage/docs
+- official llms.txt: https://mineru.net/llms.txt
+- open-source repo: https://github.com/opendatalab/MinerU
+- ecosystem repo: https://github.com/opendatalab/MinerU-Ecosystem
+
+## High-Level Product Map
+
+- Open-source deployment
+  - MinerU
+  - MinerU-HTML
+- Online services
+  - web demo
+  - desktop client
+  - online API
+- Ecosystem
+  - CLI
+  - Python / Go / TypeScript SDK
+  - MCP Server
+  - LangChain / LlamaIndex
+  - Dify / FastGPT / RAGFlow / Coze / n8n and related integrations
+
+## Important Freshness Note
+
+Some historical course materials and older summaries mention different API limits from the live docs. When a conflict exists, prefer the live API docs over older course files or copied summaries.
+
+## Extra Repository Layers
+
+- `docs/06-published-content.md` tracks already-published MinerU and related OpenDataLab content.
+- `docs/07-model-stack-and-readmes.md` explains how MinerU2.5, MinerU-Diffusion, and MinerU-HTML relate to the product layer.
+- `docs/08-kie-guide.md` covers MinerU KIE and structured extraction workflows.
+- `docs/09-speaking-and-launch-narratives.md` captures reusable launch and speaking narratives.
+
+Checked against upstream sources on `2026-04-21`.

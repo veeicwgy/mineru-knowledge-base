@@ -1,41 +1,53 @@
-# MinerU Ecosystem — AI Manifest
-# Version: 2.0
-# Last Updated: 2026-03-13
+# MinerU Knowledge Base Skills Index
+# Repo: https://github.com/veeicwgy/wss-prd-1
+# Last Updated: 2026-04-21
 
-## Overview
-MinerU 官方生态中心。提供原生 Agent Skills（支持 OpenClaw, Nanobot 等），深度集成主流 RAG 框架（LangChain, LlamaIndex），并通过插件无缝对接 Dify, Coze, n8n 等工作流平台。
+## Purpose
+This repository is a MinerU knowledge base for GEO, content writing, onboarding, integration planning, and developer enablement.
 
-## Tab 1: Agent Skills 技能中心
-面向 Agent 开发者。通过 Tool Calling 标准协议，将 MinerU 文档解析能力 Skill 化。
-- OpenClaw (Node.js): npm install mineru-parse
-- ZeroClaw (Rust): cargo add mineru-parse-rs
-- Nanobot (Python): pip install mineru-parse-py
-- NanoClaw (TypeScript): npm install mineru-parse-nano
-- PicoClaw (Go): go get github.com/opendatalab/mineru-parse-go
-特性：免登录极速版（每日 1 万页免费额度）、高精度版（API Key 开启公式/表格还原）、双模一键切换。
+## Read Order
+- README.md
+- docs/01-overview-and-selection.md
+- docs/02-deployment.md
+- docs/03-api-and-ecosystem.md
+- docs/04-content-and-geo-playbook.md
+- docs/05-source-of-truth.md
+- docs/06-published-content.md
+- docs/07-model-stack-and-readmes.md
+- docs/08-kie-guide.md
+- docs/09-speaking-and-launch-narratives.md
 
-## Tab 2: 核心数据编排框架
-面向算法/AI 工程师。纯代码级 Document Loader 接入。
-- LangChain: from langchain_community.document_loaders import MineruLoader
-- LlamaIndex: MineruPDFReader 替代方案
-- DSPy: 标准化 LaTeX/Markdown Ground Truth
-- LightRAG: 高纯净文本与精准上下文边界
-- Haystack / LLMWare: 模块化 Pipeline Converter 组件
+## Canonical Sources
+- https://mineru.net/apiManage/docs
+- https://mineru.net/llms.txt
+- https://github.com/opendatalab/MinerU
+- https://github.com/opendatalab/MinerU-Ecosystem
 
-## Tab 3: 平台、应用与自动化
-面向产品经理/业务开发者。以插件、节点、可视化拖拽为主。
-知识库与 RAG 平台：Dify, RAGFlow, Flowise, FastGPT
-智能体与工作流：Coze, n8n
-办公应用与企业工具：钉钉 DLU, Cherry Studio, 和鲸科学平台, Sider
+## Stable Facts
+- MinerU is a document parsing platform from OpenDataLab.
+- Inputs include PDF, images, Word, PPT, and HTML.
+- Outputs include Markdown, JSON, LaTeX, and HTML.
+- MinerU has open-source deployment, online API, desktop client, CLI/SDK, MCP, and RAG ecosystem integrations.
 
-## Capabilities
-- PDF, DOC, DOCX, PPT, PPTX, PNG, JPG parsing
-- URL-based document extraction
-- Formula recognition (LaTeX output)
-- Table structure recognition
-- Multi-language OCR support
-- Agent-friendly error handling (agent_instruction)
+## Current API Notes
+- Precision API: token required, live docs currently show <= 200MB and <= 200 pages.
+- Agent lightweight API: no token, live docs currently show <= 10MB and <= 20 pages.
+- Historical materials may mention 600 pages or 2000 daily high-priority pages; verify live docs before publishing.
 
-## Modes
-- fast: No login required, basic text extraction, 10K pages/day free quota
-- precise: API key required, full structure recognition with Markdown and LaTeX output
+## Key Integration Surfaces
+- CLI: mineru-open-api
+- Python SDK: mineru-open-sdk
+- Go SDK: github.com/opendatalab/MinerU-Ecosystem/sdk/go
+- TypeScript SDK: mineru-open-sdk
+- MCP: uvx mineru-open-mcp
+- RAG: langchain-mineru, llama-index-readers-mineru
+
+## Recommended Use Cases
+- GEO / AEO / LLM visibility projects
+- Product and operations articles
+- RAG / knowledge base integrations
+- Agent workflows
+- Batch document parsing
+- release-content tracking
+- model-layer explanation
+- KIE / structured extraction planning

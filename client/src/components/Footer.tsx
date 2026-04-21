@@ -1,5 +1,5 @@
 /*
- * MinerU 生态与社区 — 页脚 (支持暗黑模式)
+ * MinerU 知识库 — 页脚
  */
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -19,7 +19,7 @@ export default function Footer() {
             <span className="text-white font-bold text-[9px]">M</span>
           </div>
           <span className={`text-[12px] font-semibold ${isDark ? "text-slate-300" : "text-gray-700"}`} style={{ fontFamily: "var(--font-display)" }}>
-            MinerU Ecosystem
+            MinerU Knowledge Base
           </span>
         </div>
         <p className={`text-[11px] ${isDark ? "text-slate-500" : "text-gray-400"}`}>

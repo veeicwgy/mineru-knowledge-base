@@ -1,5 +1,4 @@
-# MinerU Ecosystem - robots.txt
-# https://mineru.net/ecosystem
+# MinerU Knowledge Base - robots.txt
 
 User-agent: *
 Allow: /
@@ -16,18 +15,22 @@ Crawl-delay: 1
 User-agent: GPTBot
 Allow: /
 Allow: /skills.txt
+Allow: /llms.txt
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /skills.txt
+Allow: /llms.txt
 
 User-agent: Claude-Web
 Allow: /
 Allow: /skills.txt
+Allow: /llms.txt
 
 User-agent: Anthropic-AI
 Allow: /
 Allow: /skills.txt
+Allow: /llms.txt
 
 User-agent: Google-Extended
 Allow: /

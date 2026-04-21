@@ -1,7 +1,5 @@
 /*
- * MinerU 生态与社区 — 顶部导航栏
- * 1:1 还原 mineru.net 官方导航栏设计
- * 左侧 Logo + 中间胶囊菜单 + 右侧操作按钮组（含暗黑模式切换）
+ * MinerU 生态与知识库 — 顶部导航栏
  */
 import { useState, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -11,9 +9,9 @@ const MINERU_ICON =
 
 const navLinks = [
   { label: "首页", href: "https://mineru.net", active: false },
-  { label: "API", href: "https://mineru.net/api", active: false },
+  { label: "API", href: "https://mineru.net/apiManage/docs", active: false },
   { label: "客户端", href: "https://mineru.net/client", active: false },
-  { label: "生态与社区", href: "#", active: true },
+  { label: "生态与知识库", href: "#", active: true },
 ];
 
 export default function Navbar() {
@@ -113,7 +111,7 @@ export default function Navbar() {
 
           {/* GitHub */}
           <a
-            href="https://github.com/opendatalab/MinerU"
+            href="https://github.com/veeicwgy/wss-prd-1"
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
