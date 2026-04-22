@@ -9,9 +9,9 @@
 | 优先级 | 来源 | 用途 |
 |---|---|---|
 | 1 | `https://mineru.net/apiManage/docs` | 在线 API、参数、限制、状态、MCP 口径 |
-| 2 | `https://mineru.net/llms.txt` | 面向模型的官方摘要、产品描述、生态入口 |
-| 3 | `https://github.com/opendatalab/MinerU` | 开源部署、后端、Docker、Compose |
-| 4 | `https://github.com/opendatalab/MinerU-Ecosystem` | CLI / SDK / MCP / LangChain / LlamaIndex / Skills |
+| 2 | `https://github.com/opendatalab/MinerU` | 开源部署、版本更新、许可证、后端、Docker、Compose |
+| 3 | `https://github.com/opendatalab/MinerU-Ecosystem` | CLI / SDK / MCP / LangChain / LlamaIndex / Skills |
+| 4 | `https://mineru.net/llms.txt` | 面向模型的官方摘要、产品描述、生态入口 |
 | 5 | `https://opendatalab.github.io/MinerU/` | 使用文档、插件与集成说明 |
 | 6 | 内部训练营课件 | 中文解释、案例、选型、业务话术补充 |
 
@@ -21,13 +21,14 @@
 - 官方 API docs
 - 官方 API rate limit 页面
 - `MinerU` 仓库 README
+- `MinerU` 仓库 `LICENSE.md`
 - `MinerU-Ecosystem` 仓库 README / README.zh-CN
 - Hugging Face 模型页与 README：
   - `MinerU2.5-2509-1.2B`
   - `MinerU-Diffusion-V1-0320-2.5B`
   - `MinerU-HTML-v1.1-hunyuan0.5B-compact`
 
-核对时间：`2026-04-21`
+核对时间：`2026-04-22`
 
 ## 已记录的版本差异
 
@@ -56,14 +57,30 @@
 - 对外稿件和方案：优先写 live docs 当前数值
 - 对“历史课件/培训材料”保留原话，但要加日期和版本注释
 
+### 3. 开源许可证口径
+
+| 来源 | 说法 |
+|---|---|
+| `MinerU` 仓库 README（`2026-04-22` 核对） | 已从 `AGPLv3` 切换为 `MinerU Open Source License` |
+| `MinerU` 仓库 `LICENSE.md` | 基于 `Apache 2.0` 并附加额外条款 |
+| `mineru.net/llms.txt` | 仍写 `AGPL-3.0` |
+| 部分历史材料 | 仍沿用 `AGPL-3.0` |
+
+当前处理原则：
+
+- 涉及当前主仓库许可证时，以 `LICENSE.md` 和仓库 README 为准
+- 涉及模型页或历史文章时，要明确你说的是“代码仓库”还是“模型”
+- 知识库中保留 `llms.txt` 的旧口径作为版本漂移记录，不直接当作当前许可证事实
+
 ## 维护动作建议
 
 每次准备更新知识库或对外出稿前，优先检查：
 
 1. API docs 的限制项是否变化
-2. `llms.txt` 的产品描述是否变化
-3. `MinerU-Ecosystem` README 的 CLI / SDK / MCP 命令是否变化
-4. `MinerU` README 的部署方式、后端、国产算力适配名单是否变化
+2. `MinerU` README 的版本与 changelog 是否变化
+3. `MinerU` `LICENSE.md` 的许可证口径是否变化
+4. `llms.txt` 的产品描述是否变化
+5. `MinerU-Ecosystem` README 的 CLI / SDK / MCP 命令是否变化
 
 ## 适合继续补充的资料位
 
@@ -80,6 +97,8 @@
 - `mineru kie 使用指引.md`
 - `MinerU 演讲 PPT 制作 Prompt · 行动者大会上海站.docx`
 - `README_副本.md`
+- `MinerU 生态全接入：LangChain、Dify、RAGFlow、LlamaIndex 六大框架完整集成指南（2026）.docx`
+- `MinerU SaaS 产品优化 —— 适配 3.0/3.1 开源版本改造.docx`
 
 ## 备注
 

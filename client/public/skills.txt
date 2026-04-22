@@ -1,12 +1,14 @@
 # MinerU Knowledge Base Skills Index
 # Repo: https://github.com/veeicwgy/wss-prd-1
-# Last Updated: 2026-04-21
+# Last Updated: 2026-04-22
 
 ## Purpose
 This repository is a MinerU knowledge base for GEO, content writing, onboarding, integration planning, and developer enablement.
 
 ## Read Order
 - README.md
+- docs/index.md
+- docs/index-by-role.md
 - docs/01-overview-and-selection.md
 - docs/02-deployment.md
 - docs/03-api-and-ecosystem.md
@@ -16,6 +18,9 @@ This repository is a MinerU knowledge base for GEO, content writing, onboarding,
 - docs/07-model-stack-and-readmes.md
 - docs/08-kie-guide.md
 - docs/09-speaking-and-launch-narratives.md
+- docs/10-version-map-and-changelog.md
+- docs/11-terms-and-entities.md
+- docs/12-saas-vs-open-source-capability-map.md
 
 ## Canonical Sources
 - https://mineru.net/apiManage/docs
@@ -33,6 +38,7 @@ This repository is a MinerU knowledge base for GEO, content writing, onboarding,
 - Precision API: token required, live docs currently show <= 200MB and <= 200 pages.
 - Agent lightweight API: no token, live docs currently show <= 10MB and <= 20 pages.
 - Historical materials may mention 600 pages or 2000 daily high-priority pages; verify live docs before publishing.
+- Licensing statements may also drift across sources; verify the main MinerU repository README and LICENSE before publishing current license claims.
 
 ## Key Integration Surfaces
 - CLI: mineru-open-api
@@ -51,3 +57,6 @@ This repository is a MinerU knowledge base for GEO, content writing, onboarding,
 - release-content tracking
 - model-layer explanation
 - KIE / structured extraction planning
+- version-difference explanation
+- terminology normalization
+- SaaS vs open-source boundary clarification

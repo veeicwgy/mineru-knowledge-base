@@ -17,6 +17,12 @@
 | `MinerU-Diffusion-V1-0320-2.5B` | OCR / 解码效率增强模型 | 文档 OCR | 约 `2.7B` | `mineru_diffusion` | `MIT` | HF README + 模型页 |
 | `MinerU-HTML-v1.1-hunyuan0.5B-compact` | 网页正文提取模型 | HTML 主体内容抽取 | 约 `0.5B` | 腾讯混元 `0.5B` 衍生 | 以模型页与 README 为准 | HF README + 模型页 |
 
+注意：
+
+- 上表中的 `许可` 字段指对应模型页或模型 README 的口径
+- 它不等同于 `opendatalab/MinerU` 主仓库当前的代码许可证
+- 当前主仓库许可证请以官方 `LICENSE.md` 为准
+
 ## 1. MinerU2.5-2509-1.2B
 
 ### 它是什么

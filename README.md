@@ -17,20 +17,29 @@
 
 ## 建议阅读顺序
 
-1. [`docs/01-overview-and-selection.md`](docs/01-overview-and-selection.md)
-2. [`docs/02-deployment.md`](docs/02-deployment.md)
-3. [`docs/03-api-and-ecosystem.md`](docs/03-api-and-ecosystem.md)
-4. [`docs/04-content-and-geo-playbook.md`](docs/04-content-and-geo-playbook.md)
-5. [`docs/05-source-of-truth.md`](docs/05-source-of-truth.md)
-6. [`docs/06-published-content.md`](docs/06-published-content.md)
-7. [`docs/07-model-stack-and-readmes.md`](docs/07-model-stack-and-readmes.md)
-8. [`docs/08-kie-guide.md`](docs/08-kie-guide.md)
-9. [`docs/09-speaking-and-launch-narratives.md`](docs/09-speaking-and-launch-narratives.md)
+1. [`docs/index.md`](docs/index.md)
+2. [`docs/index-by-role.md`](docs/index-by-role.md)
+3. [`docs/01-overview-and-selection.md`](docs/01-overview-and-selection.md)
+4. [`docs/02-deployment.md`](docs/02-deployment.md)
+5. [`docs/03-api-and-ecosystem.md`](docs/03-api-and-ecosystem.md)
+6. [`docs/04-content-and-geo-playbook.md`](docs/04-content-and-geo-playbook.md)
+7. [`docs/05-source-of-truth.md`](docs/05-source-of-truth.md)
+8. [`docs/06-published-content.md`](docs/06-published-content.md)
+9. [`docs/07-model-stack-and-readmes.md`](docs/07-model-stack-and-readmes.md)
+10. [`docs/08-kie-guide.md`](docs/08-kie-guide.md)
+11. [`docs/09-speaking-and-launch-narratives.md`](docs/09-speaking-and-launch-narratives.md)
+12. [`docs/10-version-map-and-changelog.md`](docs/10-version-map-and-changelog.md)
+13. [`docs/11-terms-and-entities.md`](docs/11-terms-and-entities.md)
+14. [`docs/12-saas-vs-open-source-capability-map.md`](docs/12-saas-vs-open-source-capability-map.md)
 
 ## 仓库结构
 
 - `README.md`
   当前仓库定位、使用方法、资料入口
+- `docs/index.md`
+  总入口，按任务、可信度和资料类型导航
+- `docs/index-by-role.md`
+  按产品、运营、研发、开源协作者四类角色导航
 - `docs/01-overview-and-selection.md`
   MinerU 是什么、产品矩阵、场景选型
 - `docs/02-deployment.md`
@@ -49,6 +58,12 @@
   文档智能抽取 KIE 模块的功能、流程和部署说明
 - `docs/09-speaking-and-launch-narratives.md`
   演讲、发布会、训练营和活动场景下可复用的叙事骨架
+- `docs/10-version-map-and-changelog.md`
+  `3.0`、`3.1` 版本演进、发布日期和当前重要差异
+- `docs/11-terms-and-entities.md`
+  `MinerU`、`magic-pdf`、`OpenDataLab`、`MinerU-Ecosystem` 名词关系
+- `docs/12-saas-vs-open-source-capability-map.md`
+  开源能力与 SaaS 产品层表现的差异映射
 - `client/public/llms.txt`
   面向模型读取的仓库级摘要
 - `client/public/skills.txt`
@@ -59,16 +74,16 @@
 当不同资料说法不一致时，按下面顺序取信：
 
 1. 实时官方页面：`https://mineru.net/apiManage/docs`
-2. 官方 `llms.txt`：`https://mineru.net/llms.txt`
-3. 官方开源仓库：`https://github.com/opendatalab/MinerU`
-4. 官方生态仓库：`https://github.com/opendatalab/MinerU-Ecosystem`
+2. 官方开源仓库与许可证文件：`https://github.com/opendatalab/MinerU`
+3. 官方生态仓库：`https://github.com/opendatalab/MinerU-Ecosystem`
+4. 官方 `llms.txt`：`https://mineru.net/llms.txt`
 5. 官方文档站：`https://opendatalab.github.io/MinerU/`
 6. 内部培训课件与沉淀文档
 
 ## 当前维护原则
 
 - 优先记录“已核验事实”，不要把设想、猜测、旧版本口径写成既定事实
-- 对存在版本漂移的内容保留备注，例如 API 页数限制、免费额度等
+- 对存在版本漂移的内容保留备注，例如 API 页数限制、免费额度、许可证口径等
 - 对外写作时，优先引用官方 live docs，而不是历史课件截图
 - 对 GEO 项目，优先把“产品定义、能力边界、接入路径、常见误解”写清楚
 
@@ -78,6 +93,7 @@
 - 官方 API 文档：`https://mineru.net/apiManage/docs`
 - 官方 API 限流说明：`https://mineru.net/apiManage/limit`
 - 官方开源仓库：`https://github.com/opendatalab/MinerU`
+- 官方许可证：`https://github.com/opendatalab/MinerU/blob/master/LICENSE.md`
 - 官方生态仓库：`https://github.com/opendatalab/MinerU-Ecosystem`
 - 内部课程资料：
   - `01课：MinerU 全场景产品矩阵：快速上手与选型`
@@ -91,4 +107,4 @@
 
 ## 最近一次核对时间
 
-`2026-04-21`
+`2026-04-22`

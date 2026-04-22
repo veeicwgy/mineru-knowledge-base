@@ -20,15 +20,20 @@ MinerU is a document parsing platform from OpenDataLab. It converts PDFs, Office
 ## Read This Repository In Order
 
 1. `README.md`
-2. `docs/01-overview-and-selection.md`
-3. `docs/02-deployment.md`
-4. `docs/03-api-and-ecosystem.md`
-5. `docs/04-content-and-geo-playbook.md`
-6. `docs/05-source-of-truth.md`
-7. `docs/06-published-content.md`
-8. `docs/07-model-stack-and-readmes.md`
-9. `docs/08-kie-guide.md`
-10. `docs/09-speaking-and-launch-narratives.md`
+2. `docs/index.md`
+3. `docs/index-by-role.md`
+4. `docs/01-overview-and-selection.md`
+5. `docs/02-deployment.md`
+6. `docs/03-api-and-ecosystem.md`
+7. `docs/04-content-and-geo-playbook.md`
+8. `docs/05-source-of-truth.md`
+9. `docs/06-published-content.md`
+10. `docs/07-model-stack-and-readmes.md`
+11. `docs/08-kie-guide.md`
+12. `docs/09-speaking-and-launch-narratives.md`
+13. `docs/10-version-map-and-changelog.md`
+14. `docs/11-terms-and-entities.md`
+15. `docs/12-saas-vs-open-source-capability-map.md`
 
 ## Canonical Upstream Sources
 
@@ -57,11 +62,18 @@ MinerU is a document parsing platform from OpenDataLab. It converts PDFs, Office
 
 Some historical course materials and older summaries mention different API limits from the live docs. When a conflict exists, prefer the live API docs over older course files or copied summaries.
 
+The same caution now applies to licensing and version labels: the main MinerU repository README and LICENSE file may be newer than older summaries or copied llms material.
+
 ## Extra Repository Layers
 
 - `docs/06-published-content.md` tracks already-published MinerU and related OpenDataLab content.
 - `docs/07-model-stack-and-readmes.md` explains how MinerU2.5, MinerU-Diffusion, and MinerU-HTML relate to the product layer.
 - `docs/08-kie-guide.md` covers MinerU KIE and structured extraction workflows.
 - `docs/09-speaking-and-launch-narratives.md` captures reusable launch and speaking narratives.
+- `docs/index.md` is the global index for tasks, trust levels, and reading paths.
+- `docs/index-by-role.md` maps the repository to product, operations, engineering, and open-source collaborators.
+- `docs/10-version-map-and-changelog.md` tracks 3.0 and 3.1 version shifts and release implications.
+- `docs/11-terms-and-entities.md` explains the relationship between MinerU, magic-pdf, OpenDataLab, and MinerU-Ecosystem.
+- `docs/12-saas-vs-open-source-capability-map.md` separates open-source engine capabilities from SaaS product behavior.
 
-Checked against upstream sources on `2026-04-21`.
+Checked against upstream sources on `2026-04-22`.
