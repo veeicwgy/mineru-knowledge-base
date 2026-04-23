@@ -1,5 +1,5 @@
 # MinerU Knowledge Base Skills Index
-# Repo: https://github.com/veeicwgy/wss-prd-1
+# Repo: https://github.com/veeicwgy/mineru-knowledge-base
 # Last Updated: 2026-04-22
 
 ## Purpose

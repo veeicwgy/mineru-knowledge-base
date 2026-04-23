@@ -111,7 +111,7 @@ export default function Navbar() {
 
           {/* GitHub */}
           <a
-            href="https://github.com/veeicwgy/wss-prd-1"
+            href="https://github.com/veeicwgy/mineru-knowledge-base"
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${

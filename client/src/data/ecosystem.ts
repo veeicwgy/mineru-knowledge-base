@@ -81,7 +81,7 @@ export interface CLICommandGroup {
 const lobe = (slug: string) =>
   `https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/${slug}.png`;
 
-const repoDocs = "https://github.com/veeicwgy/wss-prd-1/blob/main/docs";
+const repoDocs = "https://github.com/veeicwgy/mineru-knowledge-base/blob/main/docs";
 
 /* ─── Module 1: Agent Skills ─── */
 export const agentSkills: SkillItem[] = [
